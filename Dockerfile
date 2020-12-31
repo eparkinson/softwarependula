@@ -36,5 +36,7 @@ RUN rm -fr * .??*
 # is copied into the public fold of nginx
 
 ENV NGINX_HOST "software-pendula-blog-dqeizywrkq-uc.a.run.app"
+RUN cd /usr/share/nginx/html
+RUN chown nginx:nginx ./*
 
 COPY --from=build /site/public /usr/share/nginx/html
