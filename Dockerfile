@@ -38,5 +38,4 @@ RUN rm -fr * .??*
 ENV NGINX_HOST "software-pendula-blog-dqeizywrkq-uc.a.run.app"
 
 COPY --from=build /site/public /usr/share/nginx/html
-RUN cd /usr/share/nginx/html
-RUN chown nginx:nginx *
+RUN chmod -R 777 /usr/share/nginx
