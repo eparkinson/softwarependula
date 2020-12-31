@@ -1,6 +1,5 @@
 baseurl = "/"
-title = "Hugo Themes"
-copyright = "Copyright (c) 2008 - 2014, all rights reserved."
+title = "Software Pendula"
 languageCode = "en-US"
 canonifyurls = true
 paginate = 3
@@ -37,7 +36,7 @@ pygmentsCodeFences = true
 # Configure syntax highlight
 [markup]
   [markup.highlight]
-    style = "monokai" # dark themes: monokai, api, fruity, native, rrt, swapoff
+    style = "fruity" # dark themes: monokai, api, fruity, native, rrt, swapoff
 
 [author]
   name = ""
