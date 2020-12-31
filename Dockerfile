@@ -12,6 +12,7 @@ RUN apk add --no-cache git
 
 # The source files are copied to /site
 COPY . /site
+RUN chmod -R 777 /site
 WORKDIR /site
 
 # And then we just run Hugo
