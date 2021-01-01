@@ -72,8 +72,9 @@ Finally, let's set up a sip client. The Quick Start Guide suggests Xoiper which 
 sudo apt-get install linphone
 ```
 Once linphone is installed, start it up and navigate to Options > Preference > Manage SIP Accounts and click the add button. Enter the details below:
+![XXX](/images/asterisk/linphone.png)
 
-When you are prompted for a username and password enter 4001 and pwd4001 respectively.
+When you are prompted for a username and password enter "4001" and "pwd4001" respectively.
 
 Next, start Asterisk:
 ```shell
@@ -85,7 +86,7 @@ The -c option starts Asterisk in command line mode rather than daemon mode and a
   == Using SIP RTP CoS mark 5
   == Everyone is busy/congested at this time (1:1/0/0)
 ```
-If you have access to a second Ubuntu machine, install linphone there using extension 4002 and password pwd4002 and make sure that you use the IP of your Asterisk server instead of 127.0.0.1 as we did when we configure linphone on the Asterisk server above. Alternatively, you can try using MicroSIP on a Windows box instead. Then dial extension 4001 from 4002 or vice versa.
+If you have access to a second Ubuntu machine, install linphone there using extension "4002" and password "pwd4002" and make sure that you use the IP of your Asterisk server instead of 127.0.0.1 as we did when we configure linphone on the Asterisk server above. Alternatively, you can try using MicroSIP on a Windows box instead. Then dial extension 4001 from 4002 or vice versa.
 
 If you do not have a second PC available, fear not, the ubiquitous "hello world" sample is coming up next...
 
