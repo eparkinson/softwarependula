@@ -7,7 +7,7 @@ theme = "hugo-dusk"
 enableRobotsTXT = true
 enableEmoji = true
 
-googleAnalytics = "G-54YD2QMXMC"
+googleAnalytics = ""
 disqusShortname = "software-pendula"
 
 SectionPagesMenu = "main"
