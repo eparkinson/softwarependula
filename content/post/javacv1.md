@@ -9,7 +9,7 @@ date = "2014-03-13"
 
 # Introduction
 
-[JavaCV](https://code.google.com/p/javacv/) is a Java wrapper to a number of  computer vision libraries including [OpenCV](http://opencv.org/), [OpenKinect](http://opencv.org/) and others. In this article we'll look at using JavaCV with OpenCV to do real-time face and hand detection on a video stream. Face detection (as opposed to face recognition) has become mainstream with everything from Facebook to low-budget digital cameras supporting it.
+[JavaCV](https://code.google.com/p/javacv/) is a Java wrapper to a number of  computer vision libraries including [OpenCV](http://opencv.org/), [OpenKinect](http://openkinect.org/wiki/Main_Page) and others. In this article we'll look at using JavaCV with OpenCV to do real-time face and hand detection on a video stream. Face detection (as opposed to face recognition) has become mainstream with everything from Facebook to low-budget digital cameras supporting it.
 
 Hand detection and gesture recognition is somewhat less mature and I was hard pressed to find good open source implementations of this. Gesture recognition, I suspect, will become increasingly more important in human computer interaction as the trend to "keep technology hidden" accelerates.
 
@@ -21,20 +21,19 @@ Once the prerequisites are in place we can download JavaCV jar here: https://cod
 
 To get the samples below running, you need the following jars in your classpath and dlls in your java.library path:
 
-From JavaCV:  
-&nbsp;&nbsp;&nbsp;&nbsp;javacv.jar, javacpp.jar and javacv-windows-x86.jar OpenCV-244.jar  
-The following OpenCV dlls:  
-&nbsp;&nbsp;&nbsp;&nbsp;avcodec-52.dll avdevice-52.dll  avfilter-1.dll  avformat-52.dll  avutil-50.dll  
-&nbsp;&nbsp;&nbsp;&nbsp;opencv_calib3d244.dll  opencv_core244.dll  opencv_features2d244.dll  
-&nbsp;&nbsp;&nbsp;&nbsp;opencv_flann244.dll opencv_highgui244.dll opencv_imgproc244.dll opencv_java244.dll  
-&nbsp;&nbsp;&nbsp;&nbsp;opencv_objdetect244.dll postproc-51.dll swscale-0.dll  
-And the following dlls from the VC++ 2012 Redistributable libraries:  
-&nbsp;&nbsp;&nbsp;&nbsp;mfc110.dll mfc110u.dll mfcm110.dll mfcm110u.dll msvcp110.dll  
-&nbsp;&nbsp;&nbsp;&nbsp;msvcr110.dll vccorlib110.dll
+- From JavaCV: javacv.jar, javacpp.jar and javacv-windows-x86.jar OpenCV-244.jar  
+- OpenCV-244.jar from OpenCV (or whathever version you're using if not 2.44)
+- The following OpenCV dlls:  avcodec-52.dll avdevice-52.dll  avfilter-1.dll  avformat-52.dll  avutil-50.dll  
+opencv_calib3d244.dll  opencv_core244.dll  opencv_features2d244.dll
+opencv_flann244.dll opencv_highgui244.dll opencv_imgproc244.dll opencv_java244.dll
+opencv_objdetect244.dll postproc-51.dll swscale-0.dll
+- And the following dlls from the VC++ 2012 Redistributable libraries:  
+mfc110.dll mfc110u.dll mfcm110.dll mfcm110u.dll msvcp110.dll
+msvcr110.dll vccorlib110.dll
 
 # Video echo
 
-Let's start of with a simple demo to prove that JavaCV and OpenCV arecorrectly installed and create a base that we can use to build on for face and hand recognition. The code below grabs an image from the first available webcam and displays into a JavaCV frame (which extends a Swing Frame).
+Let's start off with a simple demo to prove that JavaCV and OpenCV are correctly installed and create a base that we can use to build on for face and hand recognition. The code below grabs an image from the first available webcam and displays into a JavaCV frame (which extends a Swing Frame).
 
 ```java
 import static com.googlecode.javacv.cpp.opencv_core.*;
@@ -255,17 +254,17 @@ public class ObjectDetectionDemo {
 }
 ```
 
-Running the above samples, you'll find that face detection is really reliable as long as it has a frontal view of a face that isn't turned too much. The hand detection find a lot of false negatives and often skips a few frames in identifying open and closed hands. In a future blog I hope to show how Haar classifiers can be trained and hope to improve on the hand recognition performance.
+Running the above samples, you'll find that face detection is really reliable as long as it has a frontal view of a face that isn't turned too much. The hand detection finds a lot of false negatives and often skips a few frames in identifying open and closed hands. In a future blog I hope to show how Haar classifiers can be trained and hope to improve on the hand recognition performance.
 
 # Other computer vision applications
 
-Along with voice interaction, (hand) gesture recognition, in my opinion, is set to make a strong entrance into the field of human computer interfaces especially with "non obtrusive" consumer electronics trends accelerating. The Google Glass platform already makes use primarily of voice interfaces and its a natural match for gesture recognition and other computer vision techniques.
+Along with voice interaction, (hand) gesture recognition, in my opinion, is set to make a strong entrance into the field of human computer interfaces especially with "non obtrusive" consumer electronics trends accelerating. The [Google Glass](http://www.google.com/glass/start/what-it-does/) platform already makes use primarily of voice interfaces and its a natural match for gesture recognition and other computer vision techniques.
 
-Kinect makes use of skeleton tracking for gaming and has an SDK with good support for voice and face recognition, directional sound with its set of stereo microphones and depth calculations with its 3 separate cameras build in.
+[Kinect](http://www.xbox.com/en-us/Kinect) makes use of skeleton tracking for gaming and has an SDK with good support for voice and face recognition, directional sound with its set of stereo microphones and depth calculations with its 3 separate cameras build in.
 
-This video demonstrates how Haar cascades can be use to detect and count cars.
+[This video](http://www.youtube.com/watch?v=c4LobbqeKZc) demonstrates how Haar cascades can be used to detect and count cars.
 
-Perhaps the most promising work I've seen on hand gesture recognition is this article by Dr. Andrew Davison. He goes beyond simple hand detection, and maps out not just the hand, but it's structure and labels each finger tip. This is exactly the approach that needs to be perfected for a full production ready implementation of gesture recognition. Unfortunately, Dr. Davison's approach suffers from the drawback that it relies too much on color  and he demonstrates his approach wearing a black glove against a mostly light background.
+Perhaps the most promising work I've seen on hand gesture recognition is [this article](http://www.javaadvent.com/2012/12/hand-and-finger-detection-using-javacv.html) by Dr. Andrew Davison. He goes beyond simple hand detection, and maps out not just the hand, but it's structure and labels each finger tip. This is exactly the approach that needs to be perfected for a full production ready implementation of gesture recognition. Unfortunately, Dr. Davison's approach suffers from the drawback that it relies too much on colour  and he demonstrates his approach wearing a black glove against a mostly light background.
 
 # Conclusion
 

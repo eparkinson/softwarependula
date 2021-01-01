@@ -5,6 +5,7 @@ canonifyurls = true
 paginate = 3
 theme = "hugo-dusk"
 enableRobotsTXT = true
+enableEmoji = true
 
 googleAnalytics = ""
 disqusShortname = "software-pendula"
