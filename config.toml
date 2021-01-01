@@ -30,8 +30,6 @@ pygmentsCodeFences = true
   url = "/tags/"
 
 [taxonomies]
-  category = "categories"
-  series = "series"
   tag = "tags"
 
 # Configure syntax highlight
@@ -47,9 +45,8 @@ pygmentsCodeFences = true
   description = "Personal blog."
 
 [params]
-  email = "myemail"
-  github = "github id"
-  #gitlab = "gitlab id"
-  twitter = "twitter id"
-  #linkedin = "linkedin id"
+  email = "elroy.parkinson@gmail.com"
+  github = "eparkinson"
+  twitter = "ElroyParkinson"
+  linkedin = "elroy-parkinson-13b61a8"
   theme_colors = "default-dark"

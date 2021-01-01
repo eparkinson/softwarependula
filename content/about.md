@@ -17,6 +17,7 @@ Me on the web:
 - [LinkedIn](https://www.linkedin.com/in/elroy-parkinson-13b61a8/)
 - [Twitter](https://twitter.com/ElroyParkinson)
 - [Github](https://github.com/eparkinson)
+- [Goodreads](https://www.goodreads.com/user/show/71123210-elroy-parkinson)
 - [Flickr](https://www.flickr.com/photos/elroy_p/)
 
 # About my blog
