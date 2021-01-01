@@ -29,8 +29,6 @@
 <link rel="stylesheet" href="/css/default-dark.css" />
 {{ end }}
 
-{{ template "_internal/google_analytics_async.html" . }}
-
 <title>
 {{ $url := replace .Permalink ( printf "%s" .Site.BaseURL) "" }}
 {{ if eq $url "/" }}
