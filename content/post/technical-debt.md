@@ -4,7 +4,7 @@ tags = [
     "tech",
     "musings"
 ]
-date = "2016-06-05"
+date = "2013-06-05"
 +++
 
 I have debt: a mortgage on my home and some credit card debt. Is debt a “bad thing”? Well, yes. In the sense that I would much rather not have to pay off my mortgage every month. If I didn't have a mortgage I’d have an extra bit of cash left every month that I can do far better things with.
