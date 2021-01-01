@@ -2,7 +2,8 @@
 title = "Real-time face and hand detection using JavaCV"
 tags = [
     "java",
-    "ai"
+    "ai",
+    "tech"
 ]
 date = "2014-03-13"
 +++
