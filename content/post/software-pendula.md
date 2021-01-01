@@ -14,7 +14,9 @@ Why “Software Pendula”? Because it occurred to me a long time ago that trend
 
 1. Each historical phase follows a necessary course and that it could not have been arrived at through any other sequence of events.
 1. Each subsequent phase is not just a change but also represents progress.
-1. Each historical phase (thesis) tends to be replaced by the opposite (antithesis) followed by a phase of settling in the middle ground (synthesis) between the two extremes. This is Hegel’s Pendulum theory.
+1. Each historical phase (thesis) tends to be replaced by the opposite (antithesis) followed by a phase of settling in the middle ground (synthesis) between the two extremes.
+
+This is Hegel’s Pendulum theory.
 
 
 The history of software development spans a far shorter period than the recorded history Hegel had to work with in the late 18th/early 19th century, but already there are many examples of “Software Pendula” to be seen:
