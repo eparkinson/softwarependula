@@ -1,4 +1,4 @@
-baseurl = "/"
+baseurl = "https://www.softwarependula.net"
 title = "Software Pendula"
 languageCode = "en-US"
 canonifyurls = true
