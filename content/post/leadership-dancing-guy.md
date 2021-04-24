@@ -8,6 +8,6 @@ tags = [
 date = "2021-01-06"
 +++
 
-I've always thought this lesson to be *especially* relevant to open source startups.
+I've always thought this lesson to be *especially* relevant to open source startups.x
 
 {{< youtube fW8amMCVAJQ >}}
