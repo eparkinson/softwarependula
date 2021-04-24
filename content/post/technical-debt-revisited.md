@@ -7,7 +7,6 @@ tags = [
 date = "2021-04-24"
 +++
 
-# Introduction
 
 In 2013 I wrote a blog post titled ["Technical debt considered useful"](https://www.softwarependula.net/post/technical-debt/) in response to what I saw as an increasing trend by colleagues working in agile teams to see tech debt as a strictly "bad thing". More recently, the DevOps movement (which is entirely positive for the software industry at large) has prompted some to adopt the idea that tech debt must be avoided at all costs. A post titled ["Technical Debt - The Anti-DevOps Culture"](https://devblogs.microsoft.com/premier-developer/technical-debt-the-anti-devops-culture/) inspired me to return to this topic - after all, a lot can change in 7 years. Perhaps I was wrong. (Spoiler alert: I don't believe I was)
 
