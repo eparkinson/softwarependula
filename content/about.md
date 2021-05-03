@@ -35,7 +35,7 @@ As I said, this blog started out on Google's https://www.blogger.com following a
 
 ## Published Papers
 
-During my time as a post grad at the University of Port Elizabeth (now the Nelson Mandela Metropolitan University) I managed to publish two papers that started my interest in using AI techniques to solve planning and scheduling problems. AI planning is a topic that seems to have taken a back seat in recent times to the deep learning craze. 
+During my time as a post grad student, I managed to publish two papers that started my interest in using AI techniques to solve planning and scheduling problems. AI planning is a topic that seems to have taken a back seat in recent times to the deep learning craze. 
 
 - Parkinson E & Warren PR (1995) [A comparison of graph colouring techniques.](https://www.softwarependula.net/papers/graph-colouring.pdf) South African Computer Journal, Number 14, 1995
 - Parkinson, E. & Warren, P.R. (1996) [Examination timetabling.](https://www.softwarependula.net/papers/examination-timetabling.pdf) Industry Meets Academia: Proceedings of the 1996 National Research and Development Conference, The South African Institute of Computer Scientists and Information Technologists, Interaction Conference Centre, University of Natal, Durban, 26 & 27 September, hosted by The Department of Computer Science and Information Systems, University of Natal, Pietermaritzburg, edited by Vevek Ram, (ISBN 0-620-20568-7)
