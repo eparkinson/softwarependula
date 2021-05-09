@@ -1,4 +1,4 @@
-FROM alpine:3.9 AS build
+FROM alpine:latest AS build
 
 # The Hugo version
 ARG VERSION=0.79.1
@@ -19,7 +19,7 @@ WORKDIR /site
 RUN /hugo --minify --enableGitInfo
 
 # stage 2
-FROM nginx:1.15-alpine
+FROM nginx:stable-alpine
 
 WORKDIR /usr/share/nginx/html/
 
