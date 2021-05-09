@@ -33,4 +33,12 @@ Mostly I cover Software Development and Architecture topics that I've had to thi
 
 As I said, this blog started out on Google's https://www.blogger.com following a (rare) New Year's resolution in 2013. That platform is still around but nowhere near as active as it used to be and so for 2021 I've decided to self-host on Google's Cloud platform using [Hugo](https://gohugo.io/), a [Jamstack](https://jamstack.org/) framework - mostly as a way to learn more about the tech. The details are probably a good topic for a future post.
 
+## Published Papers
+
+During my time as a post grad student, I managed to publish two papers that started my interest in using AI techniques to solve planning and scheduling problems. AI planning is a topic that seems to have taken a back seat in recent times to the deep learning craze. 
+
+- Parkinson E & Warren PR (1995) [A comparison of graph colouring techniques.](https://www.softwarependula.net/papers/graph-colouring.pdf) South African Computer Journal, Number 14, 1995
+- Parkinson, E. & Warren, P.R. (1996) [Examination timetabling.](https://www.softwarependula.net/papers/examination-timetabling.pdf) Industry Meets Academia: Proceedings of the 1996 National Research and Development Conference, The South African Institute of Computer Scientists and Information Technologists, Interaction Conference Centre, University of Natal, Durban, 26 & 27 September, hosted by The Department of Computer Science and Information Systems, University of Natal, Pietermaritzburg, edited by Vevek Ram, (ISBN 0-620-20568-7)
+
+
 Thanks for reading!
