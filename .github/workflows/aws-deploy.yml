@@ -26,15 +26,14 @@ jobs:
         version: 2
         verbose: false
 
-    - run: sudo apt-get install hugo
-    - run: hugo --minify --enableGitInfo
+    - name: Terraform
+      working-directory: .aws
+      run: |
+        terraform init
+        terraform apply -auto-approve
 
-    - run: pwd
-    - run: cd .aws
-    - run: pwd
-    - run: ls -al
-    
-    - run: terraform init
-    - run: terraform apply -auto-approve
-
-    - run: aws s3 cp ../public/ s3://$(terraform output -raw website_bucket_name)/ --recursive
+    - name: Hugo
+      run: |
+        sudo apt-get install hugo
+        hugo --minify --enableGitInfo
+        aws s3 cp ../public/ s3://$(terraform output -raw website_bucket_name)/ --recursive
