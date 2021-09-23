@@ -30,6 +30,7 @@ jobs:
     - run: hugo --minify --enableGitInfo
 
     - run: cd .aws
+    - run: ls -al
     - run: terraform init
     - run: terraform apply -auto-approve
 
