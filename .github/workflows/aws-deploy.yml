@@ -38,5 +38,4 @@ jobs:
         terraform version
         terraform init
         terraform apply -auto-approve
-        terraform output -raw website_bucket_name
         aws s3 cp ../public/ s3://test.softwarependula.net/ --recursive        
