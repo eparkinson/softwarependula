@@ -33,6 +33,7 @@ jobs:
         terraform apply -auto-approve
 
     - name: Hugo
+      working-directory: .aws
       run: |
         sudo apt-get install hugo
         hugo --minify --enableGitInfo
