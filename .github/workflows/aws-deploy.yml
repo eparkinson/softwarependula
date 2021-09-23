@@ -26,17 +26,16 @@ jobs:
         version: 2
         verbose: false
 
-    - name: Terraform
-      working-directory: .aws
-      run: |
-        terraform init
-        terraform apply -auto-approve
-
     - name: Hugo Compile
       run: |
         sudo apt-get install hugo
         hugo --minify --enableGitInfo
 
-    - name: S3 Copy
+
+    - name: Terraform Deploy to S3
       working-directory: .aws
-      run: aws s3 cp ../public/ s3://$(terraform output -raw website_bucket_name)/ --recursive        
+      run: |
+        terraform version
+        terraform init
+        terraform apply -auto-approve
+        aws s3 cp ../public/ s3://$(terraform output -raw website_bucket_name)/ --recursive        
