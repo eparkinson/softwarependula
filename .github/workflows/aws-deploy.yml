@@ -29,8 +29,11 @@ jobs:
     - run: sudo apt-get install hugo
     - run: hugo --minify --enableGitInfo
 
+    - run: pwd
     - run: cd .aws
+    - run: pwd
     - run: ls -al
+    
     - run: terraform init
     - run: terraform apply -auto-approve
 
