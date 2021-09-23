@@ -32,9 +32,11 @@ jobs:
         terraform init
         terraform apply -auto-approve
 
-    - name: Hugo
-      working-directory: .aws
+    - name: Hugo Compile
       run: |
         sudo apt-get install hugo
         hugo --minify --enableGitInfo
-        aws s3 cp ../public/ s3://$(terraform output -raw website_bucket_name)/ --recursive
+
+    - name: S3 Copy
+      working-directory: .aws
+      run: aws s3 cp ../public/ s3://$(terraform output -raw website_bucket_name)/ --recursive        
