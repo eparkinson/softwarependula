@@ -2,3 +2,6 @@ public/
 .aws/.terraform
 .aws/*.lock.hcl
 **/secret*
+.aws/terraform.tfstate
+.aws/terraform.tfstate.backup
+.devcontainer/devcontainer.json
