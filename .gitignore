@@ -5,3 +5,4 @@ public/
 .aws/terraform.tfstate
 .aws/terraform.tfstate.backup
 .devcontainer/devcontainer.json
+.devcontainer/Dockerfile
