@@ -33,6 +33,15 @@ Mostly I cover Software Development and Architecture topics that I've had to thi
 
 As I said, this blog started out on Google's https://www.blogger.com following a (rare) New Year's resolution in 2013. That platform is still around but nowhere near as active as it used to be and so for 2021 I've decided to self-host on Google's Cloud platform using [Hugo](https://gohugo.io/), a [Jamstack](https://jamstack.org/) framework - mostly as a way to learn more about the tech. The details are probably a good topic for a future post.
 
+## Side Hustle
+
+[Chat-Leads.net](https://www.chat-leads.net/) - helping small business exploit AI technology to generate sales.
+
+AI chatbots represent a game-changing tool for generating sales leads. These advanced, AI-powered chatbots are available 24/7, ensuring that your business never misses an opportunity to engage with potential clients. They can handle multiple inquiries simultaneously, providing instant, personalized responses that keep customers engaged. This efficiency not only improves customer satisfaction but also significantly reduces the workload on your sales team, allowing them to focus on closing deals rather than fielding initial queries.
+
+Try a [free trial](https://www.chat-leads.net/pricing/).
+
+
 ## Published Papers
 
 During my time as a post grad student, I managed to publish two papers that started my interest in using AI techniques to solve planning and scheduling problems. AI planning is a topic that seems to have taken a back seat in recent times to the deep learning craze. 
