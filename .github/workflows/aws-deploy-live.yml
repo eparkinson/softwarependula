@@ -1,13 +1,9 @@
 name: AWS Staging Deploy
 
-on:
-  push:
-    branches: [ "main" ]
+on: workflow_dispatch
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -32,9 +28,8 @@ jobs:
         sudo apt-get install hugo
         hugo --minify --enableGitInfo
 
-
     - name: Terraform Deploy to S3
-      working-directory: .aws
+
       run: |
-        aws s3 sync ../public/ s3://bz-build-repository/staging/staging.softwarependula.net --delete
-        # aws s3 sync ../public/ s3://staging.softwarependula.net/ --delete
+        aws s3 sync ./public/ s3://bz-build-repository/live/www.softwarependula.net --delete
+        # aws s3 sync ./public/ s3://www.softwarependula.net/ --delete
