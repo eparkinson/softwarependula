@@ -1,4 +1,4 @@
-name: AWS Live Deploy
+name: AWS Staging Deploy
 
 on:
   push:
