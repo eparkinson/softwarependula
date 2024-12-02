@@ -1,7 +1,8 @@
-name: AWS Deploy
+name: AWS Staging Deploy
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [ "main" ]
 
 jobs:
 
@@ -35,7 +36,5 @@ jobs:
     - name: Terraform Deploy to S3
       working-directory: .aws
       run: |
-        terraform version
-        terraform init
-        terraform apply -auto-approve
-        aws s3 cp ../public/ s3://test.softwarependula.net/ --recursive 
+        aws s3 sync ../public/ s3://bz-build-repository/staging/staging.softwarependula.net --delete
+        # aws s3 sync ../public/ s3://staging.softwarependula.net/ --delete
