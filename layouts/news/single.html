@@ -14,10 +14,10 @@
     <div style="width: 200px; border-left: 1px solid #ccc; padding-left: 20px;">
         <h3>News Archive</h3>
         {{ $newsPages := where .Site.RegularPages "Section" "news" }}
-        {{ range $newsPages.GroupByDate "2006" }}
+        {{ range $newsPages.GroupByDate "2006" "desc" }}
             <h4>{{ .Key }}</h4>
             <ul style="list-style: none; padding-left: 0;">
-                {{ range .Pages.GroupByDate "2006-01" }}
+                {{ range .Pages.GroupByDate "2006-01" "desc" }}
                     <li style="margin-bottom: 5px;">
                         {{ $monthPath := printf "/news/%s/" (replace .Key "-" "") }}
                         <a href="{{ $monthPath }}">{{ .Key }}</a>
