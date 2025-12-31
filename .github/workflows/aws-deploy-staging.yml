@@ -30,7 +30,7 @@ jobs:
     - name: Hugo Compile
       run: |
         sudo apt-get install hugo
-        hugo --minify --enableGitInfo
+        hugo --minify --enableGitInfo --baseURL "https://staging.softwarependula.net"
 
 
     - name: Terraform Deploy to S3
