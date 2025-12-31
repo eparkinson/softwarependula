@@ -1,56 +1,48 @@
 {{ partial "header.html" . }}
 
-<div style="display: flex; gap: 20px;">
-    <!-- Main content area -->
-    <div style="flex: 1;">
-        {{ if eq .RelPermalink "/news/" }}
-            <!-- Show latest news post on main news page -->
-            {{ $newsPages := where .Site.RegularPages "Section" "news" }}
-            {{ $latestPost := index (first 1 ($newsPages.ByDate.Reverse)) 0 }}
-            {{ if $latestPost }}
-                <article class="post">
-                    <h1 class="title">{{ $latestPost.Title }}</h1>
-                    <div class="date">{{ $latestPost.Date.Format "2 Jan, 2006" }}</div>
-                    <div class="content">{{ $latestPost.Content }}</div>
-                </article>
-            {{ end }}
-        {{ else }}
-            <!-- Show all posts for the selected month -->
-            <h2 class="content-list-title">
-                <a href="{{ .Permalink }}" class="linktopost">{{ .Title }}</a>
-            </h2>
-            
-            <div class="content-list">
-                {{ range .Data.Pages.ByDate.Reverse }}
-                    <div class="content-item">
-                        <a href="{{ .Permalink }}">
-                            <div class="post-list">
-                                <h3 class="title">{{ .Title }}</h3>
-                                <div class="date">{{ .Date.Format "2 Jan, 2006" }}</div>
-                            </div>
-                        </a>
+{{ if eq .RelPermalink "/news/" }}
+    <!-- Show latest news post on main news page -->
+    {{ $newsPages := where .Site.RegularPages "Section" "news" }}
+    {{ $latestPost := index (first 1 ($newsPages.ByDate.Reverse)) 0 }}
+    {{ if $latestPost }}
+        <article class="post">
+            <h1 class="title">{{ $latestPost.Title }}</h1>
+            <div class="date">{{ $latestPost.Date.Format "2 Jan, 2006" }}</div>
+            <div class="content">{{ $latestPost.Content }}</div>
+        </article>
+    {{ end }}
+{{ else }}
+    <!-- Show all posts for the selected month -->
+    <h2 class="content-list-title">
+        <a href="{{ .Permalink }}" class="linktopost">{{ .Title }}</a>
+    </h2>
+    
+    <div class="content-list">
+        {{ range .Data.Pages.ByDate.Reverse }}
+            <div class="content-item">
+                <a href="{{ .Permalink }}">
+                    <div class="post-list">
+                        <h3 class="title">{{ .Title }}</h3>
+                        <div class="date">{{ .Date.Format "2 Jan, 2006" }}</div>
                     </div>
-                {{ end }}
+                </a>
             </div>
         {{ end }}
     </div>
-
-    <!-- Sidebar with month navigation -->
-    <div style="width: 200px; border-left: 1px solid #ccc; padding-left: 20px;">
-        <h3>News Archive</h3>
-        {{ $newsPages := where .Site.RegularPages "Section" "news" }}
-        {{ range $newsPages.GroupByDate "2006" "desc" }}
-            <h4>{{ .Key }}</h4>
-            <ul style="list-style: none; padding-left: 0;">
-                {{ range .Pages.GroupByDate "2006-01" "desc" }}
-                    <li style="margin-bottom: 5px;">
-                        {{ $monthPath := printf "/news/%s/" (replace .Key "-" "") }}
-                        <a href="{{ $monthPath }}">{{ .Key }}</a>
-                    </li>
-                {{ end }}
-            </ul>
-        {{ end }}
-    </div>
-</div>
+{{ end }}
 
 {{ partial "footer.html" . }}
+
+<!-- Sidebar with month navigation positioned to the right -->
+<div style="position: fixed; top: 120px; right: 20px; width: 200px; border-left: 1px solid #ccc; padding-left: 20px;">
+    <h3>News Archive</h3>
+    {{ $newsPages := where .Site.RegularPages "Section" "news" }}
+    <ul style="list-style: none; padding-left: 0;">
+        {{ range $newsPages.GroupByDate "2006-01" "desc" }}
+            <li style="margin-bottom: 5px;">
+                {{ $monthPath := printf "/news/%s/" (replace .Key "-" "") }}
+                <a href="{{ $monthPath }}">{{ .Key }}</a>
+            </li>
+        {{ end }}
+    </ul>
+</div>
