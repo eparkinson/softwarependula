@@ -8,8 +8,8 @@
 
 {{ partial "footer.html" . }}
 
-<!-- Sidebar with month navigation positioned to the right -->
-<div style="position: fixed; top: 120px; right: 20px; width: 200px; border-left: 1px solid #ccc; padding-left: 20px;">
+<!-- Sidebar with month navigation positioned to the left -->
+<div style="position: fixed; top: 120px; left: 20px; width: 200px; border-right: 1px solid #ccc; padding-right: 20px;">
     <h3>News Archive</h3>
     {{ $newsPages := where .Site.RegularPages "Section" "news" }}
     <ul style="list-style: none; padding-left: 0;">
