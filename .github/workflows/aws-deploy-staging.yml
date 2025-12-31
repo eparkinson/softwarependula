@@ -36,4 +36,4 @@ jobs:
     - name: Terraform Deploy to S3
       run: |
         aws s3 sync ./public/ s3://staging.softwarependula.net --delete
-        aws cloudfront create-invalidation --distribution-id E14Q6MFCZ9KEVJ33C1DAZ5ETPS --paths "/*"
+        aws cloudfront create-invalidation --distribution-id E3TETIEU2CNJME --paths "/*"
