@@ -1,31 +1,23 @@
 {{ partial "header.html" . }}
 
-<div style="display: flex; gap: 20px;">
-    <!-- Main content area -->
-    <div style="flex: 1;">
-        <article class="post">
-            <h1 class="title">{{ .Title }}</h1>
-            <div class="date">{{ .Date.Format "2 Jan, 2006" }}</div>
-            <div class="content">{{ .Content }}</div>
-        </article>
-    </div>
-
-    <!-- Sidebar with month navigation -->
-    <div style="width: 200px; border-left: 1px solid #ccc; padding-left: 20px;">
-        <h3>News Archive</h3>
-        {{ $newsPages := where .Site.RegularPages "Section" "news" }}
-        {{ range $newsPages.GroupByDate "2006" "desc" }}
-            <h4>{{ .Key }}</h4>
-            <ul style="list-style: none; padding-left: 0;">
-                {{ range .Pages.GroupByDate "2006-01" "desc" }}
-                    <li style="margin-bottom: 5px;">
-                        {{ $monthPath := printf "/news/%s/" (replace .Key "-" "") }}
-                        <a href="{{ $monthPath }}">{{ .Key }}</a>
-                    </li>
-                {{ end }}
-            </ul>
-        {{ end }}
-    </div>
-</div>
+<article class="post">
+    <h1 class="title">{{ .Title }}</h1>
+    <div class="date">{{ .Date.Format "2 Jan, 2006" }}</div>
+    <div class="content">{{ .Content }}</div>
+</article>
 
 {{ partial "footer.html" . }}
+
+<!-- Sidebar with month navigation positioned to the right -->
+<div style="position: fixed; top: 120px; right: 20px; width: 200px; border-left: 1px solid #ccc; padding-left: 20px;">
+    <h3>News Archive</h3>
+    {{ $newsPages := where .Site.RegularPages "Section" "news" }}
+    <ul style="list-style: none; padding-left: 0;">
+        {{ range $newsPages.GroupByDate "2006-01" "desc" }}
+            <li style="margin-bottom: 5px;">
+                {{ $monthPath := printf "/news/%s/" (replace .Key "-" "") }}
+                <a href="{{ $monthPath }}">{{ .Key }}</a>
+            </li>
+        {{ end }}
+    </ul>
+</div>
