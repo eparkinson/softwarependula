@@ -1,4 +1,5 @@
 public/
+.hugo_build.lock
 .aws/.terraform
 .aws/*.lock.hcl
 **/secret*
