@@ -6,6 +6,17 @@ const cheerio = require('cheerio');
 // Configuration
 const PUBLIC_DIR = path.join(__dirname, '../public');
 
+// Helper function to determine if a URL is an internal link
+function isInternalLink(url) {
+  if (!url) return false;
+  return !url.startsWith('http://') && 
+         !url.startsWith('https://') && 
+         !url.startsWith('//') && 
+         !url.startsWith('mailto:') && 
+         !url.startsWith('#') &&
+         !url.startsWith('data:');
+}
+
 describe('Static Site Tests', () => {
   let htmlFiles = [];
 
@@ -73,7 +84,7 @@ describe('Static Site Tests', () => {
           allLinks.push({ file, href });
 
           // Check if it's an internal link
-          if (href && !href.startsWith('http://') && !href.startsWith('https://') && !href.startsWith('//') && !href.startsWith('mailto:') && !href.startsWith('#')) {
+          if (isInternalLink(href)) {
             internalLinks.push({ file, href });
           }
         });
@@ -81,7 +92,7 @@ describe('Static Site Tests', () => {
         // Find all src attributes (images, scripts)
         $('[src]').each((i, elem) => {
           const src = $(elem).attr('src');
-          if (src && !src.startsWith('http://') && !src.startsWith('https://') && !src.startsWith('//') && !src.startsWith('data:')) {
+          if (isInternalLink(src)) {
             internalLinks.push({ file, href: src });
           }
         });
@@ -89,7 +100,7 @@ describe('Static Site Tests', () => {
         // Find CSS links
         $('link[href]').each((i, elem) => {
           const href = $(elem).attr('href');
-          if (href && !href.startsWith('http://') && !href.startsWith('https://') && !href.startsWith('//')) {
+          if (isInternalLink(href)) {
             internalLinks.push({ file, href });
           }
         });
@@ -221,7 +232,7 @@ describe('Static Site Tests', () => {
           const src = $(elem).attr('src');
           
           // Check for local scripts that don't exist
-          if (src && !src.startsWith('http://') && !src.startsWith('https://') && !src.startsWith('//')) {
+          if (isInternalLink(src)) {
             const scriptPath = path.join(PUBLIC_DIR, src.startsWith('/') ? src.substring(1) : src);
             if (!fs.existsSync(scriptPath)) {
               suspiciousScripts.push({ file, src });
