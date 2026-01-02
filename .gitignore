@@ -7,3 +7,9 @@ public/
 .aws/terraform.tfstate.backup
 .devcontainer/devcontainer.json
 .devcontainer/Dockerfile
+
+# Node.js and testing
+node_modules/
+package-lock.json
+coverage/
+.npm
