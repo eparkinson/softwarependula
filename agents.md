@@ -13,7 +13,7 @@ Software Pendula is a personal blog built with Hugo, a static site generator. Th
 
 ### Core Technologies
 - **Hugo**: v0.79.1 - Static site generator
-- **Theme**: Hugo Dusk (dark theme variant)
+- **Theme**: Hugo Dusk theme (default-dark color scheme)
 - **Language**: Go (Hugo templates)
 - **Web Server**: Nginx (stable-alpine)
 - **Container**: Docker multi-stage build
@@ -128,9 +128,9 @@ docker build -t softwarependula .
 ## Key Features
 
 1. **Static Site Generation**: Fast, secure, and SEO-friendly
-2. **Dark Theme**: Hugo Dusk with custom color scheme
+2. **Dark Theme**: Hugo Dusk with default-dark color scheme
 3. **Responsive Design**: Mobile-friendly layout
-4. **Syntax Highlighting**: Code blocks with Fruity theme
+4. **Syntax Highlighting**: Code blocks with Fruity theme (via Chroma)
 5. **Git Integration**: Automatic Git info in posts
 6. **Comments**: Disqus integration
 7. **Social Integration**: Twitter, LinkedIn, GitHub links
@@ -221,7 +221,7 @@ hugo config
 ## Author Information
 
 **Elroy Parkinson**
-- Solutions Architect with 20+ years IT experience
+- Solutions Architect with 20 year's experience as an IT professional
 - MSc Computer Science (Nelson Mandela Metropolitan University)
 - MBA (Charles Sturt University)
 - Location: Johannesburg, South Africa
