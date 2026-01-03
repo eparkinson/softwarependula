@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
             nextElement = nextElement.nextSibling;
             
             // Skip text nodes that are just whitespace
-            if (current.nodeType === 3 && current.textContent.trim() === '') {
+            if (current.nodeType === Node.TEXT_NODE && current.textContent.trim() === '') {
                 continue;
             }
             
