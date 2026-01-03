@@ -27,18 +27,11 @@
             {{ $content := .Content }}
             <!-- Wrap h2 sections in category headers -->
             {{ $content = replaceRE "<h2 id=\"([^\"]*)\">([^<]*)</h2>" "<div class='news-category-header'><h2 id=\"$1\">$2</h2></div>" $content }}
-            <!-- Wrap h3 sections in story cards - close before next h3, h2, or hr -->
-            {{ $content = replaceRE "<h3 id=\"([^\"]*)\">" "<div class='news-story-card'><h3 id=\"$1\">" $content }}
-            {{ $content = replaceRE "</div><div class='news-story-card'>" "</div>\n<div class='news-story-card'>" $content }}
-            {{ $content = replaceRE "<hr>" "</div>\n<hr>\n" $content }}
-            {{ $content = replaceRE "<div class='news-category-header'>" "</div>\n<div class='news-category-header'>" $content }}
-            <!-- Ensure final story card is closed -->
-            {{ if findRE "<div class='news-story-card'>" $content }}
-                {{ $content = printf "%s</div>" $content }}
-            {{ end }}
             {{ $content | safeHTML }}
         </div>
     </div>
 </div>
+
+<script src="/js/news-cards.js"></script>
 
 {{ partial "footer.html" . }}
