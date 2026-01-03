@@ -20,8 +20,10 @@
   <a href="https://www.linkedin.com/in/{{.}}" target="_blank"><div class="social-link">LinkedIn</div></a>
   {{end}}
 
+  {{ with .Site.Home.OutputFormats.Get "RSS" }}
   <div class="social-link">
-  <a href="{{ .Site.RSSLink }}" target="_blank">RSS</a>
+  <a href="{{ .Permalink }}" target="_blank">RSS</a>
   </div>
+  {{ end }}
 
 </div>
