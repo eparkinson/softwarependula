@@ -1,0 +1,152 @@
+/* News section layout styles */
+
+/* Main container for news pages */
+.news-container {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1em;
+  gap: 2em;
+  position: relative;
+}
+
+/* Sidebar styling */
+.news-sidebar {
+  width: 200px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 120px;
+  align-self: flex-start;
+  height: fit-content;
+  padding-right: 20px;
+  border-right: 1px solid #444;
+}
+
+.news-sidebar h3 {
+  margin-top: 0;
+  font-size: 1.2em;
+  margin-bottom: 1em;
+}
+
+.news-sidebar ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.news-sidebar li {
+  margin-bottom: 0.5em;
+}
+
+/* Main content area */
+.news-content {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Individual news story cards */
+.news-story-card {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 1.5em;
+  margin-bottom: 1.5em;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.news-story-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.news-story-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  color: #a8d08d;
+}
+
+.news-story-card p {
+  margin-bottom: 0.8em;
+  line-height: 1.6;
+}
+
+.news-story-card strong {
+  color: #ddd;
+}
+
+.news-story-card ul {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+}
+
+.news-story-card a {
+  color: #6c9bcf;
+  text-decoration: none;
+}
+
+.news-story-card a:hover {
+  text-decoration: underline;
+}
+
+/* Category headers within daily digest */
+.news-category-header {
+  background-color: rgba(168, 208, 141, 0.1);
+  border-left: 4px solid #a8d08d;
+  padding: 0.8em 1em;
+  margin: 2em 0 1em 0;
+  border-radius: 4px;
+}
+
+.news-category-header h2 {
+  margin: 0;
+  color: #a8d08d;
+  font-size: 1.5em;
+}
+
+/* Daily digest header */
+.daily-digest-header {
+  text-align: center;
+  margin-bottom: 2em;
+  padding-bottom: 1em;
+  border-bottom: 2px solid #444;
+}
+
+.daily-digest-header h1 {
+  margin-bottom: 0.3em;
+}
+
+.daily-digest-header .date {
+  font-size: 0.9em;
+  color: #999;
+}
+
+/* Responsive design */
+@media (max-width: 900px) {
+  .news-container {
+    flex-direction: column;
+  }
+  
+  .news-sidebar {
+    position: static;
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #444;
+    padding-right: 0;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+  }
+  
+  .news-content {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .news-container {
+    padding: 0 0.5em;
+  }
+  
+  .news-story-card {
+    padding: 1em;
+  }
+}
