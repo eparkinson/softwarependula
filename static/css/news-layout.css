@@ -3,20 +3,22 @@
 /* Main container for news pages */
 .news-container {
   position: relative;
-  max-width: 42em;
+  max-width: 60em;
   margin: 0 auto;
   padding: 0 1em;
+  display: flex;
+  gap: 2em;
 }
 
 /* Sidebar styling - positioned to the left of content */
 .news-sidebar {
-  position: fixed;
-  left: 0;
+  position: sticky;
   top: 120px;
   width: 150px;
   height: fit-content;
   padding: 1em;
   border-right: 1px solid #444;
+  flex-shrink: 0;
 }
 
 .news-sidebar h3 {
@@ -39,7 +41,9 @@
 
 /* Main content area - same width as home page */
 .news-content {
-  width: 100%;
+  flex: 1;
+  max-width: 42em;
+  min-width: 0;
 }
 
 /* Individual news story cards */
@@ -120,6 +124,10 @@
 
 /* Responsive design */
 @media (max-width: 900px) {
+  .news-container {
+    flex-direction: column;
+  }
+  
   .news-sidebar {
     position: static;
     width: 100%;
