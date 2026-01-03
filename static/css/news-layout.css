@@ -2,30 +2,28 @@
 
 /* Main container for news pages */
 .news-container {
-  display: flex;
-  max-width: 1200px;
+  position: relative;
+  max-width: 42em;
   margin: 0 auto;
   padding: 0 1em;
-  gap: 2em;
-  position: relative;
 }
 
-/* Sidebar styling */
+/* Sidebar styling - positioned to the left of content */
 .news-sidebar {
-  width: 200px;
-  flex-shrink: 0;
-  position: sticky;
+  position: fixed;
+  left: 0;
   top: 120px;
-  align-self: flex-start;
+  width: 150px;
   height: fit-content;
-  padding-right: 20px;
+  padding: 1em 1em 1em 1em;
   border-right: 1px solid #444;
 }
 
 .news-sidebar h3 {
   margin-top: 0;
-  font-size: 1.2em;
-  margin-bottom: 1em;
+  font-size: 1em;
+  margin-bottom: 0.8em;
+  font-weight: bold;
 }
 
 .news-sidebar ul {
@@ -35,13 +33,13 @@
 }
 
 .news-sidebar li {
-  margin-bottom: 0.5em;
+  margin-bottom: 0.4em;
+  font-size: 0.9em;
 }
 
-/* Main content area */
+/* Main content area - same width as home page */
 .news-content {
-  flex: 1;
-  min-width: 0;
+  width: 100%;
 }
 
 /* Individual news story cards */
@@ -122,24 +120,17 @@
 
 /* Responsive design */
 @media (max-width: 900px) {
-  .news-container {
-    flex-direction: column;
-  }
-  
   .news-sidebar {
     position: static;
     width: 100%;
     border-right: none;
     border-top: 1px solid #444;
-    padding-right: 0;
-    padding-top: 1em;
-    margin-top: 1em;
-    order: 2;
+    padding: 1em 0;
+    margin-top: 2em;
   }
   
   .news-content {
     width: 100%;
-    order: 1;
   }
 }
 
