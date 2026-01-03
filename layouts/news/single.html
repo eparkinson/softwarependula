@@ -1,23 +1,44 @@
 {{ partial "header.html" . }}
 
-<article class="post">
-    <h1 class="title">{{ .Title }}</h1>
-    <div class="date">{{ .Date.Format "2 Jan, 2006" }}</div>
-    <div class="content">{{ .Content }}</div>
-</article>
+<div class="news-container">
+    <!-- Sidebar with month navigation -->
+    <div class="news-sidebar">
+        <h3>News Archive</h3>
+        {{ $newsPages := where .Site.RegularPages "Section" "news" }}
+        <ul>
+            {{ range $newsPages.GroupByDate "2006-01" "desc" }}
+                <li>
+                    {{ $monthPath := printf "/news/%s/" (replace .Key "-" "") }}
+                    <a href="{{ $monthPath }}">{{ .Key }}</a>
+                </li>
+            {{ end }}
+        </ul>
+    </div>
+
+    <!-- Main content area -->
+    <div class="news-content">
+        <div class="daily-digest-header">
+            <h1 class="title">{{ .Title }}</h1>
+            <div class="date">{{ .Date.Format "2 Jan, 2006" }}</div>
+        </div>
+
+        <!-- Display content with enhanced styling -->
+        <div class="news-stories">
+            {{ $content := .Content }}
+            <!-- Wrap h2 sections in category headers -->
+            {{ $content = replaceRE "<h2 id=\"([^\"]*)\">([^<]*)</h2>" "<div class='news-category-header'><h2 id=\"$1\">$2</h2></div>" $content }}
+            <!-- Wrap h3 sections in story cards - close before next h3, h2, or hr -->
+            {{ $content = replaceRE "<h3 id=\"([^\"]*)\">" "<div class='news-story-card'><h3 id=\"$1\">" $content }}
+            {{ $content = replaceRE "</div><div class='news-story-card'>" "</div>\n<div class='news-story-card'>" $content }}
+            {{ $content = replaceRE "<hr>" "</div>\n<hr>\n" $content }}
+            {{ $content = replaceRE "<div class='news-category-header'>" "</div>\n<div class='news-category-header'>" $content }}
+            <!-- Ensure final story card is closed -->
+            {{ if findRE "<div class='news-story-card'>" $content }}
+                {{ $content = printf "%s</div>" $content }}
+            {{ end }}
+            {{ $content | safeHTML }}
+        </div>
+    </div>
+</div>
 
 {{ partial "footer.html" . }}
-
-<!-- Sidebar with month navigation positioned to the left -->
-<div style="position: fixed; top: 120px; left: 20px; width: 200px; border-right: 1px solid #ccc; padding-right: 20px;">
-    <h3>News Archive</h3>
-    {{ $newsPages := where .Site.RegularPages "Section" "news" }}
-    <ul style="list-style: none; padding-left: 0;">
-        {{ range $newsPages.GroupByDate "2006-01" "desc" }}
-            <li style="margin-bottom: 5px;">
-                {{ $monthPath := printf "/news/%s/" (replace .Key "-" "") }}
-                <a href="{{ $monthPath }}">{{ .Key }}</a>
-            </li>
-        {{ end }}
-    </ul>
-</div>

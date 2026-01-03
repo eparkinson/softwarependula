@@ -13,3 +13,8 @@ node_modules/
 package-lock.json
 coverage/
 .npm
+
+# Hugo binary
+hugo
+hugo_extended_*.tar.gz
+LICENSE

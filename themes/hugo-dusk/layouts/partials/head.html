@@ -28,6 +28,10 @@
 <link rel="stylesheet" href="/css/default-dark.css" />
 {{ end }}
 
+{{ if eq .Section "news" }}
+<link rel="stylesheet" href="/css/news-layout.css" />
+{{ end }}
+
 <title>
 {{ $url := replace .Permalink ( printf "%s" .Site.BaseURL) "" }}
 {{ if eq $url "/" }}
