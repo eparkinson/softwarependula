@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Software Pendula — Sepia Preview</title>
+<style>
+/* ============================================================
+   DESIGN 2: SEPIA — Warm Editorial Light Mode
+   ============================================================ */
+
+:root {
+  --main-bg-color: #FAF8F3;
+  --main-text: #1C1917;
+  --main-sec: #C2410C;
+  --surface: #FFFFFF;
+  --border: #E7E5E0;
+  --muted: #78716C;
+  --tag-bg: #FEF3EE;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  background: var(--main-bg-color);
+  color: var(--main-text);
+  line-height: 1.7em;
+  font-size: 1.05em;
+}
+
+a { color: var(--main-text); text-decoration: none; }
+a:hover { color: var(--main-sec); }
+
+.main {
+  margin: auto;
+  max-width: 42em;
+  padding: 0 1em;
+}
+
+.header-bar {
+  padding: 1.2em 0 0.6em;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 0.5em;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+
+.siteTitle {
+  font-family: Georgia, serif;
+  font-size: 2em;
+  font-weight: normal;
+  font-style: italic;
+  letter-spacing: -0.01em;
+}
+.siteTitle a { color: var(--main-text); }
+.siteTitle a:hover { color: var(--main-sec); }
+
+.nav-links {
+  display: flex;
+  gap: 1.4em;
+  font-family: system-ui, sans-serif;
+}
+
+.nav-item {
+  font-size: 0.85em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  transition: color 0.15s;
+}
+.nav-item:hover { color: var(--main-sec); }
+
+.social-links {
+  display: flex;
+  gap: 0.8em;
+  font-family: system-ui, sans-serif;
+  font-size: 0.78em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  flex-wrap: wrap;
+  margin-top: 0.5em;
+}
+.social-links a { color: var(--muted); }
+.social-links a:hover { color: var(--main-sec); }
+
+.post-preview {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.3em;
+  padding: 1em 1.2em 1.2em;
+  margin: 1.8em 0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.post-preview .title {
+  font-size: 1.3em;
+  font-weight: normal;
+  font-style: italic;
+  margin: 0.2em 0 0.5em;
+}
+.post-preview .title a { color: var(--main-sec); }
+.post-preview .title a:hover { text-decoration: underline; }
+
+.post-preview .meta {
+  font-family: system-ui, sans-serif;
+  font-size: 0.75em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  padding: 0 0 0.7em;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.3em;
+}
+
+.tag { display: inline; }
+.tag a {
+  color: var(--main-sec);
+  font-size: 0.9em;
+  background: var(--tag-bg);
+  padding: 0.1em 0.4em;
+  border-radius: 0.2em;
+}
+.tag a:hover { text-decoration: underline; }
+
+.post-preview .summary {
+  padding: 0.7em 0 0;
+  font-size: 0.98em;
+  color: #44403C;
+  line-height: 1.75em;
+}
+
+.rmore {
+  text-align: right;
+  margin-top: 0.8em;
+  font-family: system-ui, sans-serif;
+}
+.rmore a {
+  border: 1.5px solid var(--main-sec);
+  border-radius: 0.25em;
+  padding: 0.3em 0.9em;
+  font-size: 0.82em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--main-sec);
+  transition: background 0.15s, color 0.15s;
+}
+.rmore a:hover { background: var(--main-sec); color: #fff; }
+
+.page-nav {
+  display: flex;
+  justify-content: center;
+  gap: 1.5em;
+  padding: 1.2em;
+  font-family: system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.85em;
+}
+.page-nav a { color: var(--main-sec); }
+
+footer {
+  border-top: 2px solid var(--border);
+  margin-top: 2.5em;
+  padding: 1.5em 0;
+  text-align: center;
+}
+.social-links-footer {
+  display: flex;
+  justify-content: center;
+  gap: 1.2em;
+  font-family: system-ui, sans-serif;
+  font-size: 0.78em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  flex-wrap: wrap;
+  margin-bottom: 1em;
+}
+.social-links-footer a { color: var(--muted); }
+.social-links-footer a:hover { color: var(--main-sec); }
+.copyright, .poweredby {
+  font-family: system-ui, sans-serif;
+  font-size: 0.78em;
+  color: var(--muted);
+  margin-top: 0.3em;
+}
+.poweredby a { color: var(--muted); text-decoration: underline; }
+
+.design-badge {
+  position: fixed;
+  top: 12px; right: 12px;
+  background: var(--main-sec);
+  color: #fff;
+  font-family: system-ui, sans-serif;
+  font-size: 0.75em;
+  font-weight: 700;
+  padding: 0.4em 0.8em;
+  border-radius: 2em;
+  z-index: 999;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+</style>
+</head>
+<body>
+
+<div class="design-badge">Design 2: Sepia</div>
+
+<div class="main">
+<header>
+<div class="header-bar">
+  <nav>
+    <div class="siteTitle"><a href="#">Software Pendula</a></div>
+    <div class="nav-links">
+      <a class="nav-item" href="#">Posts</a>
+      <a class="nav-item" href="#">News</a>
+      <a class="nav-item" href="#">Tags</a>
+    </div>
+  </nav>
+  <div class="social-links">
+    <a href="#">GitHub</a>
+    <a href="#">Twitter</a>
+    <a href="#">LinkedIn</a>
+    <a href="#">Email</a>
+  </div>
+</div>
+</header>
+
+<main>
+
+  <article class="post-preview">
+    <header>
+      <h2 class="title"><a href="#">Reflections on AI progress (1995–2023)</a></h2>
+      <div class="meta">
+        <div class="date">25 Dec, 2023 &mdash; 8 min read</div>
+        <div class="tags">
+          <span class="tag"><a href="#">tech</a></span> &nbsp;
+          <span class="tag"><a href="#">musings</a></span> &nbsp;
+          <span class="tag"><a href="#">ai</a></span>
+        </div>
+      </div>
+    </header>
+    <div class="summary">
+      <p>Back in 1994, during my M.Sc. in Computer Science, my research topic was exam timetabling. I explored heuristic algorithms for the graph colouring problem, and eventually turned to genetic algorithms. Fast-forward thirty years, and the landscape has changed beyond recognition...</p>
+    </div>
+    <div class="rmore"><a href="#">Read more</a></div>
+  </article>
+
+  <article class="post-preview">
+    <header>
+      <h2 class="title"><a href="#">Technical debt considered useful revisited</a></h2>
+      <div class="meta">
+        <div class="date">24 Apr, 2021 &mdash; 6 min read</div>
+        <div class="tags">
+          <span class="tag"><a href="#">tech</a></span> &nbsp;
+          <span class="tag"><a href="#">musings</a></span>
+        </div>
+      </div>
+    </header>
+    <div class="summary">
+      <p>In 2013 I wrote a post arguing that technical debt isn't purely a bad thing — it's a metaphor drawn from financial debt, and like financial debt, it can be used strategically. The DevOps movement has prompted some to revise this view. Let me revisit...</p>
+    </div>
+    <div class="rmore"><a href="#">Read more</a></div>
+  </article>
+
+  <article class="post-preview">
+    <header>
+      <h2 class="title"><a href="#">Leadership Lessons from Shirtless Dancing Guy</a></h2>
+      <div class="meta">
+        <div class="date">6 Jan, 2021 &mdash; 2 min read</div>
+        <div class="tags">
+          <span class="tag"><a href="#">tech</a></span> &nbsp;
+          <span class="tag"><a href="#">quickie</a></span>
+        </div>
+      </div>
+    </header>
+    <div class="summary">
+      <p>I've always thought this lesson to be especially relevant to open source startups. One lone dancing figure on a hillside. Then a second. Then a movement. What does a shirtless dancer at a festival have to teach us about technical leadership?</p>
+    </div>
+    <div class="rmore"><a href="#">Read more</a></div>
+  </article>
+
+  <div class="page-nav">
+    <a href="#">&larr; Newer</a>
+    <span>Page 1 of 4</span>
+    <a href="#">Older &rarr;</a>
+  </div>
+
+</main>
+
+<footer>
+  <div class="social-links-footer">
+    <a href="#">GitHub</a>
+    <a href="#">Twitter</a>
+    <a href="#">LinkedIn</a>
+    <a href="#">Email</a>
+  </div>
+  <div class="copyright">&copy; Elroy Parkinson</div>
+  <div class="poweredby">Powered by <a href="#">Hugo</a>.</div>
+</footer>
+
+</div>
+</body>
+</html>

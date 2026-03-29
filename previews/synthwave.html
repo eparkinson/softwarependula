@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Software Pendula — Synthwave Preview</title>
+<style>
+/* ============================================================
+   DESIGN 3: SYNTHWAVE — Retro Neon
+   ============================================================ */
+
+:root {
+  --main-bg-color: #0D0D1A;
+  --main-text: #E2E0FF;
+  --main-sec: #FF2D78;
+  --main-cyan: #00F5D4;
+  --surface: #14142B;
+  --border: #2D2B55;
+  --muted: #8B89A8;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Courier New', Courier, monospace;
+  background: var(--main-bg-color);
+  color: var(--main-text);
+  line-height: 1.65em;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255,255,255,0.012) 2px,
+    rgba(255,255,255,0.012) 4px
+  );
+}
+
+a { color: var(--main-text); text-decoration: none; }
+a:hover { color: var(--main-sec); }
+
+.main {
+  margin: auto;
+  max-width: 42em;
+  padding: 0 1em;
+}
+
+.header-bar {
+  padding: 1.2em 0.2em 0.6em;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0.5em;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+
+.siteTitle {
+  font-size: 1.9em;
+  font-weight: bold;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.siteTitle a {
+  color: var(--main-sec);
+  text-shadow: 0 0 12px rgba(255,45,120,0.7), 0 0 30px rgba(255,45,120,0.3);
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.2em;
+}
+
+.nav-item {
+  font-size: 0.85em;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--main-cyan);
+}
+
+.social-links {
+  display: flex;
+  gap: 0.8em;
+  font-size: 0.75em;
+  font-weight: bold;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  flex-wrap: wrap;
+  margin-top: 0.4em;
+}
+.social-links a { color: var(--muted); }
+.social-links a:hover { color: var(--main-cyan); }
+
+.post-preview {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--main-sec);
+  border-radius: 0.2em;
+  padding: 0.8em 1em 1em;
+  margin: 1.5em 0;
+  box-shadow: 0 0 20px rgba(255,45,120,0.08), 0 2px 8px rgba(0,0,0,0.6);
+}
+
+.post-preview .title {
+  font-size: 1.15em;
+  font-weight: bold;
+  letter-spacing: 0.02em;
+  margin: 0.3em 0;
+  text-transform: uppercase;
+}
+.post-preview .title a {
+  color: var(--main-sec);
+  text-shadow: 0 0 8px rgba(255,45,120,0.5);
+}
+
+.post-preview .meta {
+  font-size: 0.75em;
+  font-weight: bold;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  padding: 0.2em 0 0.6em;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.3em;
+  letter-spacing: 0.05em;
+}
+
+.tag { display: inline; }
+.tag a { color: var(--main-cyan); font-size: 0.9em; }
+
+.post-preview .summary {
+  padding: 0.6em 0 0;
+  font-size: 0.9em;
+  color: #C4C2E8;
+  line-height: 1.7em;
+}
+
+.rmore {
+  text-align: right;
+  margin-top: 0.6em;
+}
+.rmore a {
+  background: transparent;
+  border: 1px solid var(--main-sec);
+  border-radius: 0.15em;
+  padding: 0.25em 0.7em;
+  font-size: 0.8em;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--main-sec);
+  text-shadow: 0 0 6px rgba(255,45,120,0.5);
+}
+
+.page-nav {
+  display: flex;
+  justify-content: center;
+  gap: 1.5em;
+  padding: 1em;
+  font-weight: bold;
+  font-size: 0.85em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.page-nav a { color: var(--main-cyan); }
+
+footer {
+  border-top: 1px solid var(--border);
+  margin-top: 2em;
+  padding: 1.5em 0;
+  text-align: center;
+}
+.social-links-footer {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  font-size: 0.75em;
+  font-weight: bold;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  flex-wrap: wrap;
+  margin-bottom: 0.8em;
+}
+.social-links-footer a { color: var(--muted); }
+.social-links-footer a:hover { color: var(--main-cyan); }
+.copyright, .poweredby {
+  font-size: 0.75em;
+  color: var(--muted);
+  margin-top: 0.3em;
+  letter-spacing: 0.04em;
+}
+.poweredby a { color: var(--muted); text-decoration: underline; }
+
+hr.neon-divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--main-sec), var(--main-cyan), transparent);
+  margin: 0.5em 0;
+  opacity: 0.4;
+}
+
+.design-badge {
+  position: fixed;
+  top: 12px; right: 12px;
+  background: var(--main-sec);
+  color: #0D0D1A;
+  font-family: 'Courier New', monospace;
+  font-size: 0.75em;
+  font-weight: 700;
+  padding: 0.4em 0.8em;
+  border-radius: 0.2em;
+  z-index: 999;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 0 16px rgba(255,45,120,0.7);
+}
+</style>
+</head>
+<body>
+
+<div class="design-badge">Design 3: Synthwave</div>
+
+<div class="main">
+<header>
+<div class="header-bar">
+  <nav>
+    <div class="siteTitle"><a href="#">Software Pendula</a></div>
+    <div class="nav-links">
+      <a class="nav-item" href="#">Posts</a>
+      <a class="nav-item" href="#">News</a>
+      <a class="nav-item" href="#">Tags</a>
+    </div>
+  </nav>
+  <div class="social-links">
+    <a href="#">GitHub</a>
+    <a href="#">Twitter</a>
+    <a href="#">LinkedIn</a>
+    <a href="#">Email</a>
+  </div>
+</div>
+<hr class="neon-divider">
+</header>
+
+<main>
+
+  <article class="post-preview">
+    <header>
+      <h2 class="title"><a href="#">Reflections on AI progress (1995–2023)</a></h2>
+      <div class="meta">
+        <div class="date">25 Dec, 2023 &mdash; 8 min</div>
+        <div class="tags">
+          <span class="tag"><a href="#">tech</a></span> &nbsp;
+          <span class="tag"><a href="#">musings</a></span> &nbsp;
+          <span class="tag"><a href="#">ai</a></span>
+        </div>
+      </div>
+    </header>
+    <div class="summary">
+      <p>Back in 1994, during my M.Sc. in Computer Science, my research topic was exam timetabling. I explored heuristic algorithms for the graph colouring problem, and eventually turned to genetic algorithms. Fast-forward thirty years, and the landscape has changed beyond recognition...</p>
+    </div>
+    <div class="rmore"><a href="#">Read more</a></div>
+  </article>
+
+  <article class="post-preview">
+    <header>
+      <h2 class="title"><a href="#">Technical debt considered useful revisited</a></h2>
+      <div class="meta">
+        <div class="date">24 Apr, 2021 &mdash; 6 min</div>
+        <div class="tags">
+          <span class="tag"><a href="#">tech</a></span> &nbsp;
+          <span class="tag"><a href="#">musings</a></span>
+        </div>
+      </div>
+    </header>
+    <div class="summary">
+      <p>In 2013 I wrote a post arguing that technical debt isn't purely a bad thing — it's a metaphor drawn from financial debt, and like financial debt, it can be used strategically. The DevOps movement has prompted some to revise this view. Let me revisit...</p>
+    </div>
+    <div class="rmore"><a href="#">Read more</a></div>
+  </article>
+
+  <article class="post-preview">
+    <header>
+      <h2 class="title"><a href="#">Leadership Lessons from Shirtless Dancing Guy</a></h2>
+      <div class="meta">
+        <div class="date">6 Jan, 2021 &mdash; 2 min</div>
+        <div class="tags">
+          <span class="tag"><a href="#">tech</a></span> &nbsp;
+          <span class="tag"><a href="#">quickie</a></span>
+        </div>
+      </div>
+    </header>
+    <div class="summary">
+      <p>I've always thought this lesson to be especially relevant to open source startups. One lone dancing figure on a hillside. Then a second. Then a movement. What does a shirtless dancer at a festival have to teach us about technical leadership?</p>
+    </div>
+    <div class="rmore"><a href="#">Read more</a></div>
+  </article>
+
+  <div class="page-nav">
+    <a href="#">&larr; Newer</a>
+    <span>Page 1 / 4</span>
+    <a href="#">Older &rarr;</a>
+  </div>
+
+</main>
+
+<footer>
+  <div class="social-links-footer">
+    <a href="#">GitHub</a>
+    <a href="#">Twitter</a>
+    <a href="#">LinkedIn</a>
+    <a href="#">Email</a>
+  </div>
+  <div class="copyright">&copy; Elroy Parkinson</div>
+  <div class="poweredby">Powered by <a href="#">Hugo</a>.</div>
+</footer>
+
+</div>
+</body>
+</html>
