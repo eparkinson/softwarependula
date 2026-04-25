@@ -17,11 +17,6 @@
 
     <!-- Main content area -->
     <div class="news-content">
-        <div class="daily-digest-header">
-            <h1 class="title">{{ .Title }}</h1>
-            <div class="date">{{ .Date.Format "2 Jan, 2006" }}</div>
-        </div>
-
         <!-- Display content with enhanced styling -->
         <div class="news-stories">
             {{ $content := .Content }}
