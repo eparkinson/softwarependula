@@ -1,11 +1,51 @@
-
 {{ partial "header.html" . }}
 
 <main>
 
-{{ $paginator := .Paginate (where site.RegularPages "Type" "in" site.Params.mainSections) }}
-  {{ range $paginator.Pages }}
-    {{ .Render "summary" }}
+{{ $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{ $paginator := .Paginate $pages 7 }}
+{{ $featured := index $paginator.Pages 0 }}
+{{ $gridPages := after 1 $paginator.Pages }}
+
+{{ if $featured }}
+<div class="featured-post-card">
+  <div>
+    <div class="card-label">Latest</div>
+    <h2 class="featured-title"><a href="{{ $featured.Permalink }}">{{ $featured.Title }}</a></h2>
+    <p class="featured-summary">{{ $featured.Summary }}</p>
+  </div>
+  <div>
+    <div class="featured-meta">
+      <span>{{ $featured.Date.Format "2 Jan, 2006" }}</span>
+      <span>{{ $featured.ReadingTime }} min read</span>
+      <div class="tags">
+        {{ range $featured.Params.tags }}
+        <div class="tag"><a href="/tags/{{ . | urlize }}">#{{ . }}</a></div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }}
+
+{{ if $gridPages }}
+<div class="post-grid">
+  {{ range $gridPages }}
+  <div class="post-card">
+    <div class="card-label-sm">{{ .Date.Format "2 Jan, 2006" }}</div>
+    <h3 class="card-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+    <p class="card-summary">{{ .Summary }}</p>
+    <div class="card-footer-meta">
+      <span>{{ .ReadingTime }} min read</span>
+      <div class="tags">
+        {{ range .Params.tags }}
+        <div class="tag"><a href="/tags/{{ . | urlize }}">#{{ . }}</a></div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+  {{ end }}
+</div>
 {{ end }}
 
 {{ partial "paginator-menu.html" . }}

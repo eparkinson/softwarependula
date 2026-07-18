@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Theme 5 — Typographic</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #fdfdfc;
+    --surface: #f6f4f0;
+    --border: #e8e4dd;
+    --text: #1a1815;
+    --body: #3d3830;
+    --muted: #9a9080;
+    --accent: #b5451b;
+    --font: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif;
+    --sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', monospace;
+  }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--body);
+    line-height: 1.8;
+  }
+
+  header {
+    background: var(--text);
+    color: #fdfdfc;
+  }
+
+  .header-top {
+    border-bottom: 1px solid #2e2b26;
+    padding: 0.6rem 2rem;
+    max-width: 60rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header-top-date {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    color: #8a8070;
+    letter-spacing: 0.05em;
+  }
+
+  .header-top-links {
+    display: flex;
+    gap: 1.25rem;
+  }
+
+  .header-top-links a {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    color: #8a8070;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+  }
+
+  .header-top-links a:hover { color: #fdfdfc; }
+
+  .header-main {
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: 2rem 2rem 1.5rem;
+    text-align: center;
+    border-bottom: 1px solid #2e2b26;
+  }
+
+  .site-title {
+    font-family: var(--font);
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #fdfdfc;
+    text-decoration: none;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .site-tagline {
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    color: #8a8070;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  nav {
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 0;
+  }
+
+  nav a {
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #c0b49e;
+    text-decoration: none;
+    padding: 0.6rem 1.2rem;
+    display: block;
+    transition: color 0.15s, background 0.15s;
+  }
+
+  nav a:hover { color: #fdfdfc; background: #2e2b26; }
+  nav a.active { color: #fdfdfc; }
+
+  main {
+    max-width: 60rem;
+    margin: 3rem auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: 1fr 14rem;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .section-head {
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    border-bottom: 2px solid var(--text);
+    padding-bottom: 0.4rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .section-head a {
+    font-size: 0.65rem;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .post-entry {
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .post-entry:last-of-type {
+    border-bottom: none;
+  }
+
+  .entry-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .entry-category {
+    font-family: var(--sans);
+    font-size: 0.63rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .entry-date {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    color: var(--muted);
+  }
+
+  .post-entry h2 {
+    font-family: var(--font);
+    font-size: 1.55rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  .post-entry h2 a { color: inherit; text-decoration: none; }
+  .post-entry h2 a:hover { color: var(--accent); }
+  .post-entry h2 a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+  .post-entry p {
+    font-size: 0.975rem;
+    color: var(--body);
+    line-height: 1.8;
+    margin-bottom: 0.75rem;
+  }
+
+  .entry-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    margin-top: 0.75rem;
+  }
+
+  .tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+  .tag {
+    font-family: var(--sans);
+    font-size: 0.68rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+
+  .tag::before { content: '#'; }
+  .tag:hover { color: var(--accent); text-decoration: underline; }
+
+  .read-more {
+    font-family: var(--sans);
+    font-size: 0.73rem;
+    color: var(--accent);
+    text-decoration: none;
+    font-style: italic;
+  }
+
+  .read-more:hover { text-decoration: underline; }
+
+  /* Sidebar */
+  .sidebar { font-size: 0.875rem; }
+
+  .sidebar-section { margin-bottom: 2rem; }
+
+  .sidebar-head {
+    font-family: var(--sans);
+    font-size: 0.63rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    border-bottom: 2px solid var(--text);
+    padding-bottom: 0.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .about-text {
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: var(--body);
+  }
+
+  .tag-cloud { line-height: 2.2; }
+
+  .tag-cloud a {
+    color: var(--body);
+    text-decoration: none;
+    margin-right: 0.25rem;
+    font-family: var(--sans);
+    font-size: 0.78rem;
+  }
+
+  .tag-cloud a:hover { color: var(--accent); }
+
+  .archive-list {
+    list-style: none;
+  }
+
+  .archive-list li {
+    border-bottom: 1px solid var(--border);
+    padding: 0.5rem 0;
+  }
+
+  .archive-list a {
+    color: var(--body);
+    text-decoration: none;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    display: block;
+  }
+
+  .archive-list a:hover { color: var(--accent); }
+
+  .archive-date {
+    font-family: var(--sans);
+    font-size: 0.68rem;
+    color: var(--muted);
+    margin-top: 0.1rem;
+  }
+
+  footer {
+    background: var(--text);
+    color: #8a8070;
+    padding: 1.5rem 2rem;
+    margin-top: 4rem;
+  }
+
+  .footer-inner {
+    max-width: 60rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--sans);
+    font-size: 0.72rem;
+  }
+
+  .footer-links { display: flex; gap: 1.25rem; }
+  .footer-links a { color: #8a8070; text-decoration: none; }
+  .footer-links a:hover { color: #fdfdfc; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <span class="header-top-date">Sunday, 29 March 2026</span>
+    <div class="header-top-links">
+      <a href="#">GitHub</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">RSS</a>
+    </div>
+  </div>
+  <div class="header-main">
+    <a href="/" class="site-title">Software Pendula</a>
+    <p class="site-tagline">Architecture · Code · Curiosity</p>
+  </div>
+  <nav>
+    <a href="/post/" class="active">Posts</a>
+    <a href="/news/">News Digest</a>
+    <a href="/tags/">Topics</a>
+    <a href="/about/">About</a>
+  </nav>
+</header>
+
+<main>
+  <div class="posts-column">
+    <div class="section-head">
+      <span>Recent Essays</span>
+      <a href="#">View all</a>
+    </div>
+
+    <div class="post-entry">
+      <div class="entry-header">
+        <span class="entry-category">AI &amp; Technology</span>
+        <span class="entry-date">December 25, 2023</span>
+      </div>
+      <h2><a href="#">Reflections on AI Progress (1995–2023)</a></h2>
+      <p>A personal journey through nearly three decades of AI development — from rule-based expert systems to the transformer revolution, and what it all means for software architects navigating the current landscape.</p>
+      <p>The pace of change in AI over the past two years alone has been unlike anything I've seen in my career.</p>
+      <div class="entry-footer">
+        <div class="tags">
+          <a href="#" class="tag">ai</a>
+          <a href="#" class="tag">musings</a>
+          <a href="#" class="tag">tech</a>
+        </div>
+        <a href="#" class="read-more">Continue reading »</a>
+      </div>
+    </div>
+
+    <div class="post-entry">
+      <div class="entry-header">
+        <span class="entry-category">Languages</span>
+        <span class="entry-date">November 12, 2023</span>
+      </div>
+      <h2><a href="#">Are Compiled Languages Making a Comeback?</a></h2>
+      <p>With Go, Rust, and Zig gaining ground, the pendulum is swinging back toward compiled, type-safe languages after years of dynamic scripting dominance. The performance story is only part of it.</p>
+      <div class="entry-footer">
+        <div class="tags">
+          <a href="#" class="tag">golang</a>
+          <a href="#" class="tag">tech</a>
+        </div>
+        <a href="#" class="read-more">Continue reading »</a>
+      </div>
+    </div>
+
+    <div class="post-entry">
+      <div class="entry-header">
+        <span class="entry-category">Infrastructure</span>
+        <span class="entry-date">September 3, 2023</span>
+      </div>
+      <h2><a href="#">Kubernetes at the Edge: Lessons from the Field</a></h2>
+      <p>Running K8s in constrained environments forces you to rethink every assumption about scheduling, networking, and resource limits. Here's what I learned deploying clusters with single-digit CPU cores.</p>
+      <div class="entry-footer">
+        <div class="tags">
+          <a href="#" class="tag">k8s</a>
+          <a href="#" class="tag">tech</a>
+        </div>
+        <a href="#" class="read-more">Continue reading »</a>
+      </div>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-head">About</div>
+      <p class="about-text">Elroy Parkinson — solutions architect with 20+ years in IT. Writing about software, architecture, cloud, and the occasional philosophical tangent.</p>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-head">Topics</div>
+      <div class="tag-cloud">
+        <a href="#">tech (8)</a>
+        <a href="#">musings (5)</a>
+        <a href="#">k8s (2)</a>
+        <a href="#">ai (2)</a>
+        <a href="#">golang</a>
+        <a href="#">java</a>
+        <a href="#">asterisk</a>
+        <a href="#">personal</a>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-head">Archive</div>
+      <ul class="archive-list">
+        <li>
+          <a href="#">Software Pendula
+            <div class="archive-date">Jul 2023</div>
+          </a>
+        </li>
+        <li>
+          <a href="#">Technical Debt is a Tax
+            <div class="archive-date">May 2023</div>
+          </a>
+        </li>
+        <li>
+          <a href="#">JavaScript: A Retrospective
+            <div class="archive-date">Jan 2023</div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </aside>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span>© 2024 Elroy Parkinson · Powered by Hugo</span>
+    <div class="footer-links">
+      <a href="#">GitHub</a>
+      <a href="#">Twitter</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">RSS</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

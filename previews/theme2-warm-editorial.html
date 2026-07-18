@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Theme 2 — Warm Editorial</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #faf8f4;
+    --surface: #f2ede4;
+    --card: #ffffff;
+    --border: #e5ded2;
+    --text: #2d2417;
+    --muted: #8a7d6b;
+    --accent: #c2430a;
+    --accent2: #1a6b4a;
+    --font: 'Georgia', 'Times New Roman', serif;
+    --sans: system-ui, -apple-system, sans-serif;
+  }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+  }
+
+  header {
+    background: var(--text);
+    padding: 1.5rem 2rem;
+  }
+
+  .header-inner {
+    max-width: 56rem;
+    margin: 0 auto;
+  }
+
+  .masthead {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #4a3d2e;
+    margin-bottom: 0.75rem;
+  }
+
+  .site-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #faf8f4;
+    text-decoration: none;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .site-tagline {
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    color: #9a8d7a;
+    letter-spacing: 0.05em;
+  }
+
+  nav {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  nav a {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    color: #c0b49e;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  nav a:hover, nav a.active { color: #faf8f4; }
+
+  main {
+    max-width: 56rem;
+    margin: 2.5rem auto;
+    padding: 0 2rem;
+  }
+
+  .section-rule {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .section-rule span {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .section-rule::before, .section-rule::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .post-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .post-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 1.5rem;
+  }
+
+  .post-card.featured {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    border-top: 3px solid var(--accent);
+  }
+
+  .post-card.featured .card-label {
+    color: var(--accent);
+  }
+
+  .card-label {
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+  }
+
+  .card-title {
+    font-size: 1.2rem;
+    line-height: 1.3;
+    margin-bottom: 0.7rem;
+  }
+
+  .post-card.featured .card-title { font-size: 1.55rem; }
+
+  .card-title a { color: var(--text); text-decoration: none; }
+  .card-title a:hover { color: var(--accent); }
+
+  .card-summary {
+    font-size: 0.9rem;
+    color: #5a4e3d;
+    line-height: 1.65;
+    margin-bottom: 1rem;
+  }
+
+  .card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    padding-top: 0.75rem;
+    margin-top: auto;
+  }
+
+  .card-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+
+  .tag {
+    font-family: var(--sans);
+    font-size: 0.68rem;
+    color: var(--accent2);
+    text-decoration: none;
+    border: 1px solid #b5d4c6;
+    padding: 0.15rem 0.45rem;
+    border-radius: 2px;
+  }
+
+  .post-list-section { margin-top: 1.5rem; }
+
+  .list-item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: baseline;
+  }
+
+  .list-date {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    color: var(--muted);
+    min-width: 6.5rem;
+  }
+
+  .list-title { font-size: 1rem; line-height: 1.4; }
+  .list-title a { color: var(--text); text-decoration: none; }
+  .list-title a:hover { color: var(--accent); }
+  .list-tag {
+    margin-left: 0.5rem;
+    font-family: var(--sans);
+    font-size: 0.68rem;
+    color: var(--muted);
+  }
+
+  footer {
+    background: var(--text);
+    padding: 2rem;
+    margin-top: 4rem;
+  }
+
+  .footer-inner {
+    max-width: 56rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    color: #9a8d7a;
+  }
+
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { color: #9a8d7a; text-decoration: none; }
+  .footer-links a:hover { color: #faf8f4; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="masthead">
+      <div>
+        <a href="/" class="site-title">Software Pendula</a>
+        <div class="site-tagline">A solutions architect's notebook</div>
+      </div>
+      <div class="footer-links" style="padding-bottom: 0.2rem;">
+        <a href="#" style="color: #9a8d7a; text-decoration: none; font-family: system-ui; font-size: 0.78rem;">GitHub</a>
+        <a href="#" style="color: #9a8d7a; text-decoration: none; font-family: system-ui; font-size: 0.78rem;">LinkedIn</a>
+      </div>
+    </div>
+    <nav>
+      <a href="/post/" class="active">Posts</a>
+      <a href="/news/">News Digest</a>
+      <a href="/tags/">Tags</a>
+      <a href="/about/">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="section-rule"><span>Recent Writing</span></div>
+
+  <div class="post-grid">
+    <div class="post-card featured">
+      <div>
+        <div class="card-label">Latest · 25 Dec 2023</div>
+        <h2 class="card-title"><a href="#">Reflections on AI Progress (1995–2023)</a></h2>
+        <p class="card-summary">A personal journey through nearly three decades of AI development — from rule-based expert systems to the transformer revolution, and what it all means for software architects today.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; justify-content: space-between;">
+        <p class="card-summary">The pace of change in AI over the past two years alone has been unlike anything I've seen in my career. We went from "AI can write boilerplate" to "AI can architect systems" in the span of a few product releases.</p>
+        <div class="card-meta">
+          <span>8 min read</span>
+          <div class="card-tags">
+            <a href="#" class="tag">ai</a>
+            <a href="#" class="tag">musings</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="post-card">
+      <div class="card-label">12 Nov 2023</div>
+      <h2 class="card-title"><a href="#">Are Compiled Languages Making a Comeback?</a></h2>
+      <p class="card-summary">With Go, Rust, and Zig gaining ground, the pendulum is swinging back toward compiled, type-safe languages after years of scripting dominance.</p>
+      <div class="card-meta">
+        <span>5 min read</span>
+        <div class="card-tags">
+          <a href="#" class="tag">golang</a>
+          <a href="#" class="tag">tech</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="post-card">
+      <div class="card-label">3 Sep 2023</div>
+      <h2 class="card-title"><a href="#">Kubernetes at the Edge: Lessons from the Field</a></h2>
+      <p class="card-summary">Running K8s in constrained environments forces you to rethink every assumption about scheduling, networking, and resource limits.</p>
+      <div class="card-meta">
+        <span>6 min read</span>
+        <div class="card-tags">
+          <a href="#" class="tag">k8s</a>
+          <a href="#" class="tag">tech</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-rule"><span>Archive</span></div>
+
+  <div class="post-list-section">
+    <div class="list-item">
+      <span class="list-date">14 Jul 2023</span>
+      <span class="list-title"><a href="#">Software Pendula</a><span class="list-tag">#musings</span></span>
+    </div>
+    <div class="list-item">
+      <span class="list-date">2 May 2023</span>
+      <span class="list-title"><a href="#">Technical Debt is a Tax, Not a Loan</a><span class="list-tag">#tech</span></span>
+    </div>
+    <div class="list-item">
+      <span class="list-date">18 Jan 2023</span>
+      <span class="list-title"><a href="#">JavaScript: A Love/Hate Retrospective</a><span class="list-tag">#tech</span><span class="list-tag">#musings</span></span>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span>© 2024 Elroy Parkinson</span>
+    <div class="footer-links">
+      <a href="#">GitHub</a>
+      <a href="#">Twitter</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">RSS</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

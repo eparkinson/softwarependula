@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Theme 4 — Slate Modern</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f1f5f9;
+    --white: #ffffff;
+    --border: #e2e8f0;
+    --text: #0f172a;
+    --body: #334155;
+    --muted: #94a3b8;
+    --accent: #0f766e;
+    --accent-light: #f0fdfb;
+    --accent-border: #99f6e4;
+    --tag-bg: #e0f2fe;
+    --tag-color: #0369a1;
+    --sans: system-ui, -apple-system, sans-serif;
+    --mono: 'Menlo', 'Consolas', monospace;
+  }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--body);
+    line-height: 1.65;
+  }
+
+  header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+  }
+
+  .header-inner {
+    max-width: 58rem;
+    margin: 0 auto;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    height: 3.5rem;
+  }
+
+  .site-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid transparent;
+    letter-spacing: -0.02em;
+  }
+
+  .title-slash {
+    color: var(--accent);
+    font-weight: 300;
+    margin: 0 0.1rem;
+  }
+
+  nav {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  nav a {
+    display: flex;
+    align-items: center;
+    font-size: 0.83rem;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0 1rem;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  nav a:hover { color: var(--text); border-bottom-color: var(--border); }
+  nav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  main {
+    max-width: 58rem;
+    margin: 2rem auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: 1fr 16rem;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .posts-column { min-width: 0; }
+
+  .post-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: box-shadow 0.2s;
+  }
+
+  .post-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+
+  .post-card.featured {
+    border-left: 3px solid var(--accent);
+    background: var(--accent-light);
+    border-color: var(--accent-border);
+  }
+
+  .post-card .card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.6rem;
+  }
+
+  .card-date {
+    font-size: 0.73rem;
+    color: var(--muted);
+    font-family: var(--mono);
+  }
+
+  .reading-time {
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+
+  .post-card h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+
+  .post-card h2 a { color: inherit; text-decoration: none; }
+  .post-card h2 a:hover { color: var(--accent); }
+
+  .post-card p {
+    font-size: 0.875rem;
+    color: var(--body);
+    line-height: 1.65;
+    margin-bottom: 1rem;
+  }
+
+  .tags { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+
+  .tag {
+    font-size: 0.68rem;
+    font-weight: 500;
+    background: var(--tag-bg);
+    color: var(--tag-color);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+  }
+
+  .tag.teal {
+    background: #ccfbf1;
+    color: #0f766e;
+  }
+
+  .read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.8rem;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    margin-top: 0.25rem;
+  }
+
+  .read-more:hover { text-decoration: underline; }
+
+  /* Sidebar */
+  .sidebar { position: sticky; top: 1rem; }
+
+  .sidebar-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+
+  .sidebar-header {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+
+  .sidebar-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.83rem;
+    text-decoration: none;
+    color: var(--body);
+    transition: background 0.12s;
+  }
+
+  .sidebar-item:last-child { border-bottom: none; }
+  .sidebar-item:hover { background: var(--bg); color: var(--accent); }
+
+  .sidebar-count {
+    font-size: 0.7rem;
+    color: var(--muted);
+    background: var(--bg);
+    padding: 0.15rem 0.45rem;
+    border-radius: 999px;
+  }
+
+  .about-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem;
+    font-size: 0.83rem;
+    line-height: 1.6;
+    color: var(--body);
+  }
+
+  .about-card strong {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+
+  footer {
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    padding: 1.25rem 2rem;
+    margin-top: 3rem;
+  }
+
+  .footer-inner {
+    max-width: 58rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  .footer-links { display: flex; gap: 1.25rem; }
+  .footer-links a { color: var(--muted); text-decoration: none; }
+  .footer-links a:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="/" class="site-title">
+      <span class="title-slash">/</span>software<span class="title-slash">·</span>pendula
+    </a>
+    <nav>
+      <a href="/post/" class="active">Posts</a>
+      <a href="/news/">News</a>
+      <a href="/tags/">Tags</a>
+      <a href="/about/">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="posts-column">
+    <div class="post-card featured">
+      <div class="card-meta">
+        <span class="card-date">2023-12-25</span>
+        <span class="reading-time">8 min read</span>
+      </div>
+      <h2><a href="#">Reflections on AI Progress (1995–2023)</a></h2>
+      <p>A personal journey through nearly three decades of AI development — from rule-based expert systems to the transformer revolution, and what it means for software architects navigating the current landscape.</p>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="tags">
+          <a href="#" class="tag teal">ai</a>
+          <a href="#" class="tag teal">musings</a>
+          <a href="#" class="tag teal">tech</a>
+        </div>
+        <a href="#" class="read-more">Read more →</a>
+      </div>
+    </div>
+
+    <div class="post-card">
+      <div class="card-meta">
+        <span class="card-date">2023-11-12</span>
+        <span class="reading-time">5 min read</span>
+      </div>
+      <h2><a href="#">Are Compiled Languages Making a Comeback?</a></h2>
+      <p>With Go, Rust, and Zig gaining ground, the pendulum is swinging back toward compiled, type-safe languages after years of dynamic scripting dominance.</p>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="tags">
+          <a href="#" class="tag">golang</a>
+          <a href="#" class="tag">tech</a>
+        </div>
+        <a href="#" class="read-more">Read more →</a>
+      </div>
+    </div>
+
+    <div class="post-card">
+      <div class="card-meta">
+        <span class="card-date">2023-09-03</span>
+        <span class="reading-time">6 min read</span>
+      </div>
+      <h2><a href="#">Kubernetes at the Edge: Lessons from the Field</a></h2>
+      <p>Running K8s in constrained environments forces you to rethink every assumption about scheduling, networking, and resource limits.</p>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="tags">
+          <a href="#" class="tag">k8s</a>
+          <a href="#" class="tag">tech</a>
+        </div>
+        <a href="#" class="read-more">Read more →</a>
+      </div>
+    </div>
+
+    <div class="post-card">
+      <div class="card-meta">
+        <span class="card-date">2023-07-14</span>
+        <span class="reading-time">3 min read</span>
+      </div>
+      <h2><a href="#">Software Pendula</a></h2>
+      <p>The name of this blog is a metaphor for the oscillating trends in software development — frameworks rise and fall, paradigms shift.</p>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="tags">
+          <a href="#" class="tag">musings</a>
+          <a href="#" class="tag">personal</a>
+        </div>
+        <a href="#" class="read-more">Read more →</a>
+      </div>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="about-card" style="margin-bottom: 1rem;">
+      <strong>Elroy Parkinson</strong>
+      Solutions architect with 20+ years in IT. Writing about software, architecture, cloud, and the occasional tangent.
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-header">Topics</div>
+      <a href="#" class="sidebar-item">tech <span class="sidebar-count">8</span></a>
+      <a href="#" class="sidebar-item">musings <span class="sidebar-count">5</span></a>
+      <a href="#" class="sidebar-item">k8s <span class="sidebar-count">2</span></a>
+      <a href="#" class="sidebar-item">ai <span class="sidebar-count">2</span></a>
+      <a href="#" class="sidebar-item">golang <span class="sidebar-count">1</span></a>
+      <a href="#" class="sidebar-item">java <span class="sidebar-count">1</span></a>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-header">News Digest</div>
+      <a href="#" class="sidebar-item">Latest digest →</a>
+    </div>
+  </aside>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span>© 2024 Elroy Parkinson · Powered by Hugo</span>
+    <div class="footer-links">
+      <a href="#">GitHub</a>
+      <a href="#">Twitter</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">RSS</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

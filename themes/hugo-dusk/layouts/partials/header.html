@@ -7,23 +7,26 @@
 <div class="main">
 <header>
 
-<div class="header-bar">
+  <div class="header-top">
+    <span class="header-top-date">{{ now.Format "Monday, 2 January 2006" }}</span>
+    <div>
+      {{with .Site.Params.github}}<a href="https://github.com/{{.}}" target="_blank" class="header-social">GitHub</a>{{end}}
+      {{with .Site.Params.linkedin}}<a href="https://www.linkedin.com/in/{{.}}" target="_blank" class="header-social">LinkedIn</a>{{end}}
+      {{with .Site.Params.twitter}}<a href="https://twitter.com/{{.}}" target="_blank" class="header-social">Twitter</a>{{end}}
+      {{with .Site.Params.email}}<a href="mailto:{{.}}" class="header-social">Email</a>{{end}}
+    </div>
+  </div>
 
-  <nav>
-    <div class="siteTitle">
-      <a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
-    </div> <!--siteTitle-->
+  <div class="header-masthead">
+    <div class="siteTitle"><a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a></div>
+    {{ with .Site.Params.siteTagline }}<p class="site-tagline">{{ . }}</p>{{ end }}
+  </div>
 
+  <nav class="header-nav">
     {{ $currentPage := . }}
     {{ range .Site.Menus.main }}
     <a class="nav-item{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}" href="{{.URL}}"><div class="nav-item-title">{{ .Name }}</div></a>
     {{ end }}
-
   </nav>
-
-  {{ partial "social-links.html" . }}
-
-</div>
-
 
 </header>

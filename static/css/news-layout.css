@@ -1,29 +1,30 @@
-/* News section layout styles */
+/* News section layout — Warm Editorial theme */
 
-/* Main container for news pages */
 .news-container {
   position: relative;
-  max-width: 42em;
+  max-width: 58rem;
   margin: 0 auto;
-  padding: 0 1em;
+  padding: 0 2rem;
 }
 
-/* Sidebar styling - positioned to the left of content */
+/* Sidebar */
 .news-sidebar {
   position: fixed;
   left: 0;
-  top: 120px;
-  width: 150px;
-  height: fit-content;
-  padding: 1em;
-  border-right: 1px solid #444;
+  top: 160px;
+  width: 160px;
+  padding: 1em 1em 1em 1.25em;
+  border-right: 1px solid var(--border, #e5ded2);
 }
 
 .news-sidebar h3 {
   margin-top: 0;
-  font-size: 1em;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: var(--muted, #8a7d6b);
   margin-bottom: 0.8em;
-  font-weight: bold;
 }
 
 .news-sidebar ul {
@@ -34,43 +35,53 @@
 
 .news-sidebar li {
   margin-bottom: 0.4em;
-  font-size: 0.9em;
 }
 
-/* Main content area - same width as home page */
-.news-content {
-  width: 100%;
+.news-sidebar a {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.82rem;
+  color: var(--body, #4a3d2e);
+  text-decoration: none;
 }
 
-/* Individual news story cards */
+.news-sidebar a:hover {
+  color: var(--accent, #c2430a);
+  text-decoration: underline;
+}
+
+/* Main content */
+.news-content { width: 100%; }
+
+/* Story cards */
 .news-story-card {
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid #444;
-  border-radius: 8px;
+  background: var(--card, #ffffff);
+  border: 1px solid var(--border, #e5ded2);
+  border-radius: 4px;
   padding: 1.5em;
   margin-bottom: 1.5em;
+  box-shadow: 0 1px 4px rgba(45, 36, 23, 0.06);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .news-story-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(45, 36, 23, 0.12);
 }
 
 .news-story-card h3 {
   margin-top: 0;
   margin-bottom: 0.5em;
-  color: #a8d08d;
+  color: var(--accent2, #1a6b4a);
+  font-size: 1.05rem;
 }
 
 .news-story-card p {
   margin-bottom: 0.8em;
-  line-height: 1.6;
+  line-height: 1.7;
+  color: var(--body, #4a3d2e);
 }
 
-.news-story-card strong {
-  color: #ddd;
-}
+.news-story-card strong { color: var(--text, #2d2417); }
 
 .news-story-card ul {
   margin-top: 0.5em;
@@ -78,27 +89,25 @@
 }
 
 .news-story-card a {
-  color: #6c9bcf;
+  color: var(--accent, #c2430a);
   text-decoration: none;
 }
 
-.news-story-card a:hover {
-  text-decoration: underline;
-}
+.news-story-card a:hover { text-decoration: underline; }
 
-/* Category headers within daily digest */
+/* Category headers */
 .news-category-header {
-  background-color: rgba(168, 208, 141, 0.1);
-  border-left: 4px solid #a8d08d;
+  background: rgba(26, 107, 74, 0.06);
+  border-left: 4px solid var(--accent2, #1a6b4a);
   padding: 0.8em 1em;
-  margin: 2em 0 1em 0;
-  border-radius: 4px;
+  margin: 2em 0 1em;
+  border-radius: 0 4px 4px 0;
 }
 
 .news-category-header h2 {
   margin: 0;
-  color: #a8d08d;
-  font-size: 1.5em;
+  color: var(--accent2, #1a6b4a);
+  font-size: 1.3em;
 }
 
 /* Daily digest header */
@@ -106,40 +115,36 @@
   text-align: center;
   margin-bottom: 2em;
   padding-bottom: 1em;
-  border-bottom: 2px solid #444;
+  border-bottom: 2px solid var(--border, #e5ded2);
 }
 
 .daily-digest-header h1 {
   margin-bottom: 0.3em;
+  color: var(--text, #2d2417);
 }
 
 .daily-digest-header .date {
-  font-size: 0.9em;
-  color: #999;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.85rem;
+  color: var(--muted, #8a7d6b);
 }
 
-/* Responsive design */
+/* Responsive */
 @media (max-width: 900px) {
   .news-sidebar {
     position: static;
     width: 100%;
     border-right: none;
-    border-top: 1px solid #444;
+    border-bottom: 1px solid var(--border, #e5ded2);
     padding: 1em 0;
-    margin-top: 2em;
+    margin-bottom: 1.5em;
   }
-  
-  .news-content {
-    width: 100%;
-  }
+
+  .news-sidebar ul { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .news-sidebar li { margin-bottom: 0; }
 }
 
 @media (max-width: 600px) {
-  .news-container {
-    padding: 0 0.5em;
-  }
-  
-  .news-story-card {
-    padding: 1em;
-  }
+  .news-container { padding: 0 1rem; }
+  .news-story-card { padding: 1em; }
 }

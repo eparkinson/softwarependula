@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Theme 3 — Soft Dark</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #1c1e26;
+    --surface: #252831;
+    --card: #2a2d38;
+    --border: #363a48;
+    --text: #e2e4ec;
+    --muted: #8b90a8;
+    --accent: #a78bfa;
+    --accent2: #34d399;
+    --accent-glow: rgba(167, 139, 250, 0.12);
+    --font: system-ui, -apple-system, sans-serif;
+  }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+  }
+
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    background: rgba(28, 30, 38, 0.92);
+    backdrop-filter: blur(12px);
+    z-index: 10;
+  }
+
+  .header-inner {
+    max-width: 54rem;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .site-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .title-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: inline-block;
+  }
+
+  nav { display: flex; gap: 0.25rem; }
+
+  nav a {
+    font-size: 0.85rem;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    transition: all 0.15s;
+  }
+
+  nav a:hover { color: var(--text); background: var(--card); }
+  nav a.active { color: var(--accent); background: var(--accent-glow); }
+
+  main {
+    max-width: 54rem;
+    margin: 2.5rem auto;
+    padding: 0 2rem;
+  }
+
+  .hero-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 12px 12px 0 0;
+  }
+
+  .hero-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-card h2 {
+    font-size: 1.45rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-card h2 a { color: var(--text); text-decoration: none; }
+  .hero-card h2 a:hover { color: var(--accent); }
+
+  .hero-summary {
+    color: var(--muted);
+    font-size: 0.925rem;
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  .tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+
+  .tag {
+    font-size: 0.72rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    text-decoration: none;
+    background: rgba(167, 139, 250, 0.12);
+    color: var(--accent);
+    border: 1px solid rgba(167, 139, 250, 0.2);
+  }
+
+  .tag.green {
+    background: rgba(52, 211, 153, 0.1);
+    color: var(--accent2);
+    border-color: rgba(52, 211, 153, 0.2);
+  }
+
+  .post-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .post-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    transition: border-color 0.2s;
+  }
+
+  .post-card:hover { border-color: rgba(167, 139, 250, 0.35); }
+
+  .post-card h3 {
+    font-size: 0.975rem;
+    font-weight: 600;
+    line-height: 1.35;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .post-card h3 a { color: var(--text); text-decoration: none; }
+  .post-card h3 a:hover { color: var(--accent); }
+
+  .post-card p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .post-meta {
+    font-size: 0.73rem;
+    color: #5e6380;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    padding-top: 0.75rem;
+  }
+
+  .archive {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .archive-header {
+    padding: 0.75rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+
+  .archive-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.875rem;
+    text-decoration: none;
+    color: var(--text);
+    transition: background 0.15s;
+  }
+
+  .archive-item:last-child { border-bottom: none; }
+  .archive-item:hover { background: var(--card); }
+
+  .archive-item-date {
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  .archive-item-tags { display: flex; gap: 0.3rem; }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    margin-top: 4rem;
+  }
+
+  .footer-inner {
+    max-width: 54rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  .footer-links { display: flex; gap: 1.25rem; }
+  .footer-links a { color: var(--muted); text-decoration: none; }
+  .footer-links a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="/" class="site-title">
+      <span class="title-dot"></span>
+      Software Pendula
+    </a>
+    <nav>
+      <a href="/post/" class="active">Posts</a>
+      <a href="/news/">News</a>
+      <a href="/tags/">Tags</a>
+      <a href="/about/">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero-card">
+    <div class="hero-label">Latest post · 25 Dec 2023 · 8 min read</div>
+    <h2><a href="#">Reflections on AI Progress (1995–2023)</a></h2>
+    <p class="hero-summary">A personal journey through nearly three decades of AI development — from rule-based expert systems to the transformer revolution, and what it means for software architects navigating the current landscape.</p>
+    <div class="card-footer">
+      <div class="tags">
+        <a href="#" class="tag">ai</a>
+        <a href="#" class="tag">musings</a>
+        <a href="#" class="tag">tech</a>
+      </div>
+      <span>Continue reading →</span>
+    </div>
+  </div>
+
+  <div class="post-grid">
+    <div class="post-card">
+      <h3><a href="#">Are Compiled Languages Making a Comeback?</a></h3>
+      <p>With Go, Rust, and Zig gaining ground, the pendulum is swinging back toward compiled, type-safe languages after years of scripting dominance.</p>
+      <div class="post-meta">
+        <span>12 Nov 2023</span>
+        <div class="tags">
+          <a href="#" class="tag green">golang</a>
+          <a href="#" class="tag green">tech</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="post-card">
+      <h3><a href="#">Kubernetes at the Edge: Lessons from the Field</a></h3>
+      <p>Running K8s in constrained environments forces you to rethink every assumption about scheduling, networking, and resource limits.</p>
+      <div class="post-meta">
+        <span>3 Sep 2023</span>
+        <div class="tags">
+          <a href="#" class="tag green">k8s</a>
+          <a href="#" class="tag green">tech</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="post-card">
+      <h3><a href="#">Software Pendula</a></h3>
+      <p>The name of this blog is a metaphor for the oscillating trends in software — frameworks rise and fall, and we're always somewhere on the arc.</p>
+      <div class="post-meta">
+        <span>14 Jul 2023</span>
+        <div class="tags">
+          <a href="#" class="tag">musings</a>
+          <a href="#" class="tag">personal</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="post-card">
+      <h3><a href="#">Technical Debt is a Tax, Not a Loan</a></h3>
+      <p>The loan metaphor implies you can pay it back. The tax metaphor is more honest — you keep paying it indefinitely, whether you choose to or not.</p>
+      <div class="post-meta">
+        <span>2 May 2023</span>
+        <div class="tags">
+          <a href="#" class="tag">tech</a>
+          <a href="#" class="tag">musings</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="archive">
+    <div class="archive-header">Older posts</div>
+    <a href="#" class="archive-item">
+      <span>JavaScript: A Love/Hate Retrospective</span>
+      <span class="archive-item-date">18 Jan 2023</span>
+    </a>
+    <a href="#" class="archive-item">
+      <span>Why I Switched from Java to Go for New Projects</span>
+      <span class="archive-item-date">5 Oct 2022</span>
+    </a>
+    <a href="#" class="archive-item">
+      <span>Setting Up Asterisk for Home Office VoIP</span>
+      <span class="archive-item-date">12 Mar 2022</span>
+    </a>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span>© 2024 Elroy Parkinson</span>
+    <div class="footer-links">
+      <a href="#">GitHub</a>
+      <a href="#">Twitter</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">RSS</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
