@@ -321,6 +321,38 @@ describe('Static Site Tests', () => {
       // A target without closest() must not throw either.
       expect(eventsAfterClick({})).toEqual([]);
     });
+
+    test('a click on the footer email link should send contact_click with method email', () => {
+      const html = fs.readFileSync(path.join(PUBLIC_DIR, 'index.html'), 'utf-8');
+      const href = cheerio.load(html)('footer.site-footer a[href^="mailto:"]').attr('href');
+
+      expect(eventsAfterClick(insideLinkTo(href))).toEqual([
+        ['event', 'contact_click', { method: 'email' }]
+      ]);
+    });
+  });
+
+  describe('Contact Link Tests', () => {
+    test('every page with the site footer should link to the email address in config.toml', () => {
+      const config = fs.readFileSync(path.join(__dirname, '../config.toml'), 'utf-8');
+      const email = config.match(/^\s*email\s*=\s*"([^"]+)"/m)[1];
+      const pagesWithoutLink = [];
+      let pagesWithFooter = 0;
+
+      htmlFiles.forEach(file => {
+        const html = fs.readFileSync(path.join(PUBLIC_DIR, file), 'utf-8');
+        const $ = cheerio.load(html);
+        if ($('footer.site-footer').length === 0) return;
+
+        pagesWithFooter++;
+        if ($(`footer.site-footer a[href="mailto:${email}"]`).length !== 1) {
+          pagesWithoutLink.push(file);
+        }
+      });
+
+      expect(pagesWithFooter).toBeGreaterThan(0);
+      expect(pagesWithoutLink).toEqual([]);
+    });
   });
 
   describe('HTML Validation Tests', () => {
