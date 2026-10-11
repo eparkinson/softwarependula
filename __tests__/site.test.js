@@ -51,6 +51,19 @@ describe('Static Site Tests', () => {
       const has404 = htmlFiles.some(file => file.includes('404'));
       expect(has404).toBe(true);
     });
+
+    // CloudFront answers any missing address with /404.html (tools/error-pages.sh), so the
+    // page is shown under addresses of any depth: a relative link would point somewhere else
+    // each time.
+    test('404.html should only use addresses that work from any path', () => {
+      const $ = cheerio.load(fs.readFileSync(path.join(PUBLIC_DIR, '404.html'), 'utf-8'));
+      const relative = [];
+      $('[href], [src]').each((i, elem) => {
+        const url = $(elem).attr('href') || $(elem).attr('src');
+        if (!/^(https?:)?\/\/|^\/|^mailto:|^#|^data:/.test(url)) relative.push(url);
+      });
+      expect(relative).toEqual([]);
+    });
   });
 
   describe('Broken Links Tests', () => {
