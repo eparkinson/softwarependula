@@ -94,7 +94,7 @@ The news digest section and the warm-editorial theme redesign were experiments. 
 Two workflows in `.github/workflows/`:
 
 - **Staging** (`aws-deploy-staging.yml`): auto-triggered on push to `main`. Builds with `--baseURL "https://staging.softwarependula.net"`, syncs to `s3://staging.softwarependula.net`, and invalidates CloudFront distribution `E3TETIEU2CNJME`.
-- **Live** (`aws-deploy-live.yml`): **manual only** (`workflow_dispatch`). Builds with the default `baseURL` from `config.toml` and syncs to `s3://bz-build-repository/live/www.softwarependula.net`. Does not invalidate CloudFront — expect a cache delay after promoting.
+- **Live** (`aws-deploy-live.yml`): **manual only** (`workflow_dispatch`, e.g. `gh workflow run aws-deploy-live.yml --ref main`). Builds with the default `baseURL` from `config.toml` and syncs to `s3://www.softwarependula.net`, the bucket the live site is served from, after first keeping a copy in `s3://bz-build-repository/live/www.softwarependula.net`. CloudFront in front of the live bucket does not cache, so changes show at once and there is no invalidation step. (Until 2026-10-11 the workflow only wrote the build-repository copy, so running it did not change the site.)
 
 Both workflows `sudo apt-get install hugo` (Ubuntu's packaged Hugo, which may not be exactly 0.79.1) rather than pinning a version. The `Dockerfile` is the version-pinned path.
 

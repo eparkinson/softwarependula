@@ -21,9 +21,9 @@ Software Pendula is a personal blog built with Hugo, a static site generator. Th
 ### Infrastructure
 - **Cloud Platform**: AWS (Amazon Web Services)
 - **Storage**: AWS S3 buckets
-  - Live: `s3://bz-build-repository/live/www.softwarependula.net`
+  - Live: `s3://www.softwarependula.net` (a copy of each build is also kept in `s3://bz-build-repository/live/www.softwarependula.net`)
   - Staging: `s3://staging.softwarependula.net`
-- **CDN**: AWS CloudFront (Distribution ID: E3TETIEU2CNJME)
+- **CDN**: AWS CloudFront (staging distribution ID: E3TETIEU2CNJME; the live distribution does not cache)
 - **CI/CD**: GitHub Actions
 - **Region**: us-east-1
 
