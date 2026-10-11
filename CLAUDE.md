@@ -27,7 +27,6 @@ npx jest -t "should not have broken internal links"
 
 # Create new content
 hugo new post/my-new-post.md
-hugo new news/YYYYMM/YYYY-MM-DD.md
 ```
 
 Hugo version is pinned to **0.79.1** in the `Dockerfile` and used by the GitHub Actions workflows. Newer Hugo versions may break the build or the `hugo-dusk` theme — match this version when reproducing CI behaviour locally.
@@ -37,7 +36,6 @@ Hugo version is pinned to **0.79.1** in the `Dockerfile` and used by the GitHub 
 ### Content model
 
 - `content/post/` — blog posts (one file per post, TOML front matter with `+++` delimiters is common).
-- `content/news/YYYYMM/YYYY-MM-DD.md` — daily news digest entries, grouped into month folders. Each month folder has an `_index.md` that makes it a Hugo section.
 - `content/about.md` — About page.
 - `archetypes/default.md` — template used by `hugo new`.
 
@@ -49,15 +47,16 @@ Drafts in `content/post/` use the filename suffix `.md.draft` (e.g. `aisoccer.md
 
 The theme `themes/hugo-dusk/` is a vendored third-party theme. Customizations live in the repo root and override the theme by Hugo's lookup order:
 
-- `layouts/news/{list,single}.html` — custom news section layout (archive sidebar, "latest digest" on `/news/` landing page, month-grouped listings). This overrides the theme's default section templates.
-- `static/css/news-layout.css`, `static/js/news-cards.js` — assets consumed by the news layout.
-- `static/` — other site-wide static assets (images, papers PDFs).
+- `layouts/shortcodes/video.html` — embeds a self-hosted MP4: `{{< video src="/videos/<folder>/<file>.mp4" caption="..." >}}`. Videos live under `static/videos/`.
+- `static/` — other site-wide static assets (images, videos, papers PDFs).
 
-When changing news-section styling or behaviour, edit files under `layouts/news/` and `static/` — do not edit the theme directly.
+Add new layouts and shortcodes under `layouts/` in the repo root — do not edit the theme directly. The only edits inside the theme are two small Hugo compatibility fixes (`head.html`, `social-links-footer.html`).
+
+The news digest section and the warm-editorial theme redesign were experiments. They were removed from `main` on 2026-10-11 and are kept on the `experimental-redesign-news` branch.
 
 ### Config
 
-`config.toml` is the single Hugo configuration. Notable settings: `paginate = 3`, theme `hugo-dusk` with `theme_colors = "default-dark"`, Chroma syntax highlighting with `fruity` style, Disqus shortname `software-pendula`, tag taxonomy, and a fixed top menu (Posts / News / Tags).
+`config.toml` is the single Hugo configuration. Notable settings: `paginate = 3`, theme `hugo-dusk` with `theme_colors = "default-dark"`, Chroma syntax highlighting with `fruity` style, Disqus shortname `software-pendula`, tag taxonomy, and a fixed top menu (Posts / Tags).
 
 ### Tests
 
@@ -78,6 +77,5 @@ Both workflows `sudo apt-get install hugo` (Ubuntu's packaged Hugo, which may no
 
 ## Conventions
 
-- News digest entries follow a consistent structure: H2 category headers (e.g. `## AI News`, `## International News`) with H3 stories and a `**Sources:**` list. The custom layout wraps these H2s with a `news-category-header` div via regex — preserve that heading shape when editing.
 - Post front matter uses TOML (`+++` delimiters) historically; the `hugo new` archetype generates YAML (`---`). Either works; match the surrounding file's style when editing an existing post.
 - Do not commit `public/`, `node_modules/`, `package-lock.json`, `hugo` binary tarballs, or anything matching `**/secret*` — all are gitignored.

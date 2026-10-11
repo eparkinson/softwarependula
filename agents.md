@@ -36,7 +36,6 @@ Software Pendula is a personal blog built with Hugo, a static site generator. Th
 ├── archetypes/             # Hugo content templates
 ├── content/                # Blog content (markdown files)
 │   ├── post/              # Blog posts
-│   ├── news/              # News digest entries
 │   └── about.md           # About page
 ├── layouts/               # Custom Hugo templates
 ├── static/                # Static assets (images, CSS, JS)
@@ -102,8 +101,7 @@ docker build -t softwarependula .
 
 ### Menu Structure
 1. Posts (`/post/`) - Weight: -120
-2. News (`/news/`) - Weight: -115
-3. Tags (`/tags/`) - Weight: -110
+2. Tags (`/tags/`) - Weight: -110
 
 ### Social Links
 - GitHub: eparkinson
@@ -119,11 +117,6 @@ docker build -t softwarependula .
   - `title`: Post title
   - `tags`: Array of tags
   - `date`: Publication date (YYYY-MM-DD)
-
-### News Entries
-- Location: `content/news/YYYYMM/`
-- Format: Daily news digest format
-- Organized by year-month folders
 
 ## Key Features
 
@@ -144,13 +137,6 @@ docker build -t softwarependula .
 hugo new post/my-new-post.md
 # Edit content/post/my-new-post.md
 # Commit and push to trigger staging deployment
-```
-
-### Adding News Entries
-```bash
-hugo new news/YYYYMM/YYYY-MM-DD.md
-# Edit content/news/YYYYMM/YYYY-MM-DD.md
-# Commit and push
 ```
 
 ### Updating Theme
