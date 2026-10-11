@@ -19,7 +19,7 @@ A large number of Asterisk installations seem to be PBX (private branch exchange
 The Asterisk Quick Start Guide describes the installation process but has one or two gotchas which I'll point out here. First lets's download the latest Asterisk version (11.0 LTS) and install it. (I'm using Ubuntu 12.10).
 
 Execute the following as root:
-```
+```shell
 cd /usr/src
 sudo wget http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-11-current.tar.gz
 tar -zxvf asterisk-11-current.tar.gz
@@ -29,7 +29,7 @@ cd asterisk-11.3.0
 The first gotcha is that, at time of writing, the latest "Quick Start Guide" downloads Asterisk 1.8.16 instead of the latest stable version 11.3
 
 Next, we build Asterisk:
-```
+```shell
 ./configure
 make
 make install
@@ -42,14 +42,14 @@ That is it. Asterisk is now compiled and installed. Optionally, you can also run
 Asterisk loads configuration files from the /etc/asterisk directory on Ubuntu. This directory will be empty if you did not install the Asterisk sample files. First, we need to load the required Asterisk modules. For development purposes, the easiest is to use autoloading to load all available Asterisk modules.
 
 Create file /etc/asterisk/modules.conf using your favourite text editor (gedit is the easiest to use if you do not have a favourite):
-```
+```ini
 [modules]
 autoload=yes
 ```
 Another gotcha - the Quick Start Guide loads a simple bare-bones set of modules instead of auto loading all in which case a lot of simple Asterisk scripts you may come across including our "hello world" sample below will not run.
 
 Next, we'll create two basic sip accounts by creating file /etc/asterisk/sip.conf:
-```
+```ini
 [4001]
 type=friend
 host=dynamic
@@ -63,7 +63,7 @@ secret= pwd4002
 context=demo
 ```
 And to allow these two extensions to call each other, we need to create file /etc/asterisk/extensions.conf:
-```
+```ini
 [demo]
 exten => 4001,1,Dial(SIP/4001)
 exten => 4002,1,Dial(SIP/4002)
@@ -96,7 +96,7 @@ If you do not have a second PC available, fear not, the ubiquitous "hello world"
 The Asterisk installation comes with several prerecorded voice files by Allison Smith "the voice of Asterisk". You can find these voice files in /var/lib/asterisk/sounds/en and fortunately for us, it includes "Hello world" voiced by Allison herself.
 
 For our hello world sample we want to be able to dial some extension, say 101, have Asterisk answer, play the "hello world" voice file and then hang up. It turns out to be surprisingly simple with Dialplan, Asterisk's scripting language - at the bottom of /etc/asterisk/extensions.conf add the following three lines:
-```
+```ini
 exten => 101,1,Answer()
 same => n,Playback(hello-world)
 same => n,Hangup()
@@ -111,7 +111,7 @@ Now that we have the obligatory "hello world" out of the way let's get a little 
 ## Echo Test
 
 The Echo app simple echos sound that it receives back to the caller. Asterisk includes voice files explaining how to use Echo so we can simply play those before and after the Echo as appropriate and have this service run on extension 102 by adding the following at the bottom of extensions.conf:
-```
+```ini
 exten => 102,1,Answer()
    same => n,Playback(welcome)
    same => n,Playback(demo-echotest)
@@ -124,7 +124,7 @@ exten => 102,1,Answer()
 ## Say caller's extension
 
 SayAlpha() plays every letter and number of a string individually and the ${CALLERID(num)} variable contains the extension of the caller. We combine the two so that dialing extension 103 tells us what the extension is that we're calling from:
-```
+```ini
 exten => 103,1,Answer()
    same => n,SayAlpha(${CALLERID(num)})
 ```
@@ -132,14 +132,14 @@ exten => 103,1,Answer()
 ## Text to Speech
 
 Next, let's try running a simple text to speech script on extension 104. The Festival() Dialplan command uses the Linux text to speech utility "Festival" to translate text to speech. Festival is not the best text to speech package available, but it's free and it works. To use it, we need to make sure that Festival is installed and running in server mode on our Asterisk server before starting Asterisk (if Asterisk is running, stop and restart it):
-```
+```shell
 sudo apt-get install festival
 sudo festival --server
 ```
 
 We also need to configure Asterisk to know that festival is running locally on the default port. Create /etc/asterisk/festival.conf as follows:
 
-```
+```ini
 [general]
 host=localhost
 port=1314
@@ -147,7 +147,7 @@ port=1314
 
 Finally we modify extensions.conf with the dialplan script to have Festival read out text to us on extension 104:
 
-```
+```ini
 exten => 104,1,Answer()
    same => n,Festival('The quick brown fox jumps over the lazy dog')
    same => n,Festival('Good bye')
@@ -162,7 +162,7 @@ To develop a simple IVR we need to understand a few more Dialplan concepts. The 
 
 We will also put most of the IVR script in its own section (or context in Asterisk terminology) called "demo-menu" in this case so that our fake IVR extensions do not mix with extension that can be assigned to users. Below is the Dialplan script for our very simple IVR running on extension 105:
 
-```
+```ini
 ; This goes under the "demo" context with all the other script above
 ; When dialling 105, redirect the start of the demo-menu context
 exten => 105,1,Goto(demo-menu,s,1)

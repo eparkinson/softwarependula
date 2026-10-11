@@ -1,23 +1,18 @@
-{{- /* Sharing metadata. A post's card is static/images/og/<post file name>.png when that
-       file exists (tools/share-cards.py makes them); everything else uses the site card. */ -}}
+{{- /* Sharing metadata (Open Graph and Twitter cards). */ -}}
 {{- $page := .page -}}
-{{- $image := "images/og/site.png" -}}
-{{- if $page.IsPage }}{{ with $page.File }}
-  {{- $card := printf "images/og/%s.png" .ContentBaseName -}}
-  {{- if fileExists (printf "static/%s" $card) }}{{ $image = $card }}{{ end -}}
-{{ end }}{{ end -}}
-{{- $title := $page.Site.Title }}{{ if not $page.IsHome }}{{ $title = $page.Title }}{{ end -}}
 {{- $isPost := and $page.IsPage (eq $page.Section "post") -}}
+{{- $name := $page.Site.Title }}{{ if not $page.IsHome }}{{ $name = $page.Title }}{{ end -}}
 <meta property="og:site_name" content="{{ $page.Site.Title }}">
-<meta property="og:title" content="{{ $title }}">
+<meta property="og:title" content="{{ $name }}">
 <meta property="og:description" content="{{ .description }}">
 <meta property="og:type" content="{{ if $isPost }}article{{ else }}website{{ end }}">
 <meta property="og:url" content="{{ $page.Permalink }}">
-<meta property="og:image" content="{{ $image | absURL }}">
+<meta property="og:image" content="{{ .image | absURL }}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-{{ if $isPost }}<meta property="article:published_time" content="{{ $page.Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ end }}
+{{ if $isPost }}<meta property="article:published_time" content="{{ $page.Date.Format "2006-01-02T15:04:05Z07:00" }}">
+<meta property="article:modified_time" content="{{ $page.Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">{{ end }}
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{{ $title }}">
+<meta name="twitter:title" content="{{ $name }}">
 <meta name="twitter:description" content="{{ .description }}">
-<meta name="twitter:image" content="{{ $image | absURL }}">
+<meta name="twitter:image" content="{{ .image | absURL }}">

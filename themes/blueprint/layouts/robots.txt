@@ -1,0 +1,5 @@
+User-agent: *
+Disallow:
+{{ if not (in .Site.BaseURL "//staging.") }}
+Sitemap: {{ "sitemap.xml" | absURL }}
+{{ end }}

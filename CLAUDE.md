@@ -68,6 +68,15 @@ The news digest section and the warm-editorial theme redesign were experiments. 
 - `toc = true` / `toc = false` — force the contents list on or off. Without it, posts over 1,500 words with three or more headings get one.
 - Posts use `#` for section headings and `##` below that. The theme styles them as section and sub-section headings, smaller than the post title.
 
+### Search engines
+
+- Each page has one `<h1>`, its title in the blue band. `layouts/_default/_markup/render-heading.html` renders headings in the text one level down, so a post's `#` sections come out as `<h2>`.
+- `partials/head.html` sets the page title, the description (front matter `description`, else the opening words, else a line that fits the kind of page), the canonical URL and the share image. `partials/structured-data.html` adds JSON-LD: `BlogPosting` on posts, `WebSite` on the home page.
+- The staging build is kept out of search results: when the base URL contains `//staging.`, every page gets `noindex, nofollow` and `robots.txt` omits the sitemap line. The live build has neither restriction and lists `sitemap.xml`. The not-found page is always `noindex`.
+- Images written in Markdown are lazy-loaded (`render-image.html`). Give every image alt text: `![what it shows](/images/...)`.
+- Both deploy workflows check out the full git history so that `--enableGitInfo` gives each page its own last-modified date, used in the sitemap and the structured data.
+- Code blocks: give every fence a language (`python`, `shell`, `console` for terminal sessions with a prompt and output, `ini`, `yaml`, `java`, ...) so it is coloured.
+
 ### Share cards
 
 `python3 tools/share-cards.py` writes `static/images/og/<post file name>.png` for every post and `site.png` for everything else (needs Chromium or Chrome). The theme finds a post's card by file name. Run it after adding a post or changing a title, and commit the PNGs.

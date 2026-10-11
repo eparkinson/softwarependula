@@ -2,6 +2,7 @@
 title = "About"
 date = "2021-01-01"
 menu = "main"
+description = "About this blog and its author, Elroy Parkinson."
 weight = 100
 +++
 

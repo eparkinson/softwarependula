@@ -22,7 +22,7 @@ And for a long time, Java was King. But the pendulum swings. The pervasiveness o
 
 [The Tiobe index](https://www.tiobe.com/tiobe-index/) tracks the popularity of programming languages. It shows that while Java has managed to hold on to its number one ranking for much of the last two decades, its popularity has been eroded slowly but consistently over time.
 
-![](/images/compiled-languages/Java.png)
+![TIOBE index rating for Java from 2002 to 2021, falling from about 26% to about 11%](/images/compiled-languages/Java.png)
 
 A large part of the reason for Java's decline is just that different languages found their niche. C# was popular for windows GUI development. Javascript had a monopoly on browser-side code. Python found a home in data science and AI applications. C/C++ never lost its importance in the hearts and minds of operating systems and embedded software developers. Java still remained king in large enterprises where the idea of language standardisations to make it easy to move fungible developers between teams appeals to the bureaucrats. 
 
@@ -33,6 +33,6 @@ Go, invented at Google, found its niche, first inside Google, then as the langua
 
 Rust adoption has arguable been slower than Go's. But recently, talk around Rust's use in Linux and even in Linux's core has intensified. Another tracker of programming languages' popularity is [PYPL](https://pypl.github.io/PYPL.html). Not much has changed over the last 15 years amongst the top 5 (C/C++, C#, Java, Javascript and Python), other than Python being the big winner while Java has slowly been losing ground. See the image below.  
 
-![](/images/compiled-languages/PYPL.png)
+![PYPL popularity of C/C++, C#, Go, Java, JavaScript, Python and Rust from 2005 to 2021: Python overtakes Java around 2018, and Go and Rust climb from 2014](/images/compiled-languages/PYPL.png)
 
 The graph also shows the rapid growth of Go and Rust over the last five years. The appeal of compiled languages that approach the performance and efficiency of C/C++ while having none of its weaknesses, together with the ease of use of interpreted languages, is hard to resist. I think that the rapid growth of containerisation and Kubernetes as the default container orchestrator will, ensure the continued popularity of newer compiled languages outside of the traditional stronghold of C/C++ - systems and embedded programming. It also makes for an excellent topic for this blog, Software Pendula, to note that once again, the pendulum is in full swing back towards compiled languages - a class of programming languages that have been out of favour for so long.

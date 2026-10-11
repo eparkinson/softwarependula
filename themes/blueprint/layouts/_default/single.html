@@ -13,7 +13,7 @@
 <article class="article">
   {{ partial "series.html" . }}
   {{/* A contents list on long posts with sections; set `toc = true` or `toc = false` in front matter to override. */}}
-  {{ $showToc := and $isPost (gt .WordCount 1500) (ge (len (findRE "<h[12][ >]" .Content)) 3) }}
+  {{ $showToc := and $isPost (gt .WordCount 1500) (ge (len (findRE "<h[23][ >]" .Content)) 3) }}
   {{ if isset .Params "toc" }}{{ $showToc = .Params.toc }}{{ end }}
   {{ if $showToc }}
   <div class="toc">

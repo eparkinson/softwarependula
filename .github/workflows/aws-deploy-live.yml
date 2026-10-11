@@ -8,6 +8,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0 # full history, so each page gets its own last-modified date
     - uses: hashicorp/setup-terraform@v1
 
     - name: Configure AWS Credentials

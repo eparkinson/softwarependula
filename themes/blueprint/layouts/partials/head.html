@@ -18,16 +18,53 @@
     })();
   </script>
 
+  {{- /* Page title: the home page carries the tagline, every other page its own title first. */ -}}
+  {{ $title := printf "%s · %s" .Title .Site.Title }}
+  {{ if .IsHome }}
+    {{ $title = .Site.Title }}
+    {{ with .Site.Params.tagline }}{{ $title = printf "%s · %s" $.Site.Title (strings.TrimSuffix "." .) }}{{ end }}
+  {{ else if eq .Kind "term" }}
+    {{ $title = printf "Posts tagged %s · %s" .Data.Term .Site.Title }}
+  {{ end }}
+
+  {{- /* Description: the page's own, else its opening words, else a line that fits the kind of page. */ -}}
+  {{ $description := .Site.Params.meta.description }}
+  {{ if .Description }}
+    {{ $description = .Description }}
+  {{ else if .IsPage }}
+    {{ $description = .Summary | plainify | htmlUnescape | truncate 160 }}
+  {{ else if eq .Kind "term" }}
+    {{ $description = printf "Posts tagged %s on %s." .Data.Term .Site.Title }}
+  {{ else if eq .Kind "taxonomy" }}
+    {{ $description = printf "All the tags used on %s." .Site.Title }}
+  {{ else if eq .Kind "section" }}
+    {{ $description = printf "Every post on %s, newest first." .Site.Title }}
+  {{ end }}
+
+  {{- /* Share image: static/images/og/<post file name>.png when it exists (tools/share-cards.py
+         makes them), else the site card. */ -}}
+  {{ $image := "images/og/site.png" }}
+  {{ if .IsPage }}{{ with .File }}
+    {{ $card := printf "images/og/%s.png" .ContentBaseName }}
+    {{ if fileExists (printf "static/%s" $card) }}{{ $image = $card }}{{ end }}
+  {{ end }}{{ end }}
+
+  {{- /* The staging copy of the site and the not-found page stay out of search results. */ -}}
+  {{ $staging := in .Site.BaseURL "//staging." }}
+
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-  {{ $description := .Site.Params.meta.description }}
-  {{ with .Description }}{{ $description = . }}{{ else }}{{ if .IsPage }}{{ $description = .Summary | plainify | htmlUnescape | truncate 160 }}{{ end }}{{ end }}
+  <title>{{ $title }}</title>
   <meta name="description" content="{{ $description }}" />
   {{ with .Site.Params.author }}<meta name="author" content="{{ . }}" />{{ end }}
+  {{ if $staging }}<meta name="robots" content="noindex, nofollow">{{ else if eq .Kind "404" }}<meta name="robots" content="noindex">{{ end }}
+  <meta name="theme-color" content="#1f44c8">
   {{ hugo.Generator }}
 
   <link rel="canonical" href="{{ .Permalink }}">
-  {{ partial "social.html" (dict "page" . "description" $description) }}
+  {{ $shared := dict "page" . "title" $title "description" $description "image" $image }}
+  {{ partial "social.html" $shared }}
+  {{ partial "structured-data.html" $shared }}
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   {{ with .Site.Home.OutputFormats.Get "RSS" }}
@@ -35,6 +72,4 @@
   {{ end }}
   <link rel="preload" href="/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/css/blueprint.css" />
-
-  <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
 </head>

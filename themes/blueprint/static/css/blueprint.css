@@ -44,10 +44,17 @@
   --chip: #edf1fd;
   --code-bg: #0e1a3a;
   --code-ink: #ffffff;
-  --code-kw: #9db4ff;
-  --code-muted: #a9b3cf;
-  --code-str: #c8e6b9;
-  --code-num: #f3c98b;
+  --code-kw: #c792ea;
+  --code-type: #ffcb6b;
+  --code-fn: #82aaff;
+  --code-builtin: #7fdbca;
+  --code-tag: #ff8b92;
+  --code-str: #c3e88d;
+  --code-num: #f78c6c;
+  --code-op: #89ddff;
+  --code-punct: #c9d3f2;
+  --code-muted: #8b97bd;
+  --code-output: #c9d3f2;
   --code-border: #0e1a3a;
   --font-sans: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
@@ -310,10 +317,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid currentColor; outline
 .content { overflow-wrap: break-word; }
 .content > :first-child { margin-top: 0; }
 .content p { margin: 0 0 1.1em; }
-.content h1, .content h2, .content h3, .content h4 { text-wrap: balance; }
-.content h1 { margin: 48px 0 12px; font-size: 30px; line-height: 1.2; font-weight: 800; letter-spacing: -0.015em; }
-.content h2 { margin: 36px 0 10px; font-size: 23px; line-height: 1.25; font-weight: 700; letter-spacing: -0.01em; }
-.content h3, .content h4 { margin: 28px 0 8px; font-size: 19px; line-height: 1.3; font-weight: 700; }
+/* Headings in a post start at h2: the post title is the page's h1 (see render-heading.html). */
+.content h2, .content h3, .content h4, .content h5 { text-wrap: balance; }
+.content h2 { margin: 48px 0 12px; font-size: 30px; line-height: 1.2; font-weight: 800; letter-spacing: -0.015em; }
+.content h3 { margin: 36px 0 10px; font-size: 23px; line-height: 1.25; font-weight: 700; letter-spacing: -0.01em; }
+.content h4, .content h5, .content h6 { margin: 28px 0 8px; font-size: 19px; line-height: 1.3; font-weight: 700; }
 .content ul, .content ol { margin: 0 0 1.1em; padding-left: 22px; }
 .content li { margin-top: 10px; }
 .content li > p { margin-bottom: 0.5em; }
@@ -353,13 +361,22 @@ a:focus-visible, button:focus-visible { outline: 2px solid currentColor; outline
 .content pre code { padding: 0; background: none; font-size: inherit; white-space: pre; }
 .content code, .content pre { font-variant-ligatures: none; }
 
-/* Syntax colours for Hugo's highlighter (class-based output) */
-.chroma .k, .chroma .kn, .chroma .kd, .chroma .kc, .chroma .kr, .chroma .kt, .chroma .kp,
-.chroma .ow, .chroma .nb, .chroma .nt { color: var(--code-kw); }
-.chroma .c, .chroma .c1, .chroma .cm, .chroma .ch, .chroma .cs, .chroma .cp { color: var(--code-muted); font-style: italic; }
-.chroma .s, .chroma .s1, .chroma .s2, .chroma .sb, .chroma .sd, .chroma .se, .chroma .sa, .chroma .si { color: var(--code-str); }
-.chroma .m, .chroma .mi, .chroma .mf, .chroma .mh, .chroma .il { color: var(--code-num); }
-.chroma .nf, .chroma .nc, .chroma .nd { font-weight: 500; }
+/* Syntax colours for Hugo's highlighter (class-based output). Code blocks are dark in
+   both themes, so one palette serves both. */
+.chroma .k, .chroma .kd, .chroma .kn, .chroma .kr, .chroma .kp, .chroma .kc, .chroma .nd { color: var(--code-kw); }
+.chroma .kt, .chroma .nc, .chroma .nn, .chroma .ne, .chroma .nv, .chroma .vi, .chroma .vc, .chroma .vg { color: var(--code-type); }
+.chroma .nf, .chroma .fm, .chroma .na, .chroma .nx { color: var(--code-fn); }
+.chroma .nb, .chroma .bp, .chroma .no, .chroma .gp { color: var(--code-builtin); }
+.chroma .nt, .chroma .nl, .chroma .gd { color: var(--code-tag); }
+.chroma .s, .chroma .s1, .chroma .s2, .chroma .sb, .chroma .sc, .chroma .sd, .chroma .sa, .chroma .sh,
+.chroma .sx, .chroma .sr, .chroma .ss, .chroma .l, .chroma .ld, .chroma .gi { color: var(--code-str); }
+.chroma .se, .chroma .si { color: var(--code-op); }
+.chroma .m, .chroma .mi, .chroma .mf, .chroma .mh, .chroma .mo, .chroma .mb, .chroma .il { color: var(--code-num); }
+.chroma .o, .chroma .ow { color: var(--code-op); }
+.chroma .p { color: var(--code-punct); }
+.chroma .c, .chroma .c1, .chroma .cm, .chroma .ch, .chroma .cs, .chroma .cp, .chroma .cpf { color: var(--code-muted); font-style: italic; }
+.chroma .go { color: var(--code-output); }
+.chroma .nf, .chroma .nc { font-weight: 500; }
 
 .content table {
   width: 100%;
@@ -407,7 +424,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid currentColor; outline
   .row .when { grid-column: 2; }
   .row--plain .when { grid-column: auto; }
   .feature h2 { font-size: 23px; }
-  .content h1 { font-size: 26px; }
+  .content h2 { font-size: 26px; }
   .content pre { margin-left: -24px; margin-right: -24px; padding: 18px 24px; border-left: 0; border-right: 0; }
   .content table { display: block; overflow-x: auto; }
   .post-nav { grid-template-columns: minmax(0, 1fr); }

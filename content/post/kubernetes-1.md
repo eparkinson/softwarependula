@@ -28,7 +28,7 @@ The Hypervisor is optional. If you want to avoid the unnecessary overhead and in
 
 # Start Minikube
 First, let's start up minikube with: minikube start --driver=docker
-```
+```console
 elroy@elroy-vm:~$ minikube start --driver=docker
 😄  minikube v1.11.0 on Linuxmint 19.3
 ✨  Using the docker driver based on user configuration
@@ -42,19 +42,19 @@ elroy@elroy-vm:~$ minikube start --driver=docker
 ```
 
 And let's make sure our Kubernetes Dashboard is available:
-```
+```shell
 minikube dashboard
 ```
 
 This should open up minikube's Kubernetes dashboard in your default browser:  
 
-![](/images/kubernetes-1/img1.png)
+![The Kubernetes dashboard in a browser, showing the services and secrets of a new Minikube cluster](/images/kubernetes-1/img1.png)
 
 Keep the dashboard open, it will refresh automatically as we deploy to minikube.
 
 # Deploying an image
 Now let's deploy a docker image to Kubernetes. We'll use the nginxdemos/hello NGINX image from Dockerhub and confirm that the deployment is ready and the pod is created:
-```
+```console
 elroy@elroy-vm:~$ kubectl create deployment hello-world --image=nginxdemos/hello
 deployment.apps/hello-world created
 
@@ -69,18 +69,18 @@ hello-world-86f6499d79-hcjcd   1/1     Running   0          16
 
 You should also see the dashboard updating showing a new deployment pod and Replica Set.
 
-![](/images/kubernetes-1/img2.png)
+![The Kubernetes dashboard showing the hello-world deployment with its pod and replica set, all healthy](/images/kubernetes-1/img2.png)
 
 
 To get a terminal on this running pod we can use:
 
-```
+```shell
 kubectl exec --stdin --tty hello-world-86f6499d79-84xmr -- /bin/sh
 ```
 
 Next, let's expose the NGINX pod as a service and get a browser connection to the service:
 
-```
+```console
 elroy@elroy-vm:~$ kubectl expose deployment hello-world --type=NodePort --port=80
 service/hello-world exposed
 
@@ -99,7 +99,7 @@ You should now see that NGINX default page in your browser.
 # Scaling the service
 
 Currently, we're running a single instance of an NGINX webserver a single pod. One of the main reasons to use Kubernetes is that it manages scaling of pods for us and makes it easy to run multiple instances. So let's scale to 10 instances of the webserver:
-```
+```console
 elroy@elroy-vm:~$ kubectl scale deployment hello-world --replicas=10
 deployment.apps/hello-world scaled
 
@@ -127,7 +127,7 @@ If we're quick enough with the above, we can see the pods starting up in a "Cont
 # Creating a load balancing ingress
 Lastly, we want to expose the service above via an ingress so that we access our service via a static URL and not have to rely on the "minikube service" command to access the service. First, let's enable ingress on minikube and check that it's started (it may take a good few seconds):
 
-```
+```console
 elroy@elroy-vm:~$ minikube addons enable ingress
 
 🌟  The 'ingress' addon is enabled
@@ -150,7 +150,7 @@ storage-provisioner                         1/1     Running     1          9h
 
 We want to see the ingress-nginx-controller in a 'Running' state before proceeding. In my case, it took just about a minute to start. Now let's get the local IP address of our Kubernetes cluster:
 
-```
+```console
 elroy@elroy-vm:~$ minikube ip
 172.17.0.3
 ```
@@ -174,7 +174,7 @@ spec:
 ```
 
 Let's apply this ingress:
-```
+```console
 elroy@elroy-vm:~$ kubectl apply -f ingress.yaml
 ingress.networking.k8s.io/hello-ingress created
 ```

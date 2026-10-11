@@ -86,19 +86,19 @@ public class EchoDemo {
 OpenCV supports a number of techniques for object detection. “Haar feature-based cascade classifiers” is one such technique that is especially suited for real-time object detection due to its constant-time performance characteristics. These classifiers are stored in xml format and have to loaded to construct a CvHaarClassifierCascade object which in turn is used by the cvHaarDetectObjects function to search an image and return a sequence of matches.
 
 To construct the classifier from a file, we use this code snippet:
-```
+```java
 CvHaarClassifierCascade classifier = new CvHaarClassifierCascade(
         cvLoad(“classifer.xml”));
 ```
 
 Then, to apply the classifier to an image we use the cvHaarDetectObjects function:
-```
+```java
 CvSeq objects = cvHaarDetectObjects(inImage, classifier,
         storage, 1.1, 3, CV_HAAR_DO_CANNY_PRUNING);
 ```
 
 The signature of the underlying c function is as follows:
-```
+```csharp
 public static IntPtr cvHaarDetectObjects(
  IntPtr image,
  IntPtr cascade,
