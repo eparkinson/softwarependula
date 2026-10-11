@@ -29,7 +29,7 @@ npx jest -t "should not have broken internal links"
 hugo new post/my-new-post.md
 ```
 
-Hugo version is pinned to **0.79.1** in the `Dockerfile` and used by the GitHub Actions workflows. In practice the workflows install Ubuntu's packaged Hugo (0.123.7 at the time of writing), and the `blueprint` theme is checked against both 0.92.2 and 0.123.7.
+The workflows build with Hugo **0.123.7**, installed by `tools/install-hugo.sh` (version and checksum pinned there); the `Dockerfile` uses the same version. The `blueprint` theme is also checked against 0.92.2. To move to a newer Hugo, change the version and checksum in that script and confirm the build and `npm test` still pass.
 
 ## Architecture
 
@@ -51,8 +51,10 @@ The site uses `themes/blueprint/`, a theme written for this blog (set by `theme 
 - `layouts/index.html` — home page: the site title and tagline, then every post, newest first. The three newest show their `description`.
 - `layouts/_default/single.html` — posts and pages. Posts get a number, date and reading time above the title, a series box, a contents list on long posts, older/newer links and comments.
 - `layouts/_default/{list,term,terms}.html`, `layouts/404.html` — post list, a tag's posts, the tag list, not-found page.
-- `layouts/partials/` — `head.html`, `social.html` (sharing metadata), `site-header.html`, `site-footer.html`, `post-row.html`, `post-number.html`, `series.html`, `comments.html`, `theme-script.html` (the light/dark switch).
-- `static/css/blueprint.css` — all styles. Colours are CSS variables with light and dark values; the header switch sets `data-theme` on `<html>`.
+- `layouts/partials/` — `head.html`, `social.html` (sharing metadata), `structured-data.html`, `site-header.html`, `site-footer.html`, `post-row.html`, `post-number.html`, `series.html`, `comments.html`.
+- `assets/css/blueprint.css` — all styles. Colours are CSS variables with light and dark values; the header switch sets `data-theme` on `<html>`.
+- `assets/js/site.js` — the light/dark switch and the Copy button on code blocks. Both assets are minified and published under a name that contains a hash of their contents (`head.html` does this), so browsers can cache them for a year.
+- `layouts/_default/_markup/` — `render-heading.html` (headings one level down, each with a `#` link to itself) and `render-image.html` (lazy loading).
 - `static/fonts/` — Archivo and JetBrains Mono, self-hosted (both under the SIL Open Font License).
 
 `themes/hugo-dusk/` is the previous third-party dark theme, kept so the old look can be restored by setting `theme = "hugo-dusk"` and removing `noClasses = false`.
@@ -65,6 +67,7 @@ The news digest section and the warm-editorial theme redesign were experiments. 
 
 - `description` — one line, shown on the home page for the newest posts and used as the page's description when a link is shared. Give every post one.
 - `collection = "Name"` — posts that share a value are listed together in a series box, oldest first. (Do not call this key `series`: Hugo's built-in templates treat that as a taxonomy.)
+- `age_note = false` / `age_note = true` — posts more than three years old get a line saying when they were written; this overrides it.
 - `toc = true` / `toc = false` — force the contents list on or off. Without it, posts over 1,500 words with three or more headings get one.
 - Posts use `#` for section headings and `##` below that. The theme styles them as section and sub-section headings, smaller than the post title.
 
@@ -76,6 +79,28 @@ The news digest section and the warm-editorial theme redesign were experiments. 
 - Images written in Markdown are lazy-loaded (`render-image.html`). Give every image alt text: `![what it shows](/images/...)`.
 - Both deploy workflows check out the full git history so that `--enableGitInfo` gives each page its own last-modified date, used in the sitemap and the structured data.
 - Code blocks: give every fence a language (`python`, `shell`, `console` for terminal sessions with a prompt and output, `ini`, `yaml`, `java`, ...) so it is coloured.
+
+### Diagrams
+
+A fenced code block marked `mermaid` is drawn as a diagram in the reader's browser:
+
+````
+```mermaid
+flowchart LR
+    A[Build] --> B[Staging] --> C[Live]
+```
+````
+
+`assets/js/site.js` loads the Mermaid library (a pinned version from jsDelivr, with an integrity hash) only on pages that contain such a block, and redraws when the reader switches theme. To move to a newer Mermaid, change the version and the hash together.
+
+### Related posts and the feed
+
+- Under each post, "Related" lists up to three posts that share its tags (`[related]` in `config.toml`), leaving out posts already in its series box.
+- `layouts/_default/rss.xml` puts the whole of each post in the feed (`content:encoded`), with the description as the summary. The home feed lists posts only.
+
+### Tags
+
+Tags are a small set of real topics (`ai`, `musings`, `kubernetes`, `python`, ...). Do not add a catch-all like `tech`. When a tag is renamed or retired, keep its old address working with an `aliases` entry: see `content/tags/kubernetes/_index.md` (old `/tags/k8s/`), `content/tags/musings/_index.md` (old `/tags/quickie/`) and `content/post/_index.md` (old `/tags/tech/`).
 
 ### Share cards
 
@@ -91,16 +116,18 @@ The news digest section and the warm-editorial theme redesign were experiments. 
 
 ## Deployment
 
-Two workflows in `.github/workflows/`:
+Three workflows in `.github/workflows/`:
 
-- **Staging** (`aws-deploy-staging.yml`): auto-triggered on push to `main`. Builds with `--baseURL "https://staging.softwarependula.net"`, syncs to `s3://staging.softwarependula.net`, and invalidates CloudFront distribution `E3TETIEU2CNJME`.
-- **Live** (`aws-deploy-live.yml`): **manual only** (`workflow_dispatch`, e.g. `gh workflow run aws-deploy-live.yml --ref main`). Builds with the default `baseURL` from `config.toml` and syncs to `s3://www.softwarependula.net`, the bucket the live site is served from, after first keeping a copy in `s3://bz-build-repository/live/www.softwarependula.net`. CloudFront in front of the live bucket does not cache, so changes show at once and there is no invalidation step. (Until 2026-10-11 the workflow only wrote the build-repository copy, so running it did not change the site.)
+- **Checks** (`checks.yml`): on every pull request, builds the site and runs `npm test`. Deploys nothing.
 
-Both workflows `sudo apt-get install hugo` (Ubuntu's packaged Hugo, which may not be exactly 0.79.1) rather than pinning a version. The `Dockerfile` is the version-pinned path.
+- **Staging** (`aws-deploy-staging.yml`): auto-triggered on push to `main`. Builds with `--baseURL "https://staging.softwarependula.net"`, uploads to `s3://staging.softwarependula.net` with `tools/deploy.sh`, and invalidates CloudFront distribution `E3TETIEU2CNJME`.
+- **Live** (`aws-deploy-live.yml`): **manual only** (`workflow_dispatch`, e.g. `gh workflow run aws-deploy-live.yml --ref main`). Builds with the default `baseURL` from `config.toml`, keeps a copy in `s3://bz-build-repository/live/www.softwarependula.net`, then uploads to `s3://www.softwarependula.net`, the bucket the live site is served from, with `tools/deploy.sh`. CloudFront in front of the live bucket does not cache, so there is no invalidation step. (Until 2026-10-11 the workflow only wrote the build-repository copy, so running it did not change the site.)
+
+`tools/deploy.sh <bucket>` uploads `./public` in three passes with different `Cache-Control` values: a year for `css/`, `js/` and `fonts/` (the first two are content-hashed; a replaced font file needs a new name), a day for `images/`, `papers/` and the favicon, five minutes for pages and feeds. Each pass deletes files that are no longer in the build.
 
 ### Infrastructure
 
-`.aws/` contains Terraform state and configuration for the AWS infrastructure (S3 buckets, CloudFront, etc.). State files are gitignored (`.aws/terraform.tfstate*`) — do not commit them if they reappear.
+`.aws/` holds an old Terraform experiment for a `test.softwarependula.net` bucket that no longer exists; it does not describe the live or staging hosting, which was set up by hand. The state files are gitignored and no longer tracked — do not commit them if they reappear.
 
 ## Conventions
 

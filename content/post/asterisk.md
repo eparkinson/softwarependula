@@ -1,8 +1,7 @@
 +++
 title = "Developing Asterisk Voice Services"
 tags = [
-    "asterisk",
-    "tech"
+    "asterisk"
 ]
 date = "2015-02-04"
 description = "Building IVR-style voice services on Asterisk, the open-source telephony server."

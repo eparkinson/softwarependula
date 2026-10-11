@@ -1,7 +1,6 @@
 +++
 title = "Reflections on AI progress (1995-2023)"
 tags = [
-    "tech",
     "musings",
     "ai"
 ]
@@ -51,7 +50,7 @@ How did we get here? What are the reasons for the massive shift in AI's (and neu
 
 4. **Open source frameworks.** Back in the 90s we still had to hand code stuff (whether a neural net or a genetic algorithm) from some minimalistic description in a computer science paper. We had to deal with bugs and inaccurate pseudo-code. It took a reasonable amount of effort to construct these algorithms and even more to get to a point where you are confident enough in the quality of the code to publish research findings about it. Fast forward 20 or 30 years, virtually every published AI algorithm will have a reusable open source implementation available for use. Sometime within mere days of publication. Very little duplication of effort is required in implementing any of these algorithms which means effort could shift from coding to the practical application of these algorithms - in an automated, almost industrialised fashion.
 
-5. **Private sector investment.** The commercial applications of various types of AI models have become increasingly apparent. From automated processing of handwritten documentation to finding cat images, to facial recognition, self-driving cars, humanoid robots and [AI girlfriends](https://play.google.com/store/apps/details?id=aigirlfriend.ai.girlfriend&hl=en&gl=US). This has resulted in AI research shifting from university research centres to big business - dramatically accelerating the pace of innovation.
+5. **Private sector investment.** The commercial applications of various types of AI models have become increasingly apparent. From automated processing of handwritten documentation to finding cat images, to facial recognition, self-driving cars, humanoid robots and AI girlfriends. This has resulted in AI research shifting from university research centres to big business - dramatically accelerating the pace of innovation.
 
 
 A lot has changed in AI since the winter of the 90s. Is this the dawn of AGI transforming human civilization? Or the peak of inflated expectations preceding the trough of disillusionment of the next AI Winter? That is a topic for a future post...

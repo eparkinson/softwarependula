@@ -3,8 +3,7 @@ title = "AI Soccer, part 2: learning brains and what they cost"
 tags = [
     "ai",
     "python",
-    "aisoccer",
-    "tech"
+    "aisoccer"
 ]
 date = "2026-10-11T09:00:00+02:00"
 description = "Brains that start from nothing learn to play, and I count what each approach cost."

@@ -1,0 +1,27 @@
+name: Checks
+
+# Builds the site and runs the site tests on every pull request. Nothing is deployed.
+on:
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Hugo
+      run: bash tools/install-hugo.sh
+
+    - name: Build
+      run: hugo --minify
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+
+    - name: Test the built site
+      run: |
+        npm install --no-audit --no-fund
+        npm test

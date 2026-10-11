@@ -41,6 +41,15 @@ pygmentsCodeFences = true
     startLevel = 1
     endLevel = 2
 
+# "Related" under each post: other posts that share its tags
+[related]
+  includeNewer = true
+  threshold = 80
+  toLower = true
+  [[related.indices]]
+    name = "tags"
+    weight = 100
+
 [author]
   name = ""
 

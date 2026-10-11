@@ -1,5 +1,5 @@
 {{- /* Posts write their sections as "#". The post title is the page's only <h1>, so
-       headings in the text are rendered one level down. */ -}}
+       headings in the text are rendered one level down. Each gets a small link to itself. */ -}}
 {{- $level := add .Level 1 -}}
 {{- if gt $level 6 }}{{ $level = 6 }}{{ end -}}
-<h{{ $level }} id="{{ .Anchor | safeURL }}">{{ .Text | safeHTML }}</h{{ $level }}>
+<h{{ $level }} id="{{ .Anchor | safeURL }}">{{ .Text | safeHTML }} <a class="anchor" href="#{{ .Anchor | safeURL }}" aria-label="Link to this section">#</a></h{{ $level }}>
