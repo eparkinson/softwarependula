@@ -1,7 +1,6 @@
 +++
 title = "Technical debt considered useful"
 tags = [
-    "tech",
     "musings"
 ]
 date = "2013-06-05"

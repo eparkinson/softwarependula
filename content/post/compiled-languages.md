@@ -1,10 +1,9 @@
 +++
 title = "Are compiled languages making a comeback?"
 tags = [
-    "tech",
     "musings",
     "golang",
-    "k8s"
+    "kubernetes"
 ]
 date = "2021-05-01"
 description = "From C++ to Java to scripting languages and back: why compiled languages such as Go and Rust are getting a second look."

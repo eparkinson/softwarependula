@@ -3,8 +3,7 @@ title = "AI Soccer, part 1: a small game for testing bot players"
 tags = [
     "ai",
     "python",
-    "aisoccer",
-    "tech"
+    "aisoccer"
 ]
 date = "2026-10-11T08:00:00+02:00"
 description = "A physics-based soccer sandbox for teams controlled by code, and two hand-written brains to play it."

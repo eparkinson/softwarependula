@@ -1,8 +1,7 @@
 +++
 title = "Microservices with Spring Boot and Kubernetes: Getting Started with Minikube"
 tags = [
-    "k8s",
-    "tech"
+    "kubernetes"
 ]
 date = "2020-07-08"
 description = "Getting started with Kubernetes on a desktop: Minikube, a first deployment, scaling and a load-balancing ingress."

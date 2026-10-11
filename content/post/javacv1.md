@@ -2,8 +2,7 @@
 title = "Real-time face and hand detection using JavaCV"
 tags = [
     "java",
-    "ai",
-    "tech"
+    "ai"
 ]
 date = "2014-03-13"
 description = "Using JavaCV and OpenCV to detect faces and hands in a live video stream."
@@ -11,7 +10,7 @@ description = "Using JavaCV and OpenCV to detect faces and hands in a live video
 
 # Introduction
 
-[JavaCV](https://code.google.com/p/javacv/) is a Java wrapper to a number of  computer vision libraries including [OpenCV](http://opencv.org/), [OpenKinect](http://openkinect.org/wiki/Main_Page) and others. In this article we'll look at using JavaCV with OpenCV to do real-time face and hand detection on a video stream. Face detection (as opposed to face recognition) has become mainstream with everything from Facebook to low-budget digital cameras supporting it.
+[JavaCV](https://code.google.com/p/javacv/) is a Java wrapper to a number of  computer vision libraries including [OpenCV](http://opencv.org/), [OpenKinect](https://github.com/OpenKinect/libfreenect) and others. In this article we'll look at using JavaCV with OpenCV to do real-time face and hand detection on a video stream. Face detection (as opposed to face recognition) has become mainstream with everything from Facebook to low-budget digital cameras supporting it.
 
 Hand detection and gesture recognition is somewhat less mature and I was hard pressed to find good open source implementations of this. Gesture recognition, I suspect, will become increasingly more important in human computer interaction as the trend to "keep technology hidden" accelerates.
 
@@ -262,7 +261,7 @@ Running the above samples, you'll find that face detection is really reliable as
 
 Along with voice interaction, (hand) gesture recognition, in my opinion, is set to make a strong entrance into the field of human computer interfaces especially with "non obtrusive" consumer electronics trends accelerating. The [Google Glass](http://www.google.com/glass/start/what-it-does/) platform already makes use primarily of voice interfaces and its a natural match for gesture recognition and other computer vision techniques.
 
-[Kinect](http://www.xbox.com/en-us/Kinect) makes use of skeleton tracking for gaming and has an SDK with good support for voice and face recognition, directional sound with its set of stereo microphones and depth calculations with its 3 separate cameras build in.
+[Kinect](https://web.archive.org/web/20141020163539/http://www.xbox.com/en-US/Kinect) makes use of skeleton tracking for gaming and has an SDK with good support for voice and face recognition, directional sound with its set of stereo microphones and depth calculations with its 3 separate cameras build in.
 
 [This video](http://www.youtube.com/watch?v=c4LobbqeKZc) demonstrates how Haar cascades can be used to detect and count cars.
 

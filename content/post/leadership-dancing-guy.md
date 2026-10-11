@@ -1,9 +1,7 @@
 +++
 title = "Leadership Lessons from Shirtless Dancing Guy"
 tags = [
-    "tech",
-    "musings",
-    "quickie"
+    "musings"
 ]
 date = "2021-01-06"
 description = "A short video on how movements start, and why its lesson matters for open source startups."
