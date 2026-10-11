@@ -114,7 +114,7 @@ Tags are a small set of real topics (`ai`, `musings`, `kubernetes`, `python`, ..
 
 Both test files are post-build validators: they read `./public/` with Cheerio and throw "Public directory not found" if you haven't run `hugo` first. When tests fail, the build artefact is the source of truth — inspect `./public/` directly.
 
-- `__tests__/site.test.js` asserts that `index.html` and a `404` page exist, that internal `href`/`src` links resolve to a real file in `public/`, that inline scripts don't contain error patterns, that the Analytics script reports contact clicks, and that every page has a `<title>`.
+- `__tests__/site.test.js` asserts that `index.html` and a `404` page exist, that the 404 page has no relative links, that internal `href`/`src` links resolve to a real file in `public/`, that inline scripts don't contain error patterns, that the Analytics script reports contact clicks, and that every page has a `<title>`.
 - `__tests__/security-headers.test.js` reads the Content-Security-Policy from `infra/security-headers.yaml` and fails when a built page loads a script, stylesheet, image, frame, media file or form target that the policy would block (see "Security headers" below).
 
 ## Deployment
@@ -152,6 +152,21 @@ The Content-Security-Policy lists every address the pages load from; a browser b
 2. Apply to staging, check the page there with the browser console open, then apply to live.
 
 Check what a host sends with `curl -sI https://staging.softwarependula.net/`.
+
+### Missing pages
+
+A missing address must answer with status 404 and the site's own not-found page, which Hugo builds as `/404.html` from the theme's `layouts/404.html`. S3 on its own answers with an XML error, so each CloudFront distribution needs a custom error response that swaps S3's 403 and 404 for `/404.html`. `tools/error-pages.sh` sets it, the same way as the security headers script:
+
+```bash
+AWS_PROFILE=<profile for account 176595869252> tools/error-pages.sh staging
+AWS_PROFILE=<profile for account 176595869252> tools/error-pages.sh live   # production: a person runs this
+```
+
+The script changes only the error responses for 403 and 404 on the distribution, and does nothing when there is nothing to change. No workflow runs it. CloudFront remembers a missing address for 60 seconds.
+
+Check with `curl -si https://staging.softwarependula.net/no-such-page | head -n 3`: status 404 and `content-type: text/html`, not `application/xml`.
+
+Because the page is shown under any address, its links must not be relative; `npm test` checks this.
 
 ## Conventions
 
