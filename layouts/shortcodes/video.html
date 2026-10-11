@@ -1,0 +1,4 @@
+<figure class="video">
+  <video controls preload="metadata" playsinline style="width: 100%; height: auto;" src="{{ .Get "src" }}"></video>
+  {{ with .Get "caption" }}<figcaption>{{ . }}</figcaption>{{ end }}
+</figure>
