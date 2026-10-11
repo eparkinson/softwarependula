@@ -67,6 +67,7 @@ The news digest section and the warm-editorial theme redesign were experiments. 
 
 - `description` — one line, shown on the home page for the newest posts and used as the page's description when a link is shared. Give every post one.
 - `collection = "Name"` — posts that share a value are listed together in a series box, oldest first. (Do not call this key `series`: Hugo's built-in templates treat that as a taxonomy.)
+- `age_note = false` / `age_note = true` — posts more than three years old get a line saying when they were written; this overrides it.
 - `toc = true` / `toc = false` — force the contents list on or off. Without it, posts over 1,500 words with three or more headings get one.
 - Posts use `#` for section headings and `##` below that. The theme styles them as section and sub-section headings, smaller than the post title.
 
@@ -78,6 +79,24 @@ The news digest section and the warm-editorial theme redesign were experiments. 
 - Images written in Markdown are lazy-loaded (`render-image.html`). Give every image alt text: `![what it shows](/images/...)`.
 - Both deploy workflows check out the full git history so that `--enableGitInfo` gives each page its own last-modified date, used in the sitemap and the structured data.
 - Code blocks: give every fence a language (`python`, `shell`, `console` for terminal sessions with a prompt and output, `ini`, `yaml`, `java`, ...) so it is coloured.
+
+### Diagrams
+
+A fenced code block marked `mermaid` is drawn as a diagram in the reader's browser:
+
+````
+```mermaid
+flowchart LR
+    A[Build] --> B[Staging] --> C[Live]
+```
+````
+
+`assets/js/site.js` loads the Mermaid library (a pinned version from jsDelivr, with an integrity hash) only on pages that contain such a block, and redraws when the reader switches theme. To move to a newer Mermaid, change the version and the hash together.
+
+### Related posts and the feed
+
+- Under each post, "Related" lists up to three posts that share its tags (`[related]` in `config.toml`), leaving out posts already in its series box.
+- `layouts/_default/rss.xml` puts the whole of each post in the feed (`content:encoded`), with the description as the summary. The home feed lists posts only.
 
 ### Tags
 

@@ -1,0 +1,35 @@
+{{- /* RSS feed with the whole of each post, so feed readers can show the full article.
+       The home feed lists posts only; a section's or tag's feed lists its own pages. */ -}}
+{{- $pages := .RegularPages -}}
+{{- if .IsHome -}}
+  {{- $pages = where .Site.RegularPages "Section" "post" -}}
+{{- else if or (eq .Kind "term") (eq .Kind "taxonomy") -}}
+  {{- $pages = .Pages -}}
+{{- end -}}
+{{- $pages = $pages.ByDate.Reverse -}}
+{{- $rfc822 := "Mon, 02 Jan 2006 15:04:05 -0700" -}}
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
+    <link>{{ .Permalink }}</link>
+    <description>{{ if .IsHome }}{{ .Site.Params.meta.description }}{{ else }}{{ .Title }} on {{ .Site.Title }}{{ end }}</description>
+    <language>{{ .Site.Language.Lang }}</language>
+    {{- if $pages }}
+    <lastBuildDate>{{ (index $pages 0).Date.Format $rfc822 | safeHTML }}</lastBuildDate>
+    {{- end }}
+    {{- with .OutputFormats.Get "RSS" }}
+    {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
+    {{- end }}
+    {{- range $pages }}
+    <item>
+      <title>{{ .Title }}</title>
+      <link>{{ .Permalink }}</link>
+      <pubDate>{{ .Date.Format $rfc822 | safeHTML }}</pubDate>
+      <guid>{{ .Permalink }}</guid>
+      <description>{{ with .Description }}{{ . | html }}{{ else }}{{ .Summary | plainify | html }}{{ end }}</description>
+      <content:encoded>{{ .Content | html }}</content:encoded>
+    </item>
+    {{- end }}
+  </channel>
+</rss>

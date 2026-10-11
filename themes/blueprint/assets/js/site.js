@@ -24,6 +24,43 @@
     label();
   }
 
+  // Diagrams: a fenced code block marked "mermaid" is drawn as a diagram. The Mermaid
+  // library is fetched only on pages that have one, and redrawn when the theme changes.
+  var diagramCode = document.querySelectorAll(".content pre > code.language-mermaid");
+  if (diagramCode.length) {
+    var diagrams = [];
+    Array.prototype.forEach.call(diagramCode, function (code) {
+      var pre = code.parentNode;
+      var box = pre.parentNode.classList.contains("highlight") ? pre.parentNode : pre;
+      var figure = document.createElement("div");
+      figure.className = "diagram";
+      figure.setAttribute("data-source", code.textContent);
+      figure.textContent = code.textContent;
+      box.parentNode.replaceChild(figure, box);
+      diagrams.push(figure);
+    });
+    var isDark = function () {
+      var set = document.documentElement.getAttribute("data-theme");
+      if (set) { return set === "dark"; }
+      return !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    };
+    var draw = function () {
+      window.mermaid.initialize({ startOnLoad: false, securityLevel: "strict", theme: isDark() ? "dark" : "neutral", fontFamily: "inherit" });
+      diagrams.forEach(function (figure) {
+        figure.removeAttribute("data-processed");
+        figure.textContent = figure.getAttribute("data-source");
+      });
+      window.mermaid.run({ nodes: diagrams });
+    };
+    var library = document.createElement("script");
+    library.src = "https://cdn.jsdelivr.net/npm/mermaid@10.9.3/dist/mermaid.min.js";
+    library.integrity = "sha384-R63zfMfSwJF4xCR11wXii+QUsbiBIdiDzDbtxia72oGWfkT7WHJfmD/I/eeHPJyT";
+    library.crossOrigin = "anonymous";
+    library.onload = draw;
+    document.head.appendChild(library);
+    if (toggle) { toggle.addEventListener("click", function () { if (window.mermaid) { draw(); } }); }
+  }
+
   // A "Copy" button on every code block.
   var blocks = document.querySelectorAll(".content pre");
   Array.prototype.forEach.call(blocks, function (pre) {

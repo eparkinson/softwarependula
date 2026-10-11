@@ -21,10 +21,29 @@
     {{ .TableOfContents }}
   </div>
   {{ end }}
+  {{/* Posts more than three years old say so; `age_note = false` (or true) in front matter overrides. */}}
+  {{ $showAge := and $isPost (lt .Date (now.AddDate -3 0 0)) }}
+  {{ if isset .Params "age_note" }}{{ $showAge = .Params.age_note }}{{ end }}
+  {{ if $showAge }}
+  <p class="age-note">Written in {{ .Date.Format "2006" }}. Tools, versions and links may have moved on since.</p>
+  {{ end }}
   <div class="content">
     {{ .Content }}
   </div>
   {{ if $isPost }}
+  {{/* Up to three posts that share tags with this one, leaving out posts already listed in its series box. */}}
+  {{ $related := slice }}
+  {{ range (where .Site.RegularPages "Section" "post").Related . }}
+    {{ if or (not $.Params.collection) (ne .Params.collection $.Params.collection) }}{{ $related = $related | append . }}{{ end }}
+  {{ end }}
+  {{ with first 3 $related }}
+  <section class="related" aria-label="Related posts">
+    <p class="index-label">Related</p>
+    {{ range . }}
+    {{ partial "post-row.html" . }}
+    {{ end }}
+  </section>
+  {{ end }}
   <nav class="post-nav" aria-label="More posts">
     {{ with .PrevInSection }}<a class="older" href="{{ .RelPermalink }}"><span class="label">Older</span><span>{{ .Title }}</span></a>{{ end }}
     {{ with .NextInSection }}<a class="newer" href="{{ .RelPermalink }}"><span class="label">Newer</span><span>{{ .Title }}</span></a>{{ end }}

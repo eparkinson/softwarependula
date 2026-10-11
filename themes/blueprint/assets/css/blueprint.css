@@ -294,6 +294,13 @@ a:focus-visible, button:focus-visible { outline: 2px solid currentColor; outline
 .toc ul ul a { font-weight: 400; color: var(--ink-2); }
 .toc a:hover { color: var(--accent); }
 
+.related { margin-top: 56px; }
+.related .index-label { padding-top: 0; }
+
+/* Diagrams drawn from a ```mermaid code block (site.js) */
+.diagram { margin: 24px 0; overflow-x: auto; text-align: center; }
+.diagram svg { max-width: 100%; height: auto; }
+
 .post-nav {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -313,6 +320,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid currentColor; outline
   text-transform: uppercase;
   color: var(--muted);
 }
+
+.age-note { margin: 0 0 28px; font-size: 15px; color: var(--muted); }
 
 .content { overflow-wrap: break-word; }
 .content > :first-child { margin-top: 0; }
