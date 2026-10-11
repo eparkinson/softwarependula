@@ -58,7 +58,9 @@ The result was version 11, and how it got there is my favourite thing in the who
 
 Version 11 entered in round 34 and won all 24 of its games. Against the yardstick it scored **+20.3**, where every earlier version had lost. Here is the LLM line beating DAA for the first time:
 
-{{< video src="/videos/ai-soccer/llm-v11-vs-daa.mp4" caption="LLM-v11 (red) against DefendersAndAttackers (blue): 90 seconds of play" >}}
+{{< youtube 99oEQ7scg1g >}}
+
+*LLM-v11 (red) against DefendersAndAttackers (blue): 90 seconds of play.*
 
 That one finishes 14–1. Of five recorded games it is the typical one: the margins ran from 11 to 16.
 
@@ -72,7 +74,9 @@ GP got part of the way. When it stalled, the cause turned out to be vocabulary: 
 
 The surprise was PPO. Its second design, PPO-v2, had more inputs, a bigger network and a head start: it began as an imitation of version 11, and a poor one, at −4.3 against the yardstick. For its first fifty rounds it lost every single game it played against the original: 264 games, no wins, no draws. In rounds 61 to 70 the combined score was 79 goals to 1,069. But the margin kept shrinking. In round 111 it won a match against version 11 for the first time, in round 115 it took the title, and over the last 40 rounds it won 195 of their 240 games.
 
-{{< video src="/videos/ai-soccer/ppo-beats-llm-v11.mp4" caption="The final champion, PPO-champ-11 (blue), against LLM-v11 (red): 90 seconds of play" >}}
+{{< youtube kXcgzrk3sZw >}}
+
+*The final champion, PPO-champ-11 (blue), against LLM-v11 (red): 90 seconds of play.*
 
 The champion wins this one 3–2. Close is typical. In five recorded games of this length it won two, drew two and lost one. Its edge shows over long matches, not in any single minute.
 

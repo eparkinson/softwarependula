@@ -11,6 +11,8 @@ date = "2026-10-11T08:00:00+02:00"
 
 In December 2020 I started a small side project called [ai-soccer](https://github.com/eparkinson/ai-soccer): a physics-based soccer sandbox where the players are controlled by code, and the fun is in pitting one piece of code against another. I wanted a game with rules simple enough to explain in a minute and cheap enough to simulate thousands of times, but where it is not at all obvious what good play looks like. In other words, a decent test bed for the kinds of AI I wrote about in [Reflections on AI progress](/post/ai-reflections/), from the genetic algorithms of my M.Sc. days to today's neural networks and language models.
 
+<!--more-->
+
 This is the first of two posts. This one covers the game itself and two simple hand-written players. [Part 2](/post/ai-soccer-part-2/) is about what happened when I stopped writing players by hand and let them learn the game instead, with an AI as my collaborator.
 
 # The rules
@@ -99,7 +101,9 @@ That is about forty lines of if-statements. It is still nothing clever, but it h
 
 Here they are playing each other. DAA is blue and BAT is red.
 
-{{< video src="/videos/ai-soccer/bat-vs-daa.mp4" caption="DefendersAndAttackers (blue) against BehindAndTowards (red): 90 seconds of play" >}}
+{{< youtube 37yKjW2DzIA >}}
+
+*DefendersAndAttackers (blue) against BehindAndTowards (red): 90 seconds of play.*
 
 DAA wins this one 9–5. I recorded five games and picked the most typical one. DAA won all five, by between three and eight goals.
 
