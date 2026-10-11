@@ -33,5 +33,8 @@ jobs:
     - name: Terraform Deploy to S3
 
       run: |
+        # Keep a copy of the build in the build repository, as before.
         aws s3 sync ./public/ s3://bz-build-repository/live/www.softwarependula.net --delete
-        # aws s3 sync ./public/ s3://www.softwarependula.net/ --delete
+        # The live site is served from this bucket (CloudFront in front of it does not cache,
+        # so no invalidation is needed). Staging works the same way with its own bucket.
+        aws s3 sync ./public/ s3://www.softwarependula.net --delete
