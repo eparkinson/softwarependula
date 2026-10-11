@@ -1,0 +1,6 @@
+{{- /* A post's number in the order it was published: the first post is 01. */ -}}
+{{- $n := 0 -}}
+{{- range $i, $p := (where site.RegularPages "Section" "post").ByDate -}}
+  {{- if eq $p.RelPermalink $.RelPermalink }}{{ $n = add $i 1 }}{{ end -}}
+{{- end -}}
+{{- printf "%02d" $n -}}

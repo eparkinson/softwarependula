@@ -1,0 +1,14 @@
+{{ define "hero" }}
+<div class="hero">
+  <p class="kicker">Tag</p>
+  <h1>{{ with .Data.Term }}{{ . }}{{ else }}{{ .Title }}{{ end }}</h1>
+</div>
+{{ end }}
+
+{{ define "main" }}
+{{ $pages := .Pages.ByDate.Reverse }}
+<p class="index-label">{{ len $pages }} {{ if eq (len $pages) 1 }}post{{ else }}posts{{ end }}</p>
+{{ range $pages }}
+{{ partial "post-row.html" . }}
+{{ end }}
+{{ end }}

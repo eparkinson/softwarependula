@@ -1,0 +1,40 @@
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-54YD2QMXMC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-54YD2QMXMC');
+  </script>
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("theme");
+        if (saved === "dark" || saved === "light") {
+          document.documentElement.setAttribute("data-theme", saved);
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  {{ $description := .Site.Params.meta.description }}
+  {{ with .Description }}{{ $description = . }}{{ else }}{{ if .IsPage }}{{ $description = .Summary | plainify | truncate 160 }}{{ end }}{{ end }}
+  <meta name="description" content="{{ $description }}" />
+  {{ with .Site.Params.author }}<meta name="author" content="{{ . }}" />{{ end }}
+  {{ hugo.Generator }}
+
+  <link rel="canonical" href="{{ .Permalink }}">
+  {{ partial "social.html" (dict "page" . "description" $description) }}
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  {{ with .Site.Home.OutputFormats.Get "RSS" }}
+  <link rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" href="{{ .Permalink }}">
+  {{ end }}
+  <link rel="preload" href="/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/blueprint.css" />
+
+  <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
+</head>

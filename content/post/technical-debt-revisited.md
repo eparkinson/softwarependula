@@ -5,6 +5,7 @@ tags = [
     "musings"
 ]
 date = "2021-04-24"
+description = "A definition of technical debt, why DevOps teams have come to see it as the enemy, and when taking it on is still the right call."
 +++
 
 

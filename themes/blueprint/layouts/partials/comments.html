@@ -1,0 +1,13 @@
+{{- /* Comments, chosen by params.comments in config.toml: "disqus", "utterances" or "none". */ -}}
+{{ $kind := .Site.Params.comments | default "disqus" }}
+{{ if eq $kind "utterances" }}
+{{ with .Site.Params.commentsRepo }}
+<div class="comments">
+  <script src="https://utteranc.es/client.js" repo="{{ . }}" issue-term="pathname" theme="preferred-color-scheme" crossorigin="anonymous" async></script>
+</div>
+{{ end }}
+{{ else if eq $kind "disqus" }}
+<div class="comments">
+  {{ template "_internal/disqus.html" . }}
+</div>
+{{ end }}

@@ -13,7 +13,7 @@ Software Pendula is a personal blog built with Hugo, a static site generator. Th
 
 ### Core Technologies
 - **Hugo**: v0.79.1 - Static site generator
-- **Theme**: Hugo Dusk theme (default-dark color scheme)
+- **Theme**: Blueprint, a theme written for this blog (`themes/blueprint/`); light and dark modes
 - **Language**: Go (Hugo templates)
 - **Web Server**: Nginx (stable-alpine)
 - **Container**: Docker multi-stage build
@@ -39,7 +39,9 @@ Software Pendula is a personal blog built with Hugo, a static site generator. Th
 │   └── about.md           # About page
 ├── layouts/               # Custom Hugo templates
 ├── static/                # Static assets (images, CSS, JS)
-├── themes/hugo-dusk/      # Hugo Dusk theme
+├── themes/blueprint/      # The site's theme (ours to edit)
+├── themes/hugo-dusk/      # Previous third-party theme, kept for rollback
+├── tools/                 # share-cards.py: makes the images shown when links are shared
 ├── config.toml            # Hugo configuration
 ├── Dockerfile             # Multi-stage Docker build
 └── README.md              # Project documentation
@@ -93,8 +95,8 @@ docker build -t softwarependula .
 ### Hugo Configuration (`config.toml`)
 - **Base URL**: https://www.softwarependula.net
 - **Language**: en-US
-- **Theme**: hugo-dusk with default-dark colors
-- **Pagination**: 3 posts per page
+- **Theme**: blueprint (see CLAUDE.md for its layout files and front matter keys)
+- **Pagination**: none; the home page lists every post
 - **Syntax Highlighting**: Fruity theme with Chroma
 - **Comments**: Disqus (shortname: software-pendula)
 - **Features**: RobotsTXT, Emoji support, GitInfo enabled
@@ -121,7 +123,7 @@ docker build -t softwarependula .
 ## Key Features
 
 1. **Static Site Generation**: Fast, secure, and SEO-friendly
-2. **Dark Theme**: Hugo Dusk with default-dark color scheme
+2. **Light and dark modes**: follows the reader's system setting, with a switch in the header
 3. **Responsive Design**: Mobile-friendly layout
 4. **Syntax Highlighting**: Code blocks with Fruity theme (via Chroma)
 5. **Git Integration**: Automatic Git info in posts
@@ -140,10 +142,7 @@ hugo new post/my-new-post.md
 ```
 
 ### Updating Theme
-```bash
-cd themes/hugo-dusk
-git pull origin master
-```
+The `blueprint` theme lives in this repo: edit the files under `themes/blueprint/` directly.
 
 ## Environment Variables & Secrets
 

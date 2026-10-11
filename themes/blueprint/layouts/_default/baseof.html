@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}">
+{{ partial "head.html" . }}
+<body>
+<div class="band">
+  <div class="wrap">
+    {{ partial "site-header.html" . }}
+    {{ block "hero" . }}
+    <div class="hero">
+      <h1>{{ .Title }}</h1>
+    </div>
+    {{ end }}
+  </div>
+</div>
+<div class="wrap">
+  <main>
+    {{ block "main" . }}{{ end }}
+  </main>
+  {{ partial "site-footer.html" . }}
+</div>
+{{ partial "theme-script.html" . }}
+</body>
+</html>

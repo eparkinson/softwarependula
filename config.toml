@@ -3,7 +3,7 @@ title = "Software Pendula"
 languageCode = "en-US"
 canonifyurls = true
 paginate = 3
-theme = "hugo-dusk"
+theme = "blueprint"
 enableRobotsTXT = true
 enableEmoji = true
 
@@ -36,13 +36,17 @@ pygmentsCodeFences = true
 [markup]
   [markup.highlight]
     style = "fruity" # dark themes: monokai, api, fruity, native, rrt, swapoff
+    noClasses = false # the blueprint theme colours code with CSS classes
+  [markup.tableOfContents]
+    startLevel = 1
+    endLevel = 2
 
 [author]
   name = ""
 
 [params.meta]
   keywords = ""
-  description = "Personal blog."
+  description = "Notes on software architecture and AI."
 
 [params]
   email = "elroy.parkinson@gmail.com"
@@ -50,3 +54,8 @@ pygmentsCodeFences = true
   twitter = "ElroyParkinson"
   linkedin = "elroy-parkinson-13b61a8"
   theme_colors = "default-dark"
+  tagline = "Notes on software architecture and AI."
+  author = "Elroy Parkinson"
+  # comments: "disqus", "utterances" (needs the utterances GitHub app on commentsRepo) or "none"
+  comments = "disqus"
+  commentsRepo = "eparkinson/softwarependula"

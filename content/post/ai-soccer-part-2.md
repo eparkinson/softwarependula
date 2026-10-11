@@ -7,6 +7,8 @@ tags = [
     "tech"
 ]
 date = "2026-10-11T09:00:00+02:00"
+description = "Brains that start from nothing learn to play, and I count what each approach cost."
+collection = "AI Soccer"
 +++
 
 In [part 1](/post/ai-soccer-part-1/) I introduced [ai-soccer](https://github.com/eparkinson/ai-soccer), a small physics-based soccer game for teams controlled by code, and DefendersAndAttackers (DAA), the strongest of my hand-written brains: forty lines of if-statements from 2020.

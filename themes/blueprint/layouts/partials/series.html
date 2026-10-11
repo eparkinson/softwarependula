@@ -1,0 +1,17 @@
+{{- /* Posts that share a `collection` value in their front matter, oldest first.
+       (Not `series`: Hugo's built-in sharing metadata expects that key to be a taxonomy.) */ -}}
+{{ with .Params.collection }}
+{{ $posts := (where site.RegularPages "Params.collection" .).ByDate }}
+{{ if gt (len $posts) 1 }}
+<aside class="series" aria-label="Series">
+  <div class="series-label">Series · {{ . }}</div>
+  {{ range $posts }}
+  {{ if eq .RelPermalink $.RelPermalink }}
+  <div><strong>{{ .Title }}</strong> (this post)</div>
+  {{ else }}
+  <div><a href="{{ .RelPermalink }}">{{ .Title }}</a></div>
+  {{ end }}
+  {{ end }}
+</aside>
+{{ end }}
+{{ end }}

@@ -1,0 +1,22 @@
+<script>
+  (function () {
+    var button = document.getElementById("theme-toggle");
+    if (!button) { return; }
+    var root = document.documentElement;
+    function current() {
+      var set = root.getAttribute("data-theme");
+      if (set) { return set; }
+      return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    function label() {
+      button.setAttribute("aria-label", current() === "dark" ? "Switch to light mode" : "Switch to dark mode");
+    }
+    button.addEventListener("click", function () {
+      var next = current() === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try { localStorage.setItem("theme", next); } catch (e) {}
+      label();
+    });
+    label();
+  })();
+</script>

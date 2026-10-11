@@ -1,0 +1,27 @@
+{{ define "hero" }}
+<div class="hero hero--home">
+  <h1>{{ .Site.Title }}</h1>
+  {{ with .Site.Params.tagline }}<p class="tagline">{{ . }}</p>{{ end }}
+</div>
+{{ end }}
+
+{{ define "main" }}
+{{ $posts := (where site.RegularPages "Section" "post").ByDate.Reverse }}
+{{ $count := len $posts }}
+{{ if $count }}
+<p class="index-label">{{ $count }} posts · {{ (index $posts (sub $count 1)).Date.Format "2006" }} to {{ (index $posts 0).Date.Format "2006" }}</p>
+{{ range $i, $p := first 3 $posts }}
+<article class="feature{{ if eq $i 2 }} feature--last{{ end }}">
+  <div class="num">{{ partial "post-number.html" $p }}</div>
+  <div>
+    <h2><a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a></h2>
+    {{ with $p.Description }}<p>{{ . }}</p>{{ end }}
+    <div class="meta">{{ $p.Date.Format "2 Jan 2006" }} · {{ $p.ReadingTime }} min</div>
+  </div>
+</article>
+{{ end }}
+{{ range after 3 $posts }}
+{{ partial "post-row.html" . }}
+{{ end }}
+{{ end }}
+{{ end }}

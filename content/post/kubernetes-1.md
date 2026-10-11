@@ -5,6 +5,7 @@ tags = [
     "tech"
 ]
 date = "2020-07-08"
+description = "Getting started with Kubernetes on a desktop: Minikube, a first deployment, scaling and a load-balancing ingress."
 +++
 
 # Introduction

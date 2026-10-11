@@ -1,0 +1,5 @@
+<div class="row">
+  <span class="num">{{ partial "post-number.html" . }}</span>
+  <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+  <span class="when">{{ .Date.Format "Jan 2006" }}</span>
+</div>

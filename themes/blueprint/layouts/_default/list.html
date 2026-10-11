@@ -1,0 +1,7 @@
+{{ define "main" }}
+{{ $pages := .RegularPages.ByDate.Reverse }}
+<p class="index-label">{{ len $pages }} {{ if eq (len $pages) 1 }}post{{ else }}posts{{ end }}</p>
+{{ range $pages }}
+{{ partial "post-row.html" . }}
+{{ end }}
+{{ end }}

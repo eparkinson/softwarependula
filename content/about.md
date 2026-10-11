@@ -8,10 +8,10 @@ weight = 100
 # About me
 Hi! My name is Elroy Parkinson. I live in Johannesburg, South Africa and this is my blog.
 
-I am a Solutions Architect with 20 year's experience as an IT professional. I have a very analytical mind and love finding elegant, simple, cost-effective technical solutions to tough business problems. I am particularly interested in Cloud Architecture, containerization using Kubernetes, Agile software development and Spring Boot micro-services.
+I am a Solutions Architect with 20 years' experience as an IT professional. I have a very analytical mind and love finding elegant, simple, cost-effective technical solutions to tough business problems. I am particularly interested in Cloud Architecture, containerization using Kubernetes, Agile software development and Spring Boot micro-services.
 
 
-I have a Masters Degree in Computer Science from the University of Port Elizabeth (now the [Melson Mandela Metropolitan University](https://www.mandela.ac.za/)) and an MBA from [Charles Sturt University](https://www.csu.edu.au/) in Australia.
+I have a Masters Degree in Computer Science from the University of Port Elizabeth (now the [Nelson Mandela Metropolitan University](https://www.mandela.ac.za/)) and an MBA from [Charles Sturt University](https://www.csu.edu.au/) in Australia.
 
 Me on the web:
 - [LinkedIn](https://www.linkedin.com/in/elroy-parkinson-13b61a8/)
@@ -31,15 +31,11 @@ Mostly I cover Software Development and Architecture topics that I've had to thi
 
 ## Technical details
 
-As I said, this blog started out on Google's https://www.blogger.com following a (rare) New Year's resolution in 2013. That platform is still around but nowhere near as active as it used to be and so for 2021 I've decided to self-host on Google's Cloud platform using [Hugo](https://gohugo.io/), a [Jamstack](https://jamstack.org/) framework - mostly as a way to learn more about the tech. The details are probably a good topic for a future post.
+As I said, this blog started out on Google's https://www.blogger.com following a (rare) New Year's resolution in 2013. That platform is still around but nowhere near as active as it used to be and so for 2021 I've decided to self-host on AWS using [Hugo](https://gohugo.io/), a [Jamstack](https://jamstack.org/) framework - mostly as a way to learn more about the tech. The details are probably a good topic for a future post.
 
 ## Side Hustle
 
 [Chat-Leads.net](https://www.chat-leads.net/) - helping small business exploit AI technology to generate sales.
-
-AI chatbots represent a game-changing tool for generating sales leads. These advanced, AI-powered chatbots are available 24/7, ensuring that your business never misses an opportunity to engage with potential clients. They can handle multiple inquiries simultaneously, providing instant, personalized responses that keep customers engaged. This efficiency not only improves customer satisfaction but also significantly reduces the workload on your sales team, allowing them to focus on closing deals rather than fielding initial queries.
-
-Try a [free trial](https://www.chat-leads.net/pricing/).
 
 
 ## Published Papers

@@ -1,0 +1,13 @@
+{{ define "hero" }}
+<div class="hero">
+  <p class="kicker">404</p>
+  <h1>Page not found</h1>
+</div>
+{{ end }}
+
+{{ define "main" }}
+<p class="index-label">All posts</p>
+{{ range (where site.RegularPages "Section" "post").ByDate.Reverse }}
+{{ partial "post-row.html" . }}
+{{ end }}
+{{ end }}

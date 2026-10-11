@@ -29,7 +29,7 @@ npx jest -t "should not have broken internal links"
 hugo new post/my-new-post.md
 ```
 
-Hugo version is pinned to **0.79.1** in the `Dockerfile` and used by the GitHub Actions workflows. Newer Hugo versions may break the build or the `hugo-dusk` theme — match this version when reproducing CI behaviour locally.
+Hugo version is pinned to **0.79.1** in the `Dockerfile` and used by the GitHub Actions workflows. In practice the workflows install Ubuntu's packaged Hugo (0.123.7 at the time of writing), and the `blueprint` theme is checked against both 0.92.2 and 0.123.7.
 
 ## Architecture
 
@@ -43,20 +43,38 @@ Hugo version is pinned to **0.79.1** in the `Dockerfile` and used by the GitHub 
 
 Drafts in `content/post/` use the filename suffix `.md.draft` (e.g. `aisoccer.md.draft`) rather than Hugo's `draft: true` front matter. Files ending in `.md.draft` are ignored by Hugo because they don't have the `.md` extension. To publish a draft, rename it to `.md`. Do **not** convert these to `draft: true` — the site relies on the extension-based convention.
 
-### Theme and layout overrides
+### Theme
 
-The theme `themes/hugo-dusk/` is a vendored third-party theme. Customizations live in the repo root and override the theme by Hugo's lookup order:
+The site uses `themes/blueprint/`, a theme written for this blog (set by `theme = "blueprint"` in `config.toml`). It is ours to edit:
 
-- `layouts/shortcodes/video.html` — embeds a self-hosted MP4: `{{< video src="/videos/<folder>/<file>.mp4" caption="..." >}}`. Videos live under `static/videos/`.
-- `static/` — other site-wide static assets (images, videos, papers PDFs).
+- `layouts/_default/baseof.html` — page shell: a blue band holding the header and the page title, then one reading column.
+- `layouts/index.html` — home page: the site title and tagline, then every post, newest first. The three newest show their `description`.
+- `layouts/_default/single.html` — posts and pages. Posts get a number, date and reading time above the title, a series box, a contents list on long posts, older/newer links and comments.
+- `layouts/_default/{list,term,terms}.html`, `layouts/404.html` — post list, a tag's posts, the tag list, not-found page.
+- `layouts/partials/` — `head.html`, `social.html` (sharing metadata), `site-header.html`, `site-footer.html`, `post-row.html`, `post-number.html`, `series.html`, `comments.html`, `theme-script.html` (the light/dark switch).
+- `static/css/blueprint.css` — all styles. Colours are CSS variables with light and dark values; the header switch sets `data-theme` on `<html>`.
+- `static/fonts/` — Archivo and JetBrains Mono, self-hosted (both under the SIL Open Font License).
 
-Add new layouts and shortcodes under `layouts/` in the repo root — do not edit the theme directly. The only edits inside the theme are two small Hugo compatibility fixes (`head.html`, `social-links-footer.html`).
+`themes/hugo-dusk/` is the previous third-party dark theme, kept so the old look can be restored by setting `theme = "hugo-dusk"` and removing `noClasses = false`.
+
+Root-level `layouts/shortcodes/video.html` embeds a self-hosted MP4: `{{< video src="/videos/<folder>/<file>.mp4" caption="..." >}}`. Posts currently embed videos with Hugo's `youtube` shortcode instead.
 
 The news digest section and the warm-editorial theme redesign were experiments. They were removed from `main` on 2026-10-11 and are kept on the `experimental-redesign-news` branch.
 
+### Post front matter the theme reads
+
+- `description` — one line, shown on the home page for the newest posts and used as the page's description when a link is shared. Give every post one.
+- `collection = "Name"` — posts that share a value are listed together in a series box, oldest first. (Do not call this key `series`: Hugo's built-in templates treat that as a taxonomy.)
+- `toc = true` / `toc = false` — force the contents list on or off. Without it, posts over 1,500 words with three or more headings get one.
+- Posts use `#` for section headings and `##` below that. The theme styles them as section and sub-section headings, smaller than the post title.
+
+### Share cards
+
+`python3 tools/share-cards.py` writes `static/images/og/<post file name>.png` for every post and `site.png` for everything else (needs Chromium or Chrome). The theme finds a post's card by file name. Run it after adding a post or changing a title, and commit the PNGs.
+
 ### Config
 
-`config.toml` is the single Hugo configuration. Notable settings: `paginate = 3`, theme `hugo-dusk` with `theme_colors = "default-dark"`, Chroma syntax highlighting with `fruity` style, Disqus shortname `software-pendula`, tag taxonomy, and a fixed top menu (Posts / Tags).
+`config.toml` is the single Hugo configuration. Notable settings: theme `blueprint`, `params.tagline` (the line under the site title), `params.comments` (`"disqus"`, `"utterances"` or `"none"`; utterances also needs the utterances GitHub app installed on `params.commentsRepo`), `markup.highlight.noClasses = false` (code is coloured by the theme's CSS), `markup.tableOfContents` levels 1 to 2, Disqus shortname `software-pendula`, tag taxonomy, and a fixed top menu (Posts / Tags). `paginate` and `theme_colors` are only used by the old theme.
 
 ### Tests
 

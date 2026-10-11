@@ -5,6 +5,7 @@ tags = [
     "tech"
 ]
 date = "2015-02-04"
+description = "Building IVR-style voice services on Asterisk, the open-source telephony server."
 +++
 
 # Introduction
@@ -67,7 +68,7 @@ And to allow these two extensions to call each other, we need to create file /et
 exten => 4001,1,Dial(SIP/4001)
 exten => 4002,1,Dial(SIP/4002)
 ```
-Finally, let's set up a sip client. The Quick Start Guide suggests Xoiper which is not terribly easy to install and also, as I discovered the hard way, does not work on 64 bit Ubuntu. Instead, we'll install linphone on our Asterisk server for simplicity:
+Finally, let's set up a sip client. The Quick Start Guide suggests Zoiper which is not terribly easy to install and also, as I discovered the hard way, does not work on 64 bit Ubuntu. Instead, we'll install linphone on our Asterisk server for simplicity:
 ```shell
 sudo apt-get install linphone
 ```

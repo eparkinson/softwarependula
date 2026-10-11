@@ -4,6 +4,7 @@ tags = [
     "personal"
 ]
 date = "2013-01-09"
+description = "Why the blog has this name: trends in software swing between extremes, like a pendulum."
 +++
 
 I have high hopes for this blog. It was a new year’s resolution to become a more active blogger than my previous attempt as can be seen at [elroyparkinson.blogspot.com](http://elroyparkinson.blogspot.com). I still plan to keep that going for non-software related blogs if the urge strikes me once a year or so as has been the case historically.

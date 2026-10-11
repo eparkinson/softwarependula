@@ -1,0 +1,35 @@
+{{ define "hero" }}
+<div class="hero">
+  {{ if eq .Section "post" }}<p class="kicker">Post {{ partial "post-number.html" . }} · {{ .Date.Format "2 Jan 2006" }} · {{ .ReadingTime }} min read</p>{{ end }}
+  <h1>{{ .Title }}</h1>
+  {{ with .Params.tags }}
+  <div class="hero-tags">{{ range $i, $tag := . }}{{ if $i }} · {{ end }}<a href="{{ "tags/" | relURL }}{{ $tag | urlize }}/">{{ $tag }}</a>{{ end }}</div>
+  {{ end }}
+</div>
+{{ end }}
+
+{{ define "main" }}
+{{ $isPost := eq .Section "post" }}
+<article class="article">
+  {{ partial "series.html" . }}
+  {{/* A contents list on long posts with sections; set `toc = true` or `toc = false` in front matter to override. */}}
+  {{ $showToc := and $isPost (gt .WordCount 1500) (ge (len (findRE "<h[12][ >]" .Content)) 3) }}
+  {{ if isset .Params "toc" }}{{ $showToc = .Params.toc }}{{ end }}
+  {{ if $showToc }}
+  <div class="toc">
+    <div class="series-label">Contents</div>
+    {{ .TableOfContents }}
+  </div>
+  {{ end }}
+  <div class="content">
+    {{ .Content }}
+  </div>
+  {{ if $isPost }}
+  <nav class="post-nav" aria-label="More posts">
+    {{ with .PrevInSection }}<a class="older" href="{{ .RelPermalink }}"><span class="label">Older</span><span>{{ .Title }}</span></a>{{ end }}
+    {{ with .NextInSection }}<a class="newer" href="{{ .RelPermalink }}"><span class="label">Newer</span><span>{{ .Title }}</span></a>{{ end }}
+  </nav>
+  {{ partial "comments.html" . }}
+  {{ end }}
+</article>
+{{ end }}

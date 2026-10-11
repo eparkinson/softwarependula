@@ -1,0 +1,9 @@
+{{ define "main" }}
+<p class="index-label">{{ len .Data.Terms }} tags</p>
+{{ range .Data.Terms.ByCount }}
+<div class="row row--plain">
+  <a href="{{ .Page.RelPermalink }}">{{ .Name }}</a>
+  <span class="when">{{ .Count }} {{ if eq .Count 1 }}post{{ else }}posts{{ end }}</span>
+</div>
+{{ end }}
+{{ end }}

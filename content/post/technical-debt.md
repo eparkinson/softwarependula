@@ -5,6 +5,7 @@ tags = [
     "musings"
 ]
 date = "2013-06-05"
+description = "Technical debt is a lot like a mortgage: a cost, but one that can get you somewhere sooner."
 +++
 
 I have debt: a mortgage on my home and some credit card debt. Is debt a “bad thing”? Well, yes. In the sense that I would much rather not have to pay off my mortgage every month. If I didn't have a mortgage I’d have an extra bit of cash left every month that I can do far better things with.
@@ -13,7 +14,7 @@ But was my mortgage useful to me? Hell, yeah! Without it, I probably wouldn't ow
 
 Lately, I've heard many of my colleagues throw around the term “technical debt”. The term is in common use now, especially in terms of agile projects. “We cannot sustain this velocity without incurring technical debt” is just one example of how I've heard it used recently. Incurring technical debt is a “bad thing” and even Wikipedia seems to agree: Quoting from its article on technical debt, Wikipedia notes “…The build up of technical debt is a major cause for projects to miss deadlines …”
 
-This extract from [Wikipedia's article on technical](http://en.wikipedia.org/wiki/Technical_debt) debt appears to imply that technical debt is a little different from my mortgage: technical debt is a major cause for missing project deadlines. On the other hand my mortgage helped me to own a home faster than I would have otherwise been able too. Perhaps I am stretching the metaphor too far here in comparing technical debt with financial debt?
+This extract from [Wikipedia's article on technical](http://en.wikipedia.org/wiki/Technical_debt) debt appears to imply that technical debt is a little different from my mortgage: technical debt is a major cause for missing project deadlines. On the other hand my mortgage helped me to own a home faster than I would have otherwise been able to. Perhaps I am stretching the metaphor too far here in comparing technical debt with financial debt?
 
 In [this video](http://www.youtube.com/watch?v=pqeJFYwnkjE), Ward Cunningham explains how he originally coined the debt metaphor to explain to his financial software bosses the need for refactoring. He also says that he was very aware of the power of metaphors to influence thinking after having read Lakoff and Johnson’s book “Metaphors We Live By” and that he believed that this particular metaphor was entirely appropriate to reason about technical debt. And so the process of (thoughtfully) incurring technical debt is not unlike my mortgage and can in some cases help get the job done faster. It can sometimes help meet those tight project deadlines.
 

@@ -6,6 +6,7 @@ tags = [
     "tech"
 ]
 date = "2014-03-13"
+description = "Using JavaCV and OpenCV to detect faces and hands in a live video stream."
 +++
 
 # Introduction
@@ -23,7 +24,7 @@ Once the prerequisites are in place we can download JavaCV jar here: https://cod
 To get the samples below running, you need the following jars in your classpath and dlls in your java.library path:
 
 - From JavaCV: javacv.jar, javacpp.jar and javacv-windows-x86.jar OpenCV-244.jar  
-- OpenCV-244.jar from OpenCV (or whathever version you're using if not 2.44)
+- OpenCV-244.jar from OpenCV (or whatever version you're using if not 2.44)
 - The following OpenCV dlls:  avcodec-52.dll avdevice-52.dll  avfilter-1.dll  avformat-52.dll  avutil-50.dll  
 opencv_calib3d244.dll  opencv_core244.dll  opencv_features2d244.dll
 opencv_flann244.dll opencv_highgui244.dll opencv_imgproc244.dll opencv_java244.dll
