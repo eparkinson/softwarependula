@@ -12,7 +12,7 @@ Software Pendula is a personal blog built with Hugo, a static site generator. Th
 ## Technology Stack
 
 ### Core Technologies
-- **Hugo**: v0.79.1 - Static site generator
+- **Hugo**: v0.123.7 (pinned in `tools/install-hugo.sh` and the `Dockerfile`) - Static site generator
 - **Theme**: Blueprint, a theme written for this blog (`themes/blueprint/`); light and dark modes
 - **Language**: Go (Hugo templates)
 - **Web Server**: Nginx (stable-alpine)
@@ -67,7 +67,7 @@ hugo --minify --enableGitInfo
 docker build -t softwarependula .
 
 # The Dockerfile performs a two-stage build:
-# 1. Hugo compilation (Alpine + Hugo 0.79.1)
+# 1. Hugo compilation (Alpine + Hugo 0.123.7)
 # 2. Nginx serving (nginx:stable-alpine)
 ```
 
@@ -172,7 +172,7 @@ The `blueprint` theme lives in this repo: edit the files under `themes/blueprint
 ## Troubleshooting
 
 ### Common Issues
-1. **Hugo version mismatch**: Ensure Hugo 0.79.1 is used
+1. **Hugo version mismatch**: Ensure Hugo 0.123.7 is used (`tools/install-hugo.sh`)
 2. **Theme not found**: Check git submodule status
 3. **S3 sync failures**: Verify AWS credentials
 4. **CloudFront cache**: May take 5-15 minutes to invalidate
