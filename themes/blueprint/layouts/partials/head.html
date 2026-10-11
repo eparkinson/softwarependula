@@ -6,6 +6,19 @@
     gtag('js', new Date());
 
     gtag('config', 'G-54YD2QMXMC');
+
+    // A click on an email, phone or WhatsApp link is reported to Analytics as contact_click.
+    document.addEventListener('click', function (event) {
+      try {
+        var link = event.target.closest('a[href]');
+        if (!link) { return; }
+        var method = link.protocol === 'mailto:' ? 'email'
+          : link.protocol === 'tel:' ? 'phone'
+          : link.hostname === 'wa.me' || link.hostname === 'api.whatsapp.com' ? 'whatsapp'
+          : '';
+        if (method) { gtag('event', 'contact_click', { method: method }); }
+      } catch (e) {}
+    });
   </script>
   <script>
     (function () {
