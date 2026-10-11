@@ -21,7 +21,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   {{ $description := .Site.Params.meta.description }}
-  {{ with .Description }}{{ $description = . }}{{ else }}{{ if .IsPage }}{{ $description = .Summary | plainify | truncate 160 }}{{ end }}{{ end }}
+  {{ with .Description }}{{ $description = . }}{{ else }}{{ if .IsPage }}{{ $description = .Summary | plainify | htmlUnescape | truncate 160 }}{{ end }}{{ end }}
   <meta name="description" content="{{ $description }}" />
   {{ with .Site.Params.author }}<meta name="author" content="{{ . }}" />{{ end }}
   {{ hugo.Generator }}
