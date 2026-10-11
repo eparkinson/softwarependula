@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const vm = require('vm');
 const { glob } = require('glob');
 const cheerio = require('cheerio');
 
@@ -249,6 +250,76 @@ describe('Static Site Tests', () => {
       }
 
       expect(suspiciousScripts).toEqual([]);
+    });
+  });
+
+  describe('Analytics Tests', () => {
+    const loadsAnalytics = html => html.includes('googletagmanager.com/gtag/js');
+
+    // Runs the Analytics script of the built home page against a stand-in document, clicks
+    // the given target, and returns the events that the click put in the Analytics queue.
+    function eventsAfterClick(target) {
+      const html = fs.readFileSync(path.join(PUBLIC_DIR, 'index.html'), 'utf-8');
+      const $ = cheerio.load(html);
+      const script = $('script:not([src])').toArray()
+        .map(elem => $(elem).html())
+        .find(content => content.includes('gtag('));
+
+      const listeners = [];
+      const sandbox = {
+        document: {
+          addEventListener: (type, listener) => { if (type === 'click') listeners.push(listener); }
+        }
+      };
+      sandbox.window = sandbox;
+      vm.createContext(sandbox);
+      vm.runInContext(script, sandbox);
+
+      listeners.forEach(listener => listener({ target }));
+      return JSON.parse(JSON.stringify(sandbox.dataLayer.map(args => Array.from(args))))
+        .filter(args => args[0] === 'event');
+    }
+
+    // A clicked element inside a link to the given address.
+    function insideLinkTo(href) {
+      const { protocol, hostname } = new URL(href);
+      return { closest: () => ({ protocol, hostname }) };
+    }
+
+    test('every page that loads Analytics should report contact clicks', () => {
+      const pagesWithoutListener = [];
+      let pagesWithAnalytics = 0;
+
+      htmlFiles.forEach(file => {
+        const html = fs.readFileSync(path.join(PUBLIC_DIR, file), 'utf-8');
+        if (!loadsAnalytics(html)) return;
+
+        pagesWithAnalytics++;
+        if (!html.includes('contact_click')) {
+          pagesWithoutListener.push(file);
+        }
+      });
+
+      expect(pagesWithAnalytics).toBeGreaterThan(0);
+      expect(pagesWithoutListener).toEqual([]);
+    });
+
+    test.each([
+      ['mailto:someone@example.com', 'email'],
+      ['tel:+27110000000', 'phone'],
+      ['https://wa.me/27110000000', 'whatsapp'],
+      ['https://api.whatsapp.com/send?phone=27110000000', 'whatsapp'],
+    ])('a click on a %s link should send contact_click with method %s', (href, method) => {
+      expect(eventsAfterClick(insideLinkTo(href))).toEqual([
+        ['event', 'contact_click', { method }]
+      ]);
+    });
+
+    test('other clicks should send no event', () => {
+      expect(eventsAfterClick(insideLinkTo('https://github.com/eparkinson'))).toEqual([]);
+      expect(eventsAfterClick({ closest: () => null })).toEqual([]);
+      // A target without closest() must not throw either.
+      expect(eventsAfterClick({})).toEqual([]);
     });
   });
 
