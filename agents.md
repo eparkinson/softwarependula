@@ -23,7 +23,8 @@ Software Pendula is a personal blog built with Hugo, a static site generator. Th
 - **Storage**: AWS S3 buckets
   - Live: `s3://www.softwarependula.net` (a copy of each build is also kept in `s3://bz-build-repository/live/www.softwarependula.net`)
   - Staging: `s3://staging.softwarependula.net`
-- **CDN**: AWS CloudFront (staging distribution ID: E3TETIEU2CNJME; the live distribution does not cache)
+- **CDN**: AWS CloudFront (staging distribution ID: E3TETIEU2CNJME; live: E1EGE1131SIUSX, which does not cache)
+- **Security headers**: a CloudFront response headers policy per stage, defined in `infra/security-headers.yaml` and applied with `tools/security-headers.sh` (see "Security headers" in `CLAUDE.md`)
 - **CI/CD**: GitHub Actions
 - **Region**: us-east-1
 
@@ -37,6 +38,7 @@ Software Pendula is a personal blog built with Hugo, a static site generator. Th
 ├── content/                # Blog content (markdown files)
 │   ├── post/              # Blog posts
 │   └── about.md           # About page
+├── infra/                 # security-headers.yaml: the response headers CloudFront adds
 ├── layouts/               # Custom Hugo templates
 ├── static/                # Static assets (images, CSS, JS)
 ├── themes/blueprint/      # The site's theme (ours to edit)

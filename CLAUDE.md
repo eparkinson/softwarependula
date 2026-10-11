@@ -112,7 +112,10 @@ Tags are a small set of real topics (`ai`, `musings`, `kubernetes`, `python`, ..
 
 ### Tests
 
-`__tests__/site.test.js` is the only test file. It is a post-build validator: it reads `./public/` with Cheerio and asserts that `index.html` and a `404` page exist, that internal `href`/`src` links resolve to a real file in `public/`, that inline scripts don't contain error patterns, and that every page has a `<title>`. It will throw "Public directory not found" if you haven't run `hugo` first. When tests fail, the build artefact is the source of truth — inspect `./public/` directly.
+Both test files are post-build validators: they read `./public/` with Cheerio and throw "Public directory not found" if you haven't run `hugo` first. When tests fail, the build artefact is the source of truth — inspect `./public/` directly.
+
+- `__tests__/site.test.js` asserts that `index.html` and a `404` page exist, that internal `href`/`src` links resolve to a real file in `public/`, that inline scripts don't contain error patterns, that the Analytics script reports contact clicks, and that every page has a `<title>`.
+- `__tests__/security-headers.test.js` reads the Content-Security-Policy from `infra/security-headers.yaml` and fails when a built page loads a script, stylesheet, image, frame, media file or form target that the policy would block (see "Security headers" below).
 
 ## Deployment
 
@@ -127,7 +130,28 @@ Three workflows in `.github/workflows/`:
 
 ### Infrastructure
 
-`.aws/` holds an old Terraform experiment for a `test.softwarependula.net` bucket that no longer exists; it does not describe the live or staging hosting, which was set up by hand. The state files are gitignored and no longer tracked — do not commit them if they reappear.
+The buckets and the two CloudFront distributions (staging `E3TETIEU2CNJME`, live `E1EGE1131SIUSX`) are in AWS account 176595869252. No infrastructure code describes them: treat them as set up by hand.
+
+`.aws/` holds an old Terraform experiment for a `test.softwarependula.net` bucket that no longer exists; it does not describe the live or staging hosting. The state files are gitignored and no longer tracked — do not commit them if they reappear.
+
+### Security headers
+
+CloudFront adds five headers to every response: `Strict-Transport-Security`, `Content-Security-Policy`, `X-Frame-Options`, `X-Content-Type-Options` and `Referrer-Policy`. Their values are in `infra/security-headers.yaml`, a CloudFormation template that holds one response headers policy. Each stage has its own stack (`softwarependula-security-headers-staging`, `-live`), so a change can be tried on staging first.
+
+```bash
+# Create or update the stage's policy and attach it to that stage's distribution.
+AWS_PROFILE=<profile for account 176595869252> tools/security-headers.sh staging
+AWS_PROFILE=<profile for account 176595869252> tools/security-headers.sh live   # production: a person runs this
+```
+
+The script changes only the policy id on the distribution's cache behaviours, and does nothing when there is nothing to change. No workflow runs it: merging a change to the template does not apply it.
+
+The Content-Security-Policy lists every address the pages load from; a browser blocks the rest without any error on the page. The template's comments say why each entry is there. When a change makes the site load from a new address (an image linked from another site, a new kind of embed, a different comments or analytics service, a new script host in `site.js`):
+
+1. Prefer hosting the file on this site. Otherwise add the address to the right directive in the template. `npm test` catches addresses written in the pages' HTML; it cannot see what a script loads later, so check those in a browser's console.
+2. Apply to staging, check the page there with the browser console open, then apply to live.
+
+Check what a host sends with `curl -sI https://staging.softwarependula.net/`.
 
 ## Conventions
 

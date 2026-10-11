@@ -1,0 +1,79 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >-
+  Security response headers for the Software Pendula blog. One stack per stage
+  (staging, live), each holding one CloudFront response headers policy. The
+  distributions were set up by hand and are not in this template:
+  tools/security-headers.sh deploys this stack and attaches the policy to the
+  stage's distribution.
+
+Parameters:
+  Stage:
+    Type: String
+    AllowedValues: [staging, live]
+
+Resources:
+  SecurityHeaders:
+    Type: AWS::CloudFront::ResponseHeadersPolicy
+    Properties:
+      ResponseHeadersPolicyConfig:
+        Name: !Sub "softwarependula-${Stage}-security-headers"
+        Comment: !Sub "Security headers for the ${Stage} Software Pendula site (softwarependula repo, infra/security-headers.yaml)"
+        SecurityHeadersConfig:
+          # Strict-Transport-Security: max-age=31536000. No includeSubDomains and no
+          # preload: other hosts live under softwarependula.net.
+          StrictTransportSecurity:
+            AccessControlMaxAgeSec: 31536000
+            IncludeSubdomains: false
+            Preload: false
+            Override: true
+          # X-Content-Type-Options: nosniff
+          ContentTypeOptions:
+            Override: true
+          # X-Frame-Options: SAMEORIGIN
+          FrameOptions:
+            FrameOption: SAMEORIGIN
+            Override: true
+          ReferrerPolicy:
+            ReferrerPolicy: strict-origin-when-cross-origin
+            Override: true
+          # Content-Security-Policy. Everything not listed falls back to default-src 'self'
+          # (so the self-hosted videos of the `video` shortcode need no entry).
+          #
+          #   script-src   'unsafe-inline': the page head has inline scripts (Analytics setup,
+          #                the theme choice before first paint) and Hugo's Disqus template is
+          #                inline too. Hashes would break each time one of them is edited or
+          #                Hugo's minifier changes. Drop it if those move into js/site.js.
+          #                googletagmanager.com: the Analytics library.
+          #                software-pendula.disqus.com, c.disquscdn.com: Disqus comments.
+          #                cdn.jsdelivr.net: the Mermaid library (assets/js/site.js).
+          #   style-src    'unsafe-inline': Hugo's youtube shortcode and Mermaid write style
+          #                attributes. c.disquscdn.com: Disqus styles its loading frames.
+          #   img-src      Posts only use images from this site. The rest is Analytics and Disqus.
+          #   connect-src  Analytics.
+          #   frame-src    YouTube embeds and the Disqus comment frame. www.google.com: YouTube
+          #                sometimes sends an embed through google.com/sorry and back.
+          #
+          # Left out on purpose: d-code.liadm.com, cdn.viglink.com and links.services.disqus.com.
+          # Disqus adds these trackers to the page; comments work without them.
+          #
+          # __tests__/security-headers.test.js reads this policy and fails when a built page
+          # uses a script, stylesheet, image, frame, media file or form target it does not allow.
+          ContentSecurityPolicy:
+            ContentSecurityPolicy: >-
+              default-src 'self';
+              script-src 'self' 'unsafe-inline' https://*.googletagmanager.com https://software-pendula.disqus.com https://c.disquscdn.com https://cdn.jsdelivr.net;
+              style-src 'self' 'unsafe-inline' https://c.disquscdn.com;
+              img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com https://c.disquscdn.com https://referrer.disqus.com;
+              font-src 'self';
+              connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com;
+              frame-src https://www.youtube.com https://www.google.com https://disqus.com;
+              frame-ancestors 'self';
+              base-uri 'self';
+              object-src 'none';
+              form-action 'self'
+            Override: true
+
+Outputs:
+  PolicyId:
+    Description: Id of the response headers policy, to set on the distribution's cache behaviours
+    Value: !Ref SecurityHeaders
