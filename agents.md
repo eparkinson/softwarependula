@@ -148,9 +148,8 @@ The `blueprint` theme lives in this repo: edit the files under `themes/blueprint
 
 ## Environment Variables & Secrets
 
-### Required GitHub Secrets
-- `AWS_ACCESS_KEY_ID`: AWS credentials for S3 deployment
-- `AWS_SECRET_ACCESS_KEY`: AWS credentials for S3 deployment
+### AWS access
+No AWS secret is stored in GitHub. The deploy workflows assume the role `SoftwarependulaDeployRole` over GitHub OIDC; see "AWS access" in `CLAUDE.md`.
 
 ### Docker Environment Variables
 - `NGINX_HOST`: www.softwarependula.net
