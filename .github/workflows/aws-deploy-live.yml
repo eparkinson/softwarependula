@@ -2,6 +2,13 @@ name: AWS Live Deploy
 
 on: workflow_dispatch
 
+# No AWS key is stored. The job asks GitHub for an OIDC token (id-token: write)
+# and exchanges it for one hour on the role named in "Configure AWS
+# Credentials". See CLAUDE.md, "AWS access".
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,8 +27,7 @@ jobs:
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v4
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        role-to-assume: arn:aws:iam::176595869252:role/SoftwarependulaDeployRole
         aws-region: us-east-1
 
     - name: Deploy to S3

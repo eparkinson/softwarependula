@@ -134,6 +134,14 @@ The buckets and the two CloudFront distributions (staging `E3TETIEU2CNJME`, live
 
 `.aws/` holds an old Terraform experiment for a `test.softwarependula.net` bucket that no longer exists; it does not describe the live or staging hosting. The state files are gitignored and no longer tracked — do not commit them if they reappear.
 
+### AWS access
+
+The deploy workflows hold no AWS key. Each run asks GitHub for an OIDC token and exchanges it for one hour of credentials on the role `arn:aws:iam::176595869252:role/SoftwarependulaDeployRole` (`permissions: id-token: write` and `role-to-assume` in each workflow).
+
+- The role is defined in the `awsinfra` repo, in `terraform/modules/account/20-identity-oidc-site-deploy.tf`. To change what the workflows may do, change it there.
+- Only a run on the `main` branch of this repo can assume it. A run on another branch, or a job that sets `environment:`, is refused with "Not authorized to perform sts:AssumeRoleWithWebIdentity".
+- It may list, write and delete in the two site buckets and in `s3://bz-build-repository/live/www.softwarependula.net`, and invalidate the two distributions. It may do nothing else, so it cannot run `tools/security-headers.sh`: a person runs that with their own credentials.
+
 ### Security headers
 
 CloudFront adds five headers to every response: `Strict-Transport-Security`, `Content-Security-Policy`, `X-Frame-Options`, `X-Content-Type-Options` and `Referrer-Policy`. Their values are in `infra/security-headers.yaml`, a CloudFormation template that holds one response headers policy. Each stage has its own stack (`softwarependula-security-headers-staging`, `-live`), so a change can be tried on staging first.
