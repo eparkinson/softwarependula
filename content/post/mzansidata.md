@@ -43,7 +43,51 @@ MzansiData is hosted the same way as this blog: S3 behind CloudFront, deployed f
 - the infrastructure is a CloudFormation template rather than hand-made
 - a live deploy happens when a pull request is merged
 
-During the count, the site rebuilds every 15 minutes to pick up new IEC results.
+# How the pieces fit together
+
+```mermaid
+flowchart TD
+    accTitle: How MzansiData is built, deployed and read
+    accDescr: The IEC's static results files feed a GitHub Actions build with Observable Framework. The build runs when a pull request is merged, and every 15 minutes from 4 to 8 November when the IEC report has changed. The workflow assumes an OIDC deploy role with no stored keys, which writes to S3 and CloudFront for staging and live. Route 53 points mzansidata.co.za at the live site. Readers are counted by Google Analytics and can sign up for the newsletter through bridgewaiv-api. Buttondown through Zapier and Slack deploy messages are planned.
+    iec["IEC results files<br/>static JSON"]
+    cron["Every 15 minutes, 4 to 8 Nov:<br/>has the IEC report changed?"]
+    merge["Pull request merged"]
+    build["GitHub Actions<br/>Observable Framework build"]
+    role["OIDC deploy role<br/>no stored AWS keys"]
+    stg["Staging<br/>S3 + CloudFront"]
+    live["Live<br/>S3 + CloudFront"]
+    dns["Route 53<br/>mzansidata.co.za"]
+    slack["Slack deploy messages<br/>planned"]:::planned
+    readers(["Readers"])
+    ga["Google Analytics 4"]
+    api["Newsletter sign-up<br/>bridgewaiv-api"]
+    bd["Buttondown via Zapier<br/>planned"]:::planned
+    iec --> build
+    cron -->|only if changed| build
+    merge --> build
+    build --> role
+    role --> stg
+    role --> live
+    build -.-> slack
+    dns --> live
+    live --> readers
+    readers --> ga
+    readers --> api
+    api -.-> bd
+    classDef planned stroke-dasharray: 5 5
+```
+
+*How the election data becomes a website, and how readers find it and follow it.*
+
+The data comes in at build time. A Python loader fetches the IEC's static results files, so nothing on the site calls the IEC while you read it.
+
+From 4 to 8 November, a scheduled run in GitHub Actions checks the IEC every 15 minutes. It compares the IEC's report timestamp with the one the live site was built from, and stops after a few seconds if nothing has changed. That keeps the whole count within the Actions minutes.
+
+When there is something new, or a pull request has been merged, GitHub Actions builds the site with Observable Framework. The workflow then swaps an OIDC token for an hour on a deploy role that can only write to the two site buckets and clear the cache of the two CloudFront distributions. A merge updates staging and live together, and the scheduled run updates live only. Route 53 points mzansidata.co.za at the live distribution.
+
+New posts arrive through the publishing workflow described below. Every change to `main` needs a pull request that I approve as the code owner.
+
+Readers can sign up for the newsletter, which goes to the shared Bridgewaiv API for now. Buttondown, and automatic social posts through Zapier, come next. Google Analytics counts visits on the live site only.
 
 # Teaching it not to sound like an AI
 
@@ -57,6 +101,34 @@ The first draft of the About page included the line "Every chart names its sourc
 A small lint script enforces the mechanical parts.
 
 # A publishing workflow with an adversarial review
+
+```mermaid
+flowchart TD
+    accTitle: The MzansiData publishing workflow
+    accDescr: A slot from the editorial calendar goes to Claude Code, which follows the create-post skill to write the post and its charts. Three independent AI reviewers check tone and style, numbers and sources, and fairness and framing. Claude Code then opens a pull request. Elroy approves it as the code owner, and the merge deploys staging and live. Social posts through Zapier are planned: LinkedIn automatically, with reminders for a person to post on X and the WhatsApp Channel.
+    cal["Editorial calendar slot"]
+    write["Claude Code, create-post skill<br/>writes the post and charts"]
+    tone["Reviewer:<br/>tone and style"]
+    nums["Reviewer:<br/>numbers and sources"]
+    fair["Reviewer:<br/>fairness and framing"]
+    pr["Pull request"]
+    owner["Elroy approves<br/>as code owner"]
+    deploy["Merge deploys<br/>staging and live"]
+    social["Zapier: LinkedIn post,<br/>reminders for X and WhatsApp<br/>planned"]:::planned
+    cal --> write
+    write --> tone
+    write --> nums
+    write --> fair
+    tone --> pr
+    nums --> pr
+    fair --> pr
+    pr --> owner
+    owner --> deploy
+    deploy -.-> social
+    classDef planned stroke-dasharray: 5 5
+```
+
+*Every post is written by AI, checked by three independent AI reviewers and approved by me before it goes live.*
 
 Each post follows a `create-post` skill. It takes a slot from a 52-week editorial calendar, fetches the data from the original publisher, writes the post and its charts, and records every number in a file that traces it back to the data.
 
